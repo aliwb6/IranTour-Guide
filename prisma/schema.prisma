@@ -1,4 +1,4 @@
-// prisma/schema.prisma
+// Prisma Schema for IranTour-Guide
 
 generator client {
   provider = "prisma-client-js"
@@ -14,32 +14,38 @@ datasource db {
 // ========================================
 
 enum UserRole {
-  USER
-  ORGANIZER
   ADMIN
+  TOUR_OPERATOR
+  GUIDE
+  USER
 }
 
 model User {
   id            String    @id @default(cuid())
-  name          String?
+  name          String
   email         String    @unique
-  emailVerified DateTime?
-  image         String?
+  emailVerified Boolean   @default(false)
   password      String?
+  phone         String?   @unique
+  phoneVerified Boolean   @default(false)
+  avatar        String?
   role          UserRole  @default(USER)
   bio           String?
-  
+  address       String?
+  nationalId    String?
+
   // Relations
   accounts      Account[]
   sessions      Session[]
-  savedEvents   SavedEvent[]
-  followedTopics FollowedTopic[]
-  followedCities FollowedCity[]
-  comments      Comment[]
-  organization  Organization?
-  
+  bookings      Booking[]
+  reviews       Review[]
+  tours         Tour[]    @relation("TourOperator")
+
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
+  @@index([email])
+  @@index([phone])
 }
 
 model Account {
@@ -78,371 +84,205 @@ model VerificationToken {
 }
 
 // ========================================
-// ORGANIZATIONS
+// TOURS
 // ========================================
 
-enum OrganizationType {
-  MUSEUM
-  UNIVERSITY
-  NGO
-  CULTURAL_CENTER
-  TOUR_COMPANY
-  LOCAL_ORGANIZATION
-  GOVERNMENT
-  PRIVATE
-  OTHER
+enum TourCategory {
+  CULTURAL
+  NATURE
+  ADVENTURE
+  HISTORICAL
+  RELIGIOUS
+  FOOD
 }
 
-model Organization {
-  id          String           @id @default(cuid())
+enum TourStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum TourDifficulty {
+  EASY
+  MODERATE
+  HARD
+}
+
+model Tour {
+  id               String         @id @default(cuid())
+  title            String
+  slug             String         @unique
+  description      String         @db.Text
+  shortDescription String?
+  category         TourCategory
+  status           TourStatus     @default(DRAFT)
+  price            Float
+  duration         Int            // in days
+  maxCapacity      Int
+  minCapacity      Int?
+  difficulty       TourDifficulty @default(MODERATE)
+  images           String[]
+  includes         String[]
+  excludes         String[]
+  rating           Float?
+  reviewsCount     Int            @default(0)
+  operatorId       String
+
+  // Relations
+  operator         User              @relation("TourOperator", fields: [operatorId], references: [id])
+  destinations     TourDestination[]
+  itinerary        TourItinerary[]
+  bookings         Booking[]
+  reviews          Review[]
+
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  @@index([slug])
+  @@index([category])
+  @@index([status])
+  @@index([operatorId])
+}
+
+model Destination {
+  id          String   @id @default(cuid())
   name        String
-  slug        String           @unique
-  type        OrganizationType
-  description String?
-  logo        String?
-  website     String?
-  email       String?
-  phone       String?
-  address     String?
-  
-  // Social Media
-  instagram   String?
-  telegram    String?
-  twitter     String?
-  facebook    String?
-  linkedin    String?
-  
-  // Verification
-  isVerified  Boolean          @default(false)
-  verifiedAt  DateTime?
-  
+  city        String
+  province    String
+  latitude    Float
+  longitude   Float
+  description String?  @db.Text
+
   // Relations
-  userId      String           @unique
-  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  events      Event[]
-  
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-}
+  tours       TourDestination[]
 
-// ========================================
-// EVENTS
-// ========================================
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-enum EventStatus {
-  PENDING
-  APPROVED
-  REJECTED
-}
-
-enum EventStyle {
-  EXHIBITION
-  FESTIVAL
-  CONFERENCE
-  RELIGIOUS
-  TOURISM
-  SPORTS
-  EDUCATIONAL
-  OTHER
-}
-
-enum EventType {
-  NATIONAL
-  RELIGIOUS
-  ECONOMIC
-  ARTISTIC
-  SCIENTIFIC
-  TOURISM
-  SPORTS
-}
-
-enum FixedVariable {
-  FIXED
-  VARIABLE
-}
-
-model Event {
-  id                String         @id @default(cuid())
-  title             String
-  slug              String         @unique
-  
-  // Classification
-  style             EventStyle
-  type              EventType
-  fixedOrVariable   FixedVariable
-  
-  // Location
-  country           String         @default("Iran")
-  city              String
-  venue             String
-  address           String?
-  latitude          Float?
-  longitude         Float?
-  
-  // Date & Time
-  dateRangeText     String
-  startDate         DateTime
-  endDate           DateTime
-  registrationDeadline DateTime?
-  durationText      String?
-  
-  // Content
-  shortDescription  String
-  description       String
-  opportunities     String?
-  challenges        String?
-  
-  // Media
-  featuredImage     String?
-  images            String[]
-  videoUrl          String?
-  
-  // Contact & Links
-  organizerName     String?
-  organizerEmail    String?
-  organizerPhone    String?
-  website           String?
-  registrationUrl   String?
-  
-  // Status
-  status            EventStatus    @default(PENDING)
-  approvedAt        DateTime?
-  rejectedReason    String?
-  
-  // SEO
-  metaTitle         String?
-  metaDescription   String?
-  keywords          String[]
-  
-  // Analytics
-  viewCount         Int            @default(0)
-  saveCount         Int            @default(0)
-  shareCount        Int            @default(0)
-  
-  // Relations
-  organizationId    String?
-  organization      Organization?  @relation(fields: [organizationId], references: [id], onDelete: SetNull)
-  categories        EventCategory[]
-  savedBy           SavedEvent[]
-  comments          Comment[]
-  
-  // Timestamps
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @updatedAt
-  publishedAt       DateTime?
-  
   @@index([city])
-  @@index([type])
-  @@index([style])
-  @@index([startDate])
+  @@index([province])
+}
+
+model TourDestination {
+  tourId        String
+  destinationId String
+  order         Int
+
+  tour          Tour        @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+
+  @@id([tourId, destinationId])
+}
+
+model TourItinerary {
+  id          String   @id @default(cuid())
+  tourId      String
+  day         Int
+  title       String
+  description String   @db.Text
+  activities  String[]
+
+  tour        Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([tourId])
+}
+
+// ========================================
+// BOOKINGS
+// ========================================
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+model Booking {
+  id              String        @id @default(cuid())
+  userId          String
+  tourId          String
+  numberOfPeople  Int
+  startDate       DateTime
+  endDate         DateTime
+  totalPrice      Float
+  status          BookingStatus @default(PENDING)
+  specialRequests String?       @db.Text
+
+  // Relations
+  user            User      @relation(fields: [userId], references: [id])
+  tour            Tour      @relation(fields: [tourId], references: [id])
+  payment         Payment?
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([tourId])
   @@index([status])
 }
 
 // ========================================
-// CATEGORIES & TOPICS
+// PAYMENTS
 // ========================================
 
-model Category {
-  id          String   @id @default(cuid())
-  name        String
-  nameEn      String
-  slug        String   @unique
-  description String?
-  icon        String?
-  color       String?
-  
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  ZARINPAL
+  SAMAN
+  MELLAT
+  WALLET
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  bookingId     String        @unique
+  amount        Float
+  status        PaymentStatus @default(PENDING)
+  method        PaymentMethod
+  transactionId String?
+  authority     String?
+  refNumber     String?
+
   // Relations
-  events      EventCategory[]
-  followers   FollowedTopic[]
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
+  booking       Booking @relation(fields: [bookingId], references: [id])
 
-model EventCategory {
-  eventId    String
-  categoryId String
-  
-  event      Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  
-  @@id([eventId, categoryId])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([bookingId])
+  @@index([status])
 }
 
 // ========================================
-// CITIES
+// REVIEWS
 // ========================================
 
-model City {
-  id          String   @id @default(cuid())
-  name        String
-  nameEn      String
-  slug        String   @unique
-  province    String
-  description String?
-  image       String?
-  latitude    Float
-  longitude   Float
-  
-  // SEO
-  metaTitle        String?
-  metaDescription  String?
-  
-  // Relations
-  followers   FollowedCity[]
-  
-  // Analytics
-  eventCount  Int      @default(0)
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
-// ========================================
-// USER INTERACTIONS
-// ========================================
-
-model SavedEvent {
+model Review {
   id        String   @id @default(cuid())
   userId    String
-  eventId   String
-  
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  
-  @@unique([userId, eventId])
-}
-
-model FollowedTopic {
-  id         String   @id @default(cuid())
-  userId     String
-  categoryId String
-  
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  
-  createdAt  DateTime @default(now())
-  
-  @@unique([userId, categoryId])
-}
-
-model FollowedCity {
-  id        String   @id @default(cuid())
-  userId    String
-  cityId    String
-  
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  city      City     @relation(fields: [cityId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  
-  @@unique([userId, cityId])
-}
-
-model Comment {
-  id        String   @id @default(cuid())
-  content   String
-  rating    Int?
+  tourId    String
+  rating    Int      // 1-5
+  comment   String   @db.Text
   images    String[]
-  
-  // Status
-  isApproved Boolean  @default(false)
-  
+
   // Relations
-  userId    String
-  eventId   String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  
-  // Timestamps
+  user      User     @relation(fields: [userId], references: [id])
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
-  @@index([eventId])
+
   @@index([userId])
-}
-
-// ========================================
-// NEWSLETTER
-// ========================================
-
-model Newsletter {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  isActive     Boolean  @default(true)
-  
-  // Preferences
-  frequency    String   @default("weekly")
-  categories   String[]
-  cities       String[]
-  
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
-// ========================================
-// BLOG & CULTURAL GUIDE
-// ========================================
-
-enum PostType {
-  BLOG
-  CULTURAL_GUIDE
-}
-
-model Post {
-  id              String   @id @default(cuid())
-  title           String
-  slug            String   @unique
-  type            PostType
-  content         String
-  excerpt         String?
-  featuredImage   String?
-  
-  // SEO
-  metaTitle       String?
-  metaDescription String?
-  keywords        String[]
-  
-  // Status
-  isPublished     Boolean  @default(false)
-  publishedAt     DateTime?
-  
-  // Analytics
-  viewCount       Int      @default(0)
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  
-  @@index([type])
-  @@index([slug])
-}
-
-// ========================================
-// ANALYTICS
-// ========================================
-
-model Analytics {
-  id          String   @id @default(cuid())
-  eventId     String?
-  
-  // User Info
-  userId      String?
-  ipAddress   String?
-  userAgent   String?
-  
-  // Location
-  country     String?
-  city        String?
-  
-  // Action
-  action      String
-  metadata    Json?
-  
-  createdAt   DateTime @default(now())
-  
-  @@index([eventId])
-  @@index([action])
-  @@index([createdAt])
+  @@index([tourId])
+  @@index([rating])
 }

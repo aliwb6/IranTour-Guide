@@ -1,0 +1,30 @@
+{
+  "app": {
+    "name": "Iran Tour Guide",
+    "description": "The best tour guide for Iran"
+  },
+  "nav": {
+    "home": "Home",
+    "tours": "Tours",
+    "about": "About",
+    "contact": "Contact",
+    "login": "Login",
+    "register": "Sign Up",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "logout": "Logout"
+  },
+  "common": {
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Operation completed successfully"
+  }
+}
