@@ -3,6 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { popularCategories } from '@/config/categories';
 
 export function Header() {
   const pathname = usePathname();
@@ -39,14 +46,32 @@ export function Header() {
             >
               خانه
             </Link>
-            <Link
-              href="/events"
-              className={`text-yellow-100 hover:text-yellow-300 font-bold transition text-sm ${
-                isActive('/events') ? 'text-yellow-300' : ''
-              }`}
-            >
-              رویدادها
-            </Link>
+
+            {/* Events Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm focus:outline-none">
+                رویدادها ▾
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-gradient-to-br from-red-900 to-red-950 border-2 border-yellow-400 min-w-[200px]">
+                <DropdownMenuItem asChild>
+                  <Link href="/events" className="text-yellow-100 hover:text-yellow-300 font-semibold cursor-pointer">
+                    همه رویدادها
+                  </Link>
+                </DropdownMenuItem>
+                <div className="h-px bg-yellow-400/30 my-1" />
+                {popularCategories.slice(0, 6).map((category) => (
+                  <DropdownMenuItem key={category.id} asChild>
+                    <Link
+                      href={`/events?category=${category.slug}`}
+                      className="text-yellow-100 hover:text-yellow-300 cursor-pointer"
+                    >
+                      {category.icon} {category.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Link
               href="/calendar"
               className={`text-yellow-100 hover:text-yellow-300 font-bold transition text-sm ${
@@ -70,6 +95,9 @@ export function Header() {
               }`}
             >
               پیشنهاد هوشمند
+            </Link>
+            <Link href="/submit-event" className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm">
+              افزودن رویداد
             </Link>
             <Link href="/auth/signin">
               <button className="deep-persian-btn px-6 py-2.5 text-sm">
@@ -124,6 +152,13 @@ export function Header() {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               پیشنهاد هوشمند
+            </Link>
+            <Link
+              href="/submit-event"
+              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm py-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              افزودن رویداد
             </Link>
             <Link href="/auth/signin" onClick={() => setIsMobileMenuOpen(false)}>
               <button className="deep-persian-btn px-6 py-2.5 text-sm w-full">

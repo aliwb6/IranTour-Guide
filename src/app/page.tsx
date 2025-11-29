@@ -4,9 +4,12 @@ import { EventCard } from '@/components/events/EventCard';
 import { PersianDivider } from '@/components/shared/PersianDivider';
 import { StatsCard } from '@/components/shared/StatsCard';
 import { SearchBar } from '@/components/shared/SearchBar';
-import { TagButton } from '@/components/shared/TagButton';
+import { CategoryCard } from '@/components/shared/CategoryCard';
+import { CityCard } from '@/components/shared/CityCard';
 import Link from 'next/link';
 import type { Event } from '@/types';
+import { popularCategories } from '@/config/categories';
+import { popularCities } from '@/config/cities';
 
 // Mock featured events data
 const featuredEvents: Event[] = [
@@ -161,10 +164,10 @@ export default function HomePage() {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-12 md:mt-16">
-            <StatsCard number="۲۵۰+" label="رویداد فعال" />
-            <StatsCard number="۳۱" label="استان" />
-            <StatsCard number="۱۵+" label="موضوع" />
-            <StatsCard number="۱۰۰K+" label="بازدید ماهانه" />
+            <StatsCard number="۲۵۰+" label="رویداد فعال" delay={0} />
+            <StatsCard number="۳۱" label="استان" delay={0.1} />
+            <StatsCard number="۱۵+" label="موضوع" delay={0.2} />
+            <StatsCard number="۱۰۰K+" label="بازدید ماهانه" delay={0.3} />
           </div>
         </div>
       </section>
@@ -193,14 +196,48 @@ export default function HomePage() {
 
       <PersianDivider />
 
-      {/* Popular Topics */}
+      {/* Categories Section */}
       <section className="max-w-7xl mx-auto px-4 py-12 md:py-16">
         <h2 className="text-3xl md:text-4xl font-black text-red-900 mb-8 md:mb-12 text-center">
-          🏛️ موضوعات محبوب
+          🎨 دسته‌بندی رویدادها
         </h2>
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-          {popularTopics.map((topic, index) => (
-            <TagButton key={index}>{topic}</TagButton>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {popularCategories.map((category, index) => (
+            <CategoryCard
+              key={category.id}
+              name={category.name}
+              icon={category.icon}
+              slug={category.slug}
+              color={category.color}
+              delay={index * 0.1}
+            />
+          ))}
+        </div>
+      </section>
+
+      <PersianDivider />
+
+      {/* Cities Section */}
+      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16">
+        <div className="flex justify-between items-center mb-8 md:mb-12 flex-wrap gap-4">
+          <h2 className="text-3xl md:text-4xl font-black text-red-900">
+            🏙️ شهرهای پرطرفدار
+          </h2>
+          <Link href="/events">
+            <button className="deep-persian-btn px-6 py-2.5 text-sm md:text-base">
+              همه شهرها ←
+            </button>
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {popularCities.map((city, index) => (
+            <CityCard
+              key={city.id}
+              name={city.name}
+              slug={city.slug}
+              eventCount={city.eventCount}
+              delay={index * 0.1}
+            />
           ))}
         </div>
       </section>
