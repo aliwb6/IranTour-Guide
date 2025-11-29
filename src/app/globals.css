@@ -1,41 +1,37 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  * {
-    font-family: 'Vazirmatn', sans-serif;
-  }
+/* Persian Colors */
+:root {
+  --persian-red: #A01C1C;
+  --deep-red: #7A1515;
+  --burgundy: #5C0F0F;
+  --brick-red: #8B2E2E;
+  --gold: #D4AF37;
+  --light-gold: #F4E5C2;
+  --dark-gold: #B8941F;
+  --cream: #FFF8DC;
+}
 
-  :root {
-    /* Persian Colors */
-    --persian-red: #A01C1C;
-    --deep-red: #7A1515;
-    --burgundy: #5C0F0F;
-    --brick-red: #8B2E2E;
-    --gold: #D4AF37;
-    --light-gold: #F4E5C2;
-    --dark-gold: #B8941F;
-    --cream: #FFF8DC;
-  }
+* {
+  font-family: 'Vazirmatn', sans-serif;
+}
 
-  /* Smooth scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-  ::-webkit-scrollbar-track {
-    background: #2a2a2a;
-  }
+::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--gold), var(--persian-red));
-    border-radius: 5px;
-  }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold), var(--persian-red));
+  border-radius: 5px;
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, var(--persian-red), var(--gold));
-  }
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--persian-red), var(--gold));
 }
 
 /* ===== KASHI STAR PATTERN (8-POINT STAR) ===== */
