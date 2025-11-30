@@ -5,8 +5,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 // ========================================
@@ -185,7 +185,7 @@ model Event {
   challenges       String?
 
   featuredImage String?
-  images        String[]
+  images        String? // JSON array as string
   videoUrl      String?
 
   organizerName   String?
@@ -200,7 +200,7 @@ model Event {
 
   metaTitle       String?
   metaDescription String?
-  keywords        String[]
+  keywords        String? // JSON array as string
 
   viewCount  Int @default(0)
   saveCount  Int @default(0)
@@ -326,7 +326,7 @@ model Comment {
   id      String   @id @default(cuid())
   content String
   rating  Int?
-  images  String[]
+  images  String? // JSON array as string
 
   isApproved Boolean @default(false)
 

@@ -1,11 +1,46 @@
 import { Metadata } from 'next'
+import prisma from '@/lib/db/prisma'
+import { EventCard } from '@/components/events/EventCard'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'خانه | IranTour Guide',
   description: 'کشف و تجربه بهترین رویدادهای فرهنگی، مذهبی، هنری و گردشگری ایران',
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  // Fetch featured events
+  const featuredEvents = await prisma.event.findMany({
+    where: {
+      status: 'APPROVED',
+    },
+    take: 6,
+    orderBy: {
+      startDate: 'asc',
+    },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  })
+
+  // Fetch categories
+  const categories = await prisma.category.findMany({
+    take: 8,
+    orderBy: {
+      name: 'asc',
+    },
+  })
+
+  // Get stats
+  const stats = {
+    events: await prisma.event.count({ where: { status: 'APPROVED' } }),
+    cities: await prisma.city.count(),
+    categories: await prisma.category.count(),
+  }
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -28,22 +63,18 @@ export default function HomePage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12 w-full max-w-4xl">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mt-12 w-full max-w-3xl">
             <div className="text-center">
-              <div className="text-4xl font-bold">۱۰۰۰+</div>
+              <div className="text-4xl font-bold">{stats.events}+</div>
               <div className="text-sm mt-2">رویداد ثبت شده</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold">۵۰+</div>
+              <div className="text-4xl font-bold">{stats.cities}+</div>
               <div className="text-sm mt-2">شهر</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold">۱۵+</div>
+              <div className="text-4xl font-bold">{stats.categories}+</div>
               <div className="text-sm mt-2">موضوع</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold">۱۰۰K+</div>
-              <div className="text-sm mt-2">بازدید ماهانه</div>
             </div>
           </div>
         </div>
@@ -51,41 +82,35 @@ export default function HomePage() {
 
       {/* Featured Events Section */}
       <section className="py-16 container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">رویدادهای ویژه</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Event cards will go here */}
-          <div className="bg-card rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-            <div className="bg-gray-200 h-48 rounded-md mb-4"></div>
-            <h3 className="font-bold text-xl mb-2">جشنواره فیلم فجر</h3>
-            <p className="text-muted-foreground mb-4">تهران • ۱۵ تا ۲۵ بهمن ۱۴۰۴</p>
-            <div className="flex gap-2">
-              <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-                هنری
-              </span>
-              <span className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm">
-                فرهنگی
-              </span>
-            </div>
-          </div>
-          {/* Add more event cards */}
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold">رویدادهای ویژه</h2>
+          <Link href="/events" className="text-primary hover:underline">
+            مشاهده همه →
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredEvents.map((event) => (
+            <EventCard key={event.id} event={event} />
+          ))}
         </div>
       </section>
 
       {/* Categories Section */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8">موضوعات محبوب</h2>
-          <div className="flex flex-wrap gap-3">
-            {['نوروز', 'مراسم مذهبی', 'جشنواره‌های فرهنگی', 'سینما و فیلم', 'طبیعت‌گردی', 'رویدادهای علمی', 'محرم و عاشورا', 'شب یلدا'].map(
-              (tag) => (
-                <button
-                  key={tag}
-                  className="px-4 py-2 bg-white hover:bg-primary hover:text-white transition-colors rounded-full shadow-sm"
-                >
-                  {tag}
-                </button>
-              )
-            )}
+          <h2 className="text-3xl font-bold mb-8">دسته‌بندی‌ها</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {categories.map((category) => (
+              <Link
+                key={category.id}
+                href={`/events?category=${category.slug}`}
+                className="p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow text-center"
+              >
+                <div className="text-4xl mb-2">{category.icon}</div>
+                <div className="font-semibold">{category.name}</div>
+                <div className="text-sm text-muted-foreground mt-1">{category.nameEn}</div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

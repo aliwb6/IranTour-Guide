@@ -1,100 +1,151 @@
-export const eventCategories = [
+// src/config/categories.ts
+// داده‌های دسته‌بندی‌های رویدادها
+
+export interface CategoryData {
+  name: string
+  nameEn: string
+  slug: string
+  description: string
+  icon: string
+  color: string
+}
+
+export const CATEGORIES: CategoryData[] = [
   {
-    id: 'national-official',
-    name: 'مناسبت‌های رسمی و ملی',
-    nameEn: 'National & Official Events',
-    slug: 'national-official',
-    icon: '🏛️',
-    color: '#3B82F6',
-    description: 'رویدادهای ملی و رسمی ایران',
+    name: 'مناسبت‌های ملی',
+    nameEn: 'National Events',
+    slug: 'national-events',
+    description: 'جشن‌های ملی و رویدادهای مرتبط با تاریخ و فرهنگ ایران',
+    icon: '🇮🇷',
+    color: '#10b981',
   },
   {
-    id: 'religious',
-    name: 'مناسبت‌های مذهبی و آیینی',
-    nameEn: 'Religious Events',
+    name: 'مذهبی',
+    nameEn: 'Religious',
     slug: 'religious',
+    description: 'مناسبت‌های مذهبی، مراسم و آیین‌های دینی',
     icon: '🕌',
-    color: '#10B981',
-    description: 'مراسم و جشن‌های مذهبی',
+    color: '#3b82f6',
   },
   {
-    id: 'cultural-festivals',
-    name: 'جشنواره‌های فرهنگی',
-    nameEn: 'Cultural Festivals',
-    slug: 'cultural-festivals',
+    name: 'فرهنگی و هنری',
+    nameEn: 'Cultural & Art',
+    slug: 'cultural-art',
+    description: 'رویدادهای فرهنگی، هنری و نمایشگاه‌های هنری',
     icon: '🎭',
-    color: '#F59E0B',
-    description: 'جشنواره‌های فرهنگی و هنری',
+    color: '#8b5cf6',
   },
   {
-    id: 'cinema-film',
     name: 'سینما و فیلم',
     nameEn: 'Cinema & Film',
     slug: 'cinema-film',
+    description: 'جشنواره‌های فیلم، اکران و رویدادهای سینمایی',
     icon: '🎬',
-    color: '#8B5CF6',
-    description: 'جشنواره‌ها و رویدادهای سینمایی',
+    color: '#ef4444',
   },
   {
-    id: 'music-art',
-    name: 'موسیقی و هنر',
-    nameEn: 'Music & Art',
-    slug: 'music-art',
+    name: 'موسیقی',
+    nameEn: 'Music',
+    slug: 'music',
+    description: 'کنسرت‌ها، جشنواره‌های موسیقی و رویدادهای موسیقایی',
     icon: '🎵',
-    color: '#EC4899',
-    description: 'کنسرت‌ها و نمایشگاه‌های هنری',
+    color: '#f59e0b',
   },
   {
-    id: 'scientific',
-    name: 'علمی و پژوهشی',
-    nameEn: 'Scientific & Research',
-    slug: 'scientific',
+    name: 'علمی و آموزشی',
+    nameEn: 'Scientific & Educational',
+    slug: 'scientific-educational',
+    description: 'کنفرانس‌ها، سمینارها و رویدادهای علمی و آموزشی',
     icon: '🔬',
-    color: '#06B6D4',
-    description: 'همایش‌ها و کنفرانس‌های علمی',
+    color: '#06b6d4',
   },
   {
-    id: 'nature-tourism',
-    name: 'طبیعت‌گردی و تورهای ویژه',
-    nameEn: 'Nature & Special Tours',
+    name: 'طبیعت‌گردی',
+    nameEn: 'Nature & Tourism',
     slug: 'nature-tourism',
+    description: 'رویدادهای گردشگری، طبیعت‌گردی و کوهنوردی',
     icon: '🏔️',
-    color: '#22C55E',
-    description: 'تورهای طبیعت‌گردی و کوهنوردی',
+    color: '#059669',
   },
   {
-    id: 'exhibitions',
     name: 'نمایشگاهی',
-    nameEn: 'Exhibitions',
-    slug: 'exhibitions',
-    icon: '🎨',
-    color: '#F97316',
-    description: 'نمایشگاه‌های تجاری و هنری',
+    nameEn: 'Exhibition',
+    slug: 'exhibition',
+    description: 'نمایشگاه‌های تخصصی، صنعتی و تجاری',
+    icon: '🏛️',
+    color: '#6366f1',
   },
   {
-    id: 'economic',
     name: 'اقتصادی و تجاری',
-    nameEn: 'Economic & Trade',
-    slug: 'economic',
+    nameEn: 'Economic & Business',
+    slug: 'economic-business',
+    description: 'رویدادهای اقتصادی، همایش‌های تجاری و کارآفرینی',
     icon: '💼',
-    color: '#6366F1',
-    description: 'رویدادهای تجاری و اقتصادی',
+    color: '#64748b',
   },
   {
-    id: 'sports',
     name: 'ورزشی',
     nameEn: 'Sports',
     slug: 'sports',
+    description: 'رویدادهای ورزشی، مسابقات و جشنواره‌های ورزشی',
     icon: '⚽',
-    color: '#EF4444',
-    description: 'مسابقات و رویدادهای ورزشی',
+    color: '#14b8a6',
+  },
+  {
+    name: 'غذا و آشپزی',
+    nameEn: 'Food & Culinary',
+    slug: 'food-culinary',
+    description: 'جشنواره‌های غذا، آشپزی و فرهنگ غذایی',
+    icon: '🍲',
+    color: '#f97316',
+  },
+  {
+    name: 'کتاب و ادبیات',
+    nameEn: 'Books & Literature',
+    slug: 'books-literature',
+    description: 'نمایشگاه کتاب، شب‌های شعر و رویدادهای ادبی',
+    icon: '📚',
+    color: '#a855f7',
+  },
+  {
+    name: 'تکنولوژی',
+    nameEn: 'Technology',
+    slug: 'technology',
+    description: 'رویدادهای فناوری، استارتاپ‌ها و نوآوری',
+    icon: '💻',
+    color: '#0ea5e9',
+  },
+  {
+    name: 'سنتی و محلی',
+    nameEn: 'Traditional & Local',
+    slug: 'traditional-local',
+    description: 'جشن‌های سنتی، آیین‌های محلی و فرهنگ بومی',
+    icon: '🎊',
+    color: '#ec4899',
+  },
+  {
+    name: 'خانوادگی و کودکان',
+    nameEn: 'Family & Children',
+    slug: 'family-children',
+    description: 'رویدادهای خانوادگی، کودکان و نوجوانان',
+    icon: '👨‍👩‍👧‍👦',
+    color: '#f43f5e',
   },
 ]
 
-export const getCategoryBySlug = (slug: string) => {
-  return eventCategories.find((cat) => cat.slug === slug)
+// تابع کمکی برای یافتن دسته‌بندی بر اساس slug
+export function getCategoryBySlug(slug: string): CategoryData | undefined {
+  return CATEGORIES.find((category) => category.slug === slug)
 }
 
-export const getCategoryById = (id: string) => {
-  return eventCategories.find((cat) => cat.id === id)
+// تابع کمکی برای دریافت رنگ دسته‌بندی
+export function getCategoryColor(slug: string): string {
+  const category = getCategoryBySlug(slug)
+  return category?.color || '#6b7280'
+}
+
+// تابع کمکی برای دریافت آیکون دسته‌بندی
+export function getCategoryIcon(slug: string): string {
+  const category = getCategoryBySlug(slug)
+  return category?.icon || '📌'
 }
