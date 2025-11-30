@@ -17,7 +17,10 @@ export function TagButton({ children, tag }: TagButtonProps) {
   };
 
   return (
-    <button className="deep-tag" onClick={handleClick}>
+    <button
+      onClick={handleClick}
+      className="px-6 py-3 gradient-tag text-white rounded-full font-bold hover:scale-105 transition-all shadow-lg"
+    >
       {children}
     </button>
   );

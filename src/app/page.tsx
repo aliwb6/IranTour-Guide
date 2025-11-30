@@ -8,88 +8,33 @@ import { TagButton } from '@/components/shared/TagButton';
 import Link from 'next/link';
 import type { Event } from '@/types';
 
-// Mock featured events data
+// Mock featured events data with Unsplash images
 const featuredEvents: Event[] = [
   {
     id: '1',
-    title: 'جشنواره فرهنگی نوروز ۱۴۰۴',
+    title: 'جشنواره فیلم فجر ۱۴۰۴',
     shortDescription:
-      'بزرگترین جشنواره فرهنگی سال با حضور هنرمندان سراسر کشور، نمایش‌های سنتی و موسیقی اصیل ایرانی',
-    featuredImage: '/images/events/nowruz-festival.jpg',
+      'بزرگترین رویداد سینمایی کشور با نمایش بهترین فیلم‌های سال و حضور کارگردانان برتر',
+    featuredImage: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&h=600&fit=crop',
     style: 'FESTIVAL',
     type: 'جشنواره',
     city: 'تهران',
     province: 'تهران',
-    dateRangeText: '۱ تا ۱۳ فروردین ۱۴۰۴',
-    shamsiStartDate: '۱۴۰۴/۰۱/۰۱',
-    shamsiEndDate: '۱۴۰۴/۰۱/۱۳',
-    startDate: '2025-03-21',
-    endDate: '2025-04-02',
+    dateRangeText: '۲۰ تا ۳۰ بهمن ۱۴۰۳',
+    shamsiStartDate: '۱۴۰۳/۱۱/۲۰',
+    shamsiEndDate: '۱۴۰۳/۱۱/۳۰',
+    startDate: '2025-02-09',
+    endDate: '2025-02-19',
     status: 'UPCOMING',
-    tags: ['نوروز', 'فرهنگ', 'هنر'],
+    tags: ['سینما', 'فیلم', 'هنر'],
     isFeatured: true,
   },
   {
     id: '2',
-    title: 'نمایشگاه صنایع دستی اصفهان',
-    shortDescription:
-      'نمایشگاه بین‌المللی صنایع دستی و هنرهای سنتی ایران با حضور هنرمندان برتر کشور',
-    featuredImage: '/images/events/handicrafts-expo.jpg',
-    style: 'EXHIBITION',
-    type: 'نمایشگاه',
-    city: 'اصفهان',
-    province: 'اصفهان',
-    dateRangeText: '۱۵ تا ۲۵ فروردین ۱۴۰۴',
-    shamsiStartDate: '۱۴۰۴/۰۱/۱۵',
-    shamsiEndDate: '۱۴۰۴/۰۱/۲۵',
-    startDate: '2025-04-04',
-    endDate: '2025-04-14',
-    status: 'UPCOMING',
-    tags: ['صنایع دستی', 'اصفهان', 'هنر'],
-    isFeatured: true,
-  },
-  {
-    id: '3',
-    title: 'همایش گردشگری پایدار',
-    shortDescription:
-      'همایش ملی گردشگری پایدار با محوریت توسعه اکوتوریسم و گردشگری مسئولانه در ایران',
-    featuredImage: '/images/events/tourism-conference.jpg',
-    style: 'CONFERENCE',
-    type: 'همایش',
-    city: 'شیراز',
-    province: 'فارس',
-    dateRangeText: '۲۰ فروردین ۱۴۰۴',
-    shamsiStartDate: '۱۴۰۴/۰۱/۲۰',
-    startDate: '2025-04-09',
-    status: 'UPCOMING',
-    tags: ['گردشگری', 'محیط زیست', 'توسعه'],
-    isFeatured: true,
-  },
-  {
-    id: '4',
-    title: 'جشنواره موسیقی فجر',
-    shortDescription:
-      'سی و نهمین جشنواره موسیقی فجر با اجرای بهترین نوازندگان و خوانندگان موسیقی اصیل ایرانی',
-    featuredImage: '/images/events/fajr-music.jpg',
-    style: 'FESTIVAL',
-    type: 'جشنواره',
-    city: 'تهران',
-    province: 'تهران',
-    dateRangeText: '۱۰ تا ۲۰ بهمن ۱۴۰۳',
-    shamsiStartDate: '۱۴۰۳/۱۱/۱۰',
-    shamsiEndDate: '۱۴۰۳/۱۱/۲۰',
-    startDate: '2025-01-30',
-    endDate: '2025-02-09',
-    status: 'ONGOING',
-    tags: ['موسیقی', 'جشنواره', 'هنر'],
-    isFeatured: true,
-  },
-  {
-    id: '5',
     title: 'نمایشگاه کتاب تهران',
     shortDescription:
-      'سی و پنجمین نمایشگاه بین‌المللی کتاب تهران با حضور ناشران داخلی و خارجی',
-    featuredImage: '/images/events/book-fair.jpg',
+      'بزرگترین رویداد کتاب کشور با حضور ناشران داخلی و خارجی و معرفی آخرین آثار ادبی',
+    featuredImage: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop',
     style: 'EXHIBITION',
     type: 'نمایشگاه',
     city: 'تهران',
@@ -104,22 +49,77 @@ const featuredEvents: Event[] = [
     isFeatured: true,
   },
   {
-    id: '6',
-    title: 'جشنواره فیلم فجر',
+    id: '3',
+    title: 'جشن نوروز ۱۴۰۴',
     shortDescription:
-      'چهل و دومین جشنواره فیلم فجر با نمایش بهترین آثار سینمایی سال',
-    featuredImage: '/images/events/fajr-film.jpg',
+      'جشن سال نو ایرانی با برنامه‌های متنوع فرهنگی، موسیقی سنتی و نمایش‌های محلی در سراسر کشور',
+    featuredImage: 'https://images.unsplash.com/photo-1553729784-e91953dec042?w=800&h=600&fit=crop',
+    style: 'FESTIVAL',
+    type: 'ملی',
+    city: 'سراسر ایران',
+    province: 'سراسر کشور',
+    dateRangeText: '۱ تا ۱۳ فروردین ۱۴۰۴',
+    shamsiStartDate: '۱۴۰۴/۰۱/۰۱',
+    shamsiEndDate: '۱۴۰۴/۰۱/۱۳',
+    startDate: '2025-03-21',
+    endDate: '2025-04-02',
+    status: 'UPCOMING',
+    tags: ['نوروز', 'فرهنگ', 'جشن'],
+    isFeatured: true,
+  },
+  {
+    id: '4',
+    title: 'همایش گردشگری پایدار',
+    shortDescription:
+      'همایش ملی گردشگری پایدار با محوریت توسعه اکوتوریسم و معرفی جاذبه‌های طبیعی ایران',
+    featuredImage: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=600&fit=crop',
+    style: 'CONFERENCE',
+    type: 'همایش',
+    city: 'شیراز',
+    province: 'فارس',
+    dateRangeText: '۲۰ فروردین ۱۴۰۴',
+    shamsiStartDate: '۱۴۰۴/۰۱/۲۰',
+    startDate: '2025-04-09',
+    status: 'UPCOMING',
+    tags: ['گردشگری', 'محیط زیست', 'توسعه'],
+    isFeatured: true,
+  },
+  {
+    id: '5',
+    title: 'جشنواره موسیقی فجر',
+    shortDescription:
+      'بزرگترین رویداد موسیقی کشور با اجرای هنرمندان برجسته و معرفی آثار نو در موسیقی ایرانی',
+    featuredImage: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&h=600&fit=crop',
     style: 'FESTIVAL',
     type: 'جشنواره',
     city: 'تهران',
     province: 'تهران',
-    dateRangeText: '۲۰ تا ۳۰ بهمن ۱۴۰۳',
-    shamsiStartDate: '۱۴۰۳/۱۱/۲۰',
-    shamsiEndDate: '۱۴۰۳/۱۱/۳۰',
-    startDate: '2025-02-09',
-    endDate: '2025-02-19',
+    dateRangeText: '۱۰ تا ۲۰ بهمن ۱۴۰۳',
+    shamsiStartDate: '۱۴۰۳/۱۱/۱۰',
+    shamsiEndDate: '۱۴۰۳/۱۱/۲۰',
+    startDate: '2025-01-30',
+    endDate: '2025-02-09',
+    status: 'ONGOING',
+    tags: ['موسیقی', 'جشنواره', 'هنر'],
+    isFeatured: true,
+  },
+  {
+    id: '6',
+    title: 'نمایشگاه صنایع دستی',
+    shortDescription:
+      'نمایشگاه بین‌المللی صنایع دستی و هنرهای سنتی ایران با حضور هنرمندان سراسر کشور',
+    featuredImage: 'https://images.unsplash.com/photo-1582571425129-c6eb12ecc8c9?w=800&h=600&fit=crop',
+    style: 'EXHIBITION',
+    type: 'نمایشگاه',
+    city: 'اصفهان',
+    province: 'اصفهان',
+    dateRangeText: '۱۵ تا ۲۵ فروردین ۱۴۰۴',
+    shamsiStartDate: '۱۴۰۴/۰۱/۱۵',
+    shamsiEndDate: '۱۴۰۴/۰۱/۲۵',
+    startDate: '2025-04-04',
+    endDate: '2025-04-14',
     status: 'UPCOMING',
-    tags: ['سینما', 'فیلم', 'هنر'],
+    tags: ['صنایع دستی', 'اصفهان', 'هنر'],
     isFeatured: true,
   },
 ];
@@ -142,25 +142,23 @@ export default function HomePage() {
     <>
       <Header />
 
-      {/* Hero Section */}
-      <section className="deep-carpet-bg py-16 md:py-24 relative overflow-hidden">
+      {/* Hero Section - Modern gradient */}
+      <section className="gradient-hero py-20 md:py-32 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
-          <div className="float">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 text-yellow-200 drop-shadow-2xl leading-tight">
-              رویدادهای ایران
-              <br />
-              <span className="text-yellow-100">۱۴۰۴-۱۴۰۵</span>
-            </h1>
-          </div>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 text-white leading-tight">
+            رویدادهای ایران
+            <br />
+            <span className="text-white/90">۱۴۰۴-۱۴۰۵</span>
+          </h1>
 
-          <p className="text-lg md:text-2xl text-yellow-50 mb-12 drop-shadow-lg max-w-3xl mx-auto leading-relaxed font-bold">
-            🌹 کشف فرهنگ، هنر و جشن‌های اصیل ایرانی 🌹
+          <p className="text-lg md:text-2xl text-white/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+            کشف فرهنگ، هنر و جشن‌های اصیل ایرانی
           </p>
 
           <SearchBar />
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6 mt-12 md:mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-16">
             <StatsCard number="۲۵۰+" label="رویداد فعال" />
             <StatsCard number="۳۱" label="استان" />
             <StatsCard number="۱۵+" label="موضوع" />
@@ -172,13 +170,13 @@ export default function HomePage() {
       <PersianDivider />
 
       {/* Featured Events */}
-      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        <div className="flex justify-between items-center mb-8 md:mb-12 flex-wrap gap-4">
-          <h2 className="text-3xl md:text-4xl font-black text-red-900">
+      <section className="max-w-7xl mx-auto px-4 py-16 md:py-24 bg-gray-50">
+        <div className="flex justify-between items-center mb-12 flex-wrap gap-4">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900">
             🎭 رویدادهای ویژه
           </h2>
           <Link href="/events">
-            <button className="deep-persian-btn px-6 py-2.5 text-sm md:text-base">
+            <button className="gradient-btn text-white px-6 py-3 rounded-lg font-bold shadow-lg">
               مشاهده همه ←
             </button>
           </Link>
@@ -194,11 +192,11 @@ export default function HomePage() {
       <PersianDivider />
 
       {/* Popular Topics */}
-      <section className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        <h2 className="text-3xl md:text-4xl font-black text-red-900 mb-8 md:mb-12 text-center">
+      <section className="max-w-7xl mx-auto px-4 py-16 md:py-24">
+        <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-12 text-center">
           🏛️ موضوعات محبوب
         </h2>
-        <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           {popularTopics.map((topic, index) => (
             <TagButton key={index}>{topic}</TagButton>
           ))}
@@ -208,19 +206,21 @@ export default function HomePage() {
       <PersianDivider />
 
       {/* CTA Section */}
-      <section className="max-w-4xl mx-auto px-4 py-12 md:py-16 text-center">
-        <h2 className="text-3xl md:text-4xl font-black text-red-900 mb-6">
-          رویداد خود را ثبت کنید
-        </h2>
-        <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-          سازمان‌دهندگان رویدادهای فرهنگی می‌توانند رویدادهای خود را به‌صورت رایگان
-          در پلتفرم ما ثبت و به هزاران علاقه‌مند معرفی کنند.
-        </p>
-        <Link href="/submit-event">
-          <button className="deep-persian-btn px-8 py-4 text-base md:text-lg">
-            ثبت رویداد جدید +
-          </button>
-        </Link>
+      <section className="max-w-4xl mx-auto px-4 py-16 md:py-24 text-center">
+        <div className="bg-gradient-to-r from-red-50 to-blue-50 rounded-3xl p-12 md:p-16">
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6">
+            رویداد خود را ثبت کنید
+          </h2>
+          <p className="text-lg text-gray-700 mb-8 leading-relaxed max-w-2xl mx-auto">
+            سازمان‌دهندگان رویدادهای فرهنگی می‌توانند رویدادهای خود را به‌صورت رایگان
+            در پلتفرم ما ثبت و به هزاران علاقه‌مند معرفی کنند.
+          </p>
+          <Link href="/submit-event">
+            <button className="gradient-btn text-white px-8 py-4 rounded-lg text-lg font-bold shadow-xl hover:shadow-2xl">
+              ثبت رویداد جدید +
+            </button>
+          </Link>
+        </div>
       </section>
 
       <Footer />

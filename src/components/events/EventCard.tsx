@@ -9,117 +9,70 @@ interface EventCardProps {
   event: Event;
 }
 
-const getEventEmoji = (style: string) => {
-  const emojiMap: Record<string, string> = {
-    FESTIVAL: '🎊',
-    EXHIBITION: '🎨',
-    CONFERENCE: '🎤',
-    RELIGIOUS: '🕌',
-    CULTURAL: '🏛️',
-    ARTISTIC: '🎭',
-    SPORT: '⚽',
-    OTHER: '📅',
-  };
-  return emojiMap[style] || '📅';
-};
-
 export function EventCard({ event }: EventCardProps) {
   const [isLiked, setIsLiked] = useState(false);
 
   return (
-    <div className="kashi-card">
-      {/* Tile Corner Decorations */}
-      <div className="tile-corner tile-corner-tl" />
-      <div className="tile-corner tile-corner-br" />
-
-      {/* Image Section */}
-      <div className="image-overlay h-52 md:h-64">
-        <Image
-          src={event.featuredImage || '/images/placeholder-event.jpg'}
-          alt={event.title}
-          fill
-          className="object-cover"
-          unoptimized
-        />
-
-        {/* Badge */}
-        <div className="kashi-badge absolute top-4 right-4 text-xs md:text-sm px-4 py-2 z-10">
-          {getEventEmoji(event.style)} {event.type}
-        </div>
-
-        {/* Title Overlay */}
-        <h3 className="absolute bottom-4 right-4 left-4 text-xl md:text-2xl font-black text-yellow-200 drop-shadow-lg z-10">
-          {event.title}
-        </h3>
-      </div>
-
-      {/* Content */}
-      <div className="p-5 md:p-6">
-        {/* Date & Location */}
-        <div className="flex items-center gap-4 text-xs md:text-sm text-gray-800 mb-4 flex-wrap font-bold">
-          <div className="flex items-center gap-2">
-            <span>📅</span>
-            <span>{event.dateRangeText}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span>📍</span>
-            <span>{event.city}</span>
-          </div>
-        </div>
-
-        {/* Description */}
-        <p className="text-sm md:text-base text-gray-700 mb-5 leading-relaxed line-clamp-3">
-          {event.shortDescription}
-        </p>
-
-        {/* Tags */}
-        {event.tags && event.tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
-            {event.tags.slice(0, 3).map((tag, index) => (
-              <span
-                key={index}
-                className="text-xs px-3 py-1 rounded-lg bg-red-900/10 text-red-900 font-semibold border border-red-900/20"
-              >
-                #{tag}
-              </span>
-            ))}
+    <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+      {/* Image */}
+      <div className="aspect-video bg-gray-200 relative overflow-hidden">
+        {event.featuredImage ? (
+          <Image
+            src={event.featuredImage}
+            alt={event.title}
+            fill
+            className="object-cover"
+            unoptimized
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+            <span className="text-6xl">🎭</span>
           </div>
         )}
 
-        {/* Actions */}
-        <div className="flex items-center gap-3">
+        {/* Badge */}
+        <div className="absolute top-4 right-4">
+          <span className="px-3 py-1.5 bg-red-600 text-white text-xs font-bold rounded-full shadow-lg">
+            {event.type}
+          </span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 min-h-[3.5rem]">
+          {event.title}
+        </h3>
+
+        <div className="space-y-2 mb-4">
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <span className="text-lg">📍</span>
+            <span>{event.city}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <span className="text-lg">📅</span>
+            <span>{event.dateRangeText}</span>
+          </div>
+        </div>
+
+        <p className="text-gray-700 text-sm line-clamp-3 mb-6 min-h-[4.5rem]">
+          {event.shortDescription}
+        </p>
+
+        <div className="flex gap-3">
           <Link href={`/events/${event.id}`} className="flex-1">
-            <button className="deep-persian-btn w-full px-4 py-3 text-sm md:text-base font-bold">
-              جزئیات بیشتر
+            <button className="w-full gradient-btn text-white py-2.5 rounded-lg font-bold shadow-md">
+              مشاهده جزئیات
             </button>
           </Link>
-
           <button
-            className={`w-12 h-12 rounded-xl border-2 ${
-              isLiked
-                ? 'bg-red-900 border-red-900 text-yellow-200'
-                : 'border-red-900 text-red-900'
-            } flex items-center justify-center hover:bg-red-900 hover:text-yellow-200 transition text-lg`}
-            aria-label="Save event"
             onClick={() => setIsLiked(!isLiked)}
+            className={`px-4 ${
+              isLiked ? 'bg-red-50 text-red-600' : 'bg-gray-100 text-gray-600'
+            } hover:bg-red-50 hover:text-red-600 rounded-lg transition-all`}
+            aria-label="Save event"
           >
-            {isLiked ? '❤️' : '🤍'}
-          </button>
-
-          <button
-            className="w-12 h-12 rounded-xl border-2 border-red-900 text-red-900 flex items-center justify-center hover:bg-red-900 hover:text-yellow-200 transition text-lg"
-            aria-label="Share event"
-            onClick={() => {
-              if (navigator.share) {
-                navigator.share({
-                  title: event.title,
-                  text: event.shortDescription,
-                  url: `/events/${event.id}`,
-                });
-              }
-            }}
-          >
-            📤
+            <span className="text-xl">{isLiked ? '❤️' : '🤍'}</span>
           </button>
         </div>
       </div>

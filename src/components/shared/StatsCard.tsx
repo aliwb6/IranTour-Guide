@@ -5,13 +5,9 @@ interface StatsCardProps {
 
 export function StatsCard({ number, label }: StatsCardProps) {
   return (
-    <div className="tile-stats text-center">
-      <div className="text-3xl md:text-4xl font-black text-red-900 mb-2">
-        {number}
-      </div>
-      <div className="text-sm md:text-base text-red-800 font-semibold">
-        {label}
-      </div>
+    <div className="bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
+      <div className="text-4xl font-black text-red-600 mb-2">{number}</div>
+      <div className="text-sm text-gray-700 font-semibold">{label}</div>
     </div>
   );
 }
