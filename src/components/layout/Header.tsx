@@ -17,7 +17,7 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg border-2 border-yellow-200 glow">
-              <span className="text-3xl md:text-4xl">🇮🇷</span>
+              <span className="text-xl md:text-2xl font-black text-red-900">IR</span>
             </div>
             <div>
               <h1 className="text-xl md:text-3xl font-black text-yellow-200 drop-shadow-lg">

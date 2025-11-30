@@ -23,6 +23,20 @@ const getEventEmoji = (style: string) => {
   return emojiMap[style] || '📅';
 };
 
+const getEventBadgeColor = (style: string) => {
+  const colorMap: Record<string, string> = {
+    FESTIVAL: 'bg-gradient-to-br from-purple-600 to-purple-700 border-purple-500',
+    EXHIBITION: 'bg-gradient-to-br from-blue-600 to-blue-700 border-blue-500',
+    CONFERENCE: 'bg-gradient-to-br from-green-600 to-green-700 border-green-500',
+    RELIGIOUS: 'bg-gradient-to-br from-amber-600 to-amber-700 border-amber-500',
+    CULTURAL: 'bg-gradient-to-br from-red-600 to-red-700 border-red-500',
+    ARTISTIC: 'bg-gradient-to-br from-pink-600 to-pink-700 border-pink-500',
+    SPORT: 'bg-gradient-to-br from-teal-600 to-teal-700 border-teal-500',
+    OTHER: 'bg-gradient-to-br from-gray-600 to-gray-700 border-gray-500',
+  };
+  return colorMap[style] || 'bg-gradient-to-br from-gray-600 to-gray-700 border-gray-500';
+};
+
 export function EventCard({ event }: EventCardProps) {
   const [isLiked, setIsLiked] = useState(false);
 
@@ -43,7 +57,7 @@ export function EventCard({ event }: EventCardProps) {
         />
 
         {/* Badge */}
-        <div className="kashi-badge absolute top-4 right-4 text-xs md:text-sm px-4 py-2 z-10">
+        <div className={`absolute top-4 right-4 text-xs md:text-sm px-4 py-2 z-10 rounded-xl border-2 text-white font-bold shadow-lg ${getEventBadgeColor(event.style)}`}>
           {getEventEmoji(event.style)} {event.type}
         </div>
 
