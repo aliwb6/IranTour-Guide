@@ -1,62 +1,96 @@
-export type EventStyle = 'FESTIVAL' | 'EXHIBITION' | 'CONFERENCE' | 'RELIGIOUS' | 'CULTURAL' | 'ARTISTIC' | 'SPORT' | 'OTHER';
+export type EventStatus = 'PENDING' | 'APPROVED' | 'REJECTED'
 
-export type EventStatus = 'UPCOMING' | 'ONGOING' | 'COMPLETED' | 'CANCELLED';
+export type EventStyle =
+  | 'EXHIBITION'
+  | 'FESTIVAL'
+  | 'CONFERENCE'
+  | 'RELIGIOUS'
+  | 'TOURISM'
+  | 'SPORTS'
+  | 'EDUCATIONAL'
+  | 'OTHER'
+
+export type EventType =
+  | 'NATIONAL'
+  | 'RELIGIOUS'
+  | 'ECONOMIC'
+  | 'ARTISTIC'
+  | 'SCIENTIFIC'
+  | 'TOURISM'
+  | 'SPORTS'
+
+export type FixedVariable = 'FIXED' | 'VARIABLE'
 
 export interface Event {
-  id: string;
-  title: string;
-  shortDescription: string;
-  description?: string;
-  featuredImage?: string;
-  images?: string[];
-  style: EventStyle;
-  type: string;
-  city: string;
-  province?: string;
-  location?: string;
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  startDate: string | Date;
-  endDate?: string | Date;
-  dateRangeText: string;
-  shamsiStartDate?: string;
-  shamsiEndDate?: string;
-  status: EventStatus;
-  tags?: string[];
-  organizerId?: string;
-  organizerName?: string;
-  contactPhone?: string;
-  contactEmail?: string;
-  website?: string;
-  isFeatured?: boolean;
-  viewCount?: number;
-  likeCount?: number;
-  createdAt?: string | Date;
-  updatedAt?: string | Date;
+  id: string
+  title: string
+  slug: string
+  style: EventStyle
+  type: EventType
+  fixedOrVariable: FixedVariable
+  country: string
+  city: string
+  venue: string
+  address?: string | null
+  latitude?: number | null
+  longitude?: number | null
+  dateRangeText: string
+  startDate: Date
+  endDate: Date
+  registrationDeadline?: Date | null
+  durationText?: string | null
+  shortDescription: string
+  description: string
+  opportunities?: string | null
+  challenges?: string | null
+  featuredImage?: string | null
+  images: string[]
+  videoUrl?: string | null
+  organizerName?: string | null
+  organizerEmail?: string | null
+  organizerPhone?: string | null
+  website?: string | null
+  registrationUrl?: string | null
+  status: EventStatus
+  approvedAt?: Date | null
+  rejectedReason?: string | null
+  metaTitle?: string | null
+  metaDescription?: string | null
+  keywords: string[]
+  viewCount: number
+  saveCount: number
+  shareCount: number
+  organizationId?: string | null
+  createdAt: Date
+  updatedAt: Date
+  publishedAt?: Date | null
 }
 
-export interface EventFilters {
-  search?: string;
-  city?: string;
-  province?: string;
-  style?: EventStyle;
-  status?: EventStatus;
-  startDate?: string;
-  endDate?: string;
-  tags?: string[];
-  isFeatured?: boolean;
+export interface EventFilter {
+  city?: string
+  type?: EventType
+  style?: EventStyle
+  category?: string
+  startDate?: Date
+  endDate?: Date
+  search?: string
 }
 
-export interface EventListProps {
-  events: Event[];
-  isLoading?: boolean;
-}
-
-export interface EventCardProps {
-  event: Event;
-}
-
-export interface EventDetailsProps {
-  event: Event;
+export interface EventFormData {
+  title: string
+  style: EventStyle
+  type: EventType
+  fixedOrVariable: FixedVariable
+  city: string
+  venue: string
+  address?: string
+  dateRangeText: string
+  startDate: Date
+  endDate: Date
+  shortDescription: string
+  description: string
+  featuredImage?: string
+  organizerName: string
+  organizerEmail: string
+  organizerPhone: string
 }
