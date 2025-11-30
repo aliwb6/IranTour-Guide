@@ -34,9 +34,9 @@ export async function GET(request: NextRequest) {
 
     if (search) {
       where.OR = [
-        { title: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } },
-        { shortDescription: { contains: search, mode: 'insensitive' } },
+        { title: { contains: search } },
+        { description: { contains: search } },
+        { shortDescription: { contains: search } },
       ]
     }
 
@@ -148,14 +148,14 @@ export async function POST(request: NextRequest) {
         opportunities: body.opportunities || null,
         challenges: body.challenges || null,
         featuredImage: body.featuredImage || null,
-        images: body.images || [],
+        images: body.images ? JSON.stringify(body.images) : null,
         videoUrl: body.videoUrl || null,
         organizerName: body.organizerName || null,
         organizerEmail: body.organizerEmail || null,
         organizerPhone: body.organizerPhone || null,
         website: body.website || null,
         registrationUrl: body.registrationUrl || null,
-        keywords: body.keywords || [],
+        keywords: body.keywords ? JSON.stringify(body.keywords) : null,
         status: 'PENDING',
       },
     })
