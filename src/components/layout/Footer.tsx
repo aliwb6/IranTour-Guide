@@ -1,7 +1,17 @@
+'use client';
+
 import Link from 'next/link';
+import { useState } from 'react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert(`ایمیل ${email} با موفقیت ثبت شد!`);
+    setEmail('');
+  };
 
   return (
     <footer className="deep-footer mt-16">
@@ -10,11 +20,10 @@ export function Footer() {
           {/* About Section */}
           <div>
             <h3 className="text-xl font-black text-yellow-200 mb-4">
-              درباره IranTour Guide
+              IranTour Guide
             </h3>
             <p className="text-yellow-100/80 text-sm leading-relaxed">
-              راهنمای جامع رویدادهای فرهنگی، مذهبی، هنری و گردشگری سراسر ایران.
-              کشف، تجربه و اشتراک‌گذاری بهترین رویدادها با پیشنهادات هوشمند.
+              پلتفرم جامع رویدادهای فرهنگی، مذهبی، هنری و گردشگری ایران
             </p>
           </div>
 
@@ -37,7 +46,7 @@ export function Footer() {
                   href="/calendar"
                   className="text-yellow-100/80 hover:text-yellow-200 transition"
                 >
-                  تقویم رویدادها
+                  تقویم
                 </Link>
               </li>
               <li>
@@ -45,15 +54,7 @@ export function Footer() {
                   href="/map"
                   className="text-yellow-100/80 hover:text-yellow-200 transition"
                 >
-                  نقشه رویدادها
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/ai-suggest"
-                  className="text-yellow-100/80 hover:text-yellow-200 transition"
-                >
-                  پیشنهاد هوشمند
+                  نقشه
                 </Link>
               </li>
               <li>
@@ -61,58 +62,77 @@ export function Footer() {
                   href="/submit-event"
                   className="text-yellow-100/80 hover:text-yellow-200 transition"
                 >
-                  ثبت رویداد
+                  افزودن رویداد
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Categories */}
+          {/* About */}
           <div>
             <h3 className="text-xl font-black text-yellow-200 mb-4">
-              دسته‌بندی‌ها
+              درباره ما
             </h3>
             <ul className="space-y-2 text-sm">
-              <li className="text-yellow-100/80">🎭 جشنواره‌ها</li>
-              <li className="text-yellow-100/80">🎨 نمایشگاه‌ها</li>
-              <li className="text-yellow-100/80">🕌 مناسبت‌های مذهبی</li>
-              <li className="text-yellow-100/80">🎤 همایش‌ها</li>
-              <li className="text-yellow-100/80">🏛️ رویدادهای فرهنگی</li>
+              <li>
+                <Link
+                  href="/about"
+                  className="text-yellow-100/80 hover:text-yellow-200 transition"
+                >
+                  درباره ما
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-yellow-100/80 hover:text-yellow-200 transition"
+                >
+                  تماس با ما
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-yellow-100/80 hover:text-yellow-200 transition"
+                >
+                  قوانین و مقررات
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-yellow-100/80 hover:text-yellow-200 transition"
+                >
+                  حریم خصوصی
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Newsletter */}
           <div>
             <h3 className="text-xl font-black text-yellow-200 mb-4">
-              تماس با ما
+              خبرنامه
             </h3>
-            <ul className="space-y-2 text-sm text-yellow-100/80">
-              <li>📧 info@irantourguide.ir</li>
-              <li>📱 ۰۲۱-۱۲۳۴۵۶۷۸</li>
-              <li className="pt-3 flex gap-3">
-                <a
-                  href="#"
-                  className="w-9 h-9 rounded-lg bg-yellow-200/10 hover:bg-yellow-200/20 transition flex items-center justify-center"
-                  aria-label="Instagram"
-                >
-                  📷
-                </a>
-                <a
-                  href="#"
-                  className="w-9 h-9 rounded-lg bg-yellow-200/10 hover:bg-yellow-200/20 transition flex items-center justify-center"
-                  aria-label="Telegram"
-                >
-                  ✈️
-                </a>
-                <a
-                  href="#"
-                  className="w-9 h-9 rounded-lg bg-yellow-200/10 hover:bg-yellow-200/20 transition flex items-center justify-center"
-                  aria-label="Twitter"
-                >
-                  🐦
-                </a>
-              </li>
-            </ul>
+            <p className="text-yellow-100/80 text-sm mb-4">
+              از آخرین رویدادها باخبر شوید
+            </p>
+            <form onSubmit={handleSubscribe} className="flex gap-2">
+              <input
+                type="email"
+                placeholder="ایمیل شما"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="flex-1 px-4 py-2 rounded-lg bg-yellow-100/10 border-2 border-yellow-200/30 text-yellow-100 placeholder-yellow-100/50 text-sm focus:outline-none focus:border-yellow-200"
+              />
+              <button
+                type="submit"
+                className="px-4 py-2 bg-yellow-200 hover:bg-yellow-300 text-red-900 font-bold rounded-lg transition text-sm"
+              >
+                ثبت
+              </button>
+            </form>
           </div>
         </div>
 
