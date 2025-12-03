@@ -2,8 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ========================================
+   🎨 Persian Color Variables
+======================================== */
 @layer base {
   :root {
+    /* Persian Theme Colors */
+    --persian-red: #A01C1C;
+    --deep-red: #7A1515;
+    --burgundy: #5C0F0F;
+    --gold: #D4AF37;
+    --light-gold: #F4E5C2;
+    --tile-blue: #1A5F7A;
+    --tile-turquoise: #159895;
+    --cream: #FFF8DC;
+
+    /* Shadcn Default Variables */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -49,11 +63,506 @@
   }
 }
 
+/* ========================================
+   🌟 Base Styles
+======================================== */
 @layer base {
   * {
     border-color: hsl(var(--border));
   }
+
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "kern" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ========================================
+   📜 Custom Scrollbar
+======================================== */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--persian-red), var(--gold));
+  border-radius: 10px;
+  border: 2px solid var(--cream);
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--deep-red), var(--gold));
+}
+
+/* ========================================
+   🕌 Kashi Star Pattern Background
+======================================== */
+.kashi-star-pattern {
+  position: relative;
+  overflow: hidden;
+}
+
+.kashi-star-pattern::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, var(--tile-turquoise) 1px, transparent 1px),
+    radial-gradient(circle at 60% 70%, var(--tile-blue) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, var(--gold) 2px, transparent 2px);
+  background-size: 100px 100px, 150px 150px, 200px 200px;
+  background-position: 0 0, 50px 50px, 100px 100px;
+  opacity: 0.15;
+  animation: rotate-tiles 60s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate-tiles {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+/* ========================================
+   🎭 Deep Carpet Background (Hero)
+======================================== */
+.deep-carpet-bg {
+  background: linear-gradient(135deg, var(--burgundy) 0%, var(--deep-red) 50%, var(--persian-red) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.deep-carpet-bg::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, var(--gold) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.08;
+  animation: shimmer 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* ========================================
+   🃏 Kashi Card (Event Cards)
+======================================== */
+.kashi-card {
+  @apply relative bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300;
+  border: 3px solid var(--gold);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+}
+
+.kashi-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(212, 175, 55, 0.35);
+}
+
+/* Tile Corners */
+.tile-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, var(--tile-blue), var(--tile-turquoise));
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.tile-corner.top-right {
+  top: 0;
+  right: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.tile-corner.top-left {
+  top: 0;
+  left: 0;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.tile-corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.tile-corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+/* ========================================
+   🎨 Kashi Badge (Event Type Badge)
+======================================== */
+.kashi-badge {
+  @apply inline-block px-4 py-2 rounded-full text-sm font-bold shadow-md;
+  background: linear-gradient(135deg, var(--persian-red), var(--deep-red));
+  color: var(--light-gold);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--gold);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px var(--gold), 0 0 10px var(--gold);
+  }
+  100% {
+    box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold), 0 0 30px var(--gold);
+  }
+}
+
+/* ========================================
+   🖼️ Image Overlay
+======================================== */
+.image-overlay {
+  position: relative;
+}
+
+.image-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(92, 15, 15, 0.8) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.image-overlay .overlay-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  z-index: 10;
+}
+
+/* ========================================
+   🔘 Deep Persian Button
+======================================== */
+.deep-persian-btn {
+  @apply inline-block px-6 py-3 rounded-lg font-bold text-white transition-all duration-300;
+  background: linear-gradient(135deg, var(--persian-red), var(--deep-red), var(--gold));
+  background-size: 200% 200%;
+  box-shadow: 0 4px 15px rgba(160, 28, 28, 0.4);
+  border: 2px solid var(--gold);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.deep-persian-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.deep-persian-btn:hover {
+  background-position: 100% 0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(160, 28, 28, 0.6);
+}
+
+.deep-persian-btn:hover::before {
+  left: 100%;
+}
+
+.deep-persian-btn:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   🏷️ Deep Tag
+======================================== */
+.deep-tag {
+  @apply inline-block px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300;
+  background: var(--cream);
+  color: var(--deep-red);
+  border: 2px solid var(--gold);
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.2);
+}
+
+.deep-tag:hover {
+  background: var(--light-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+  cursor: pointer;
+}
+
+/* ========================================
+   🪟 Glass Header (Glassmorphism)
+======================================== */
+.glass-header {
+  @apply sticky top-0 z-50 w-full;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.glass-header.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ========================================
+   ➖ Kashi Divider
+======================================== */
+.kashi-divider {
+  @apply my-8 relative;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.kashi-divider::before,
+.kashi-divider::after {
+  content: "✦";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.kashi-divider::before {
+  left: 0;
+}
+
+.kashi-divider::after {
+  right: 0;
+}
+
+/* ========================================
+   🦶 Deep Footer
+======================================== */
+.deep-footer {
+  @apply relative;
+  background: linear-gradient(135deg, var(--burgundy) 0%, var(--deep-red) 100%);
+  color: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+.deep-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(212, 175, 55, 0.05) 35px, rgba(212, 175, 55, 0.05) 70px);
+  pointer-events: none;
+}
+
+.deep-footer a {
+  @apply transition-colors duration-300;
+  color: var(--light-gold);
+}
+
+.deep-footer a:hover {
+  color: var(--gold);
+  text-shadow: 0 0 8px var(--gold);
+}
+
+.deep-footer h3 {
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* ========================================
+   🔍 Search Box Enhanced
+======================================== */
+.persian-search-box {
+  @apply relative w-full max-w-2xl;
+}
+
+.persian-search-box input {
+  @apply w-full px-6 py-4 rounded-xl text-lg;
+  background: white;
+  border: 3px solid var(--gold);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+  transition: all 0.3s ease;
+}
+
+.persian-search-box input:focus {
+  outline: none;
+  border-color: var(--persian-red);
+  box-shadow: 0 12px 32px rgba(212, 175, 55, 0.5), 0 0 0 4px rgba(212, 175, 55, 0.2);
+}
+
+.persian-search-box input::placeholder {
+  color: #999;
+}
+
+/* ========================================
+   📊 Stats Counter Animation
+======================================== */
+.stat-number {
+  @apply text-4xl md:text-5xl font-black;
+  color: var(--gold);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation: counter-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes counter-glow {
+  0% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px var(--gold);
+  }
+}
+
+/* ========================================
+   🎯 Utility Classes
+======================================== */
+.text-persian-red {
+  color: var(--persian-red);
+}
+
+.text-deep-red {
+  color: var(--deep-red);
+}
+
+.text-gold {
+  color: var(--gold);
+}
+
+.text-light-gold {
+  color: var(--light-gold);
+}
+
+.bg-persian-red {
+  background-color: var(--persian-red);
+}
+
+.bg-deep-red {
+  background-color: var(--deep-red);
+}
+
+.bg-gold {
+  background-color: var(--gold);
+}
+
+.bg-cream {
+  background-color: var(--cream);
+}
+
+.border-gold {
+  border-color: var(--gold);
+}
+
+/* ========================================
+   🎬 Animation Utilities
+======================================== */
+.fade-in {
+  animation: fadeIn 0.6s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ========================================
+   📱 Responsive Utilities
+======================================== */
+@media (max-width: 768px) {
+  .kashi-card {
+    border-width: 2px;
+  }
+
+  .tile-corner {
+    width: 30px;
+    height: 30px;
+  }
+
+  .deep-persian-btn {
+    @apply px-4 py-2 text-sm;
+  }
+
+  .deep-tag {
+    @apply px-3 py-1 text-xs;
+  }
+}
+
+/* ========================================
+   🌈 Gradient Text
+======================================== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--persian-red), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   ⚡ Performance Optimization
+======================================== */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
 }

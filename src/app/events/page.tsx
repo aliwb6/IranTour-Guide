@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import prisma from '@/lib/db/prisma'
-import { EventCard } from '@/components/events/EventCard'
+import { SimpleEventCard } from '@/components/events/EventCard'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -130,7 +130,7 @@ export default async function EventsPage({ searchParams }: PageProps) {
         {events.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {events.map((event) => (
-              <EventCard key={event.id} event={event} />
+              <SimpleEventCard key={event.id} event={event} />
             ))}
           </div>
         ) : (
