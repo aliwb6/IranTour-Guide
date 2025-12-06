@@ -1,17 +1,23 @@
 import type { Metadata } from 'next'
+import { Vazirmatn } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
+
+// فونت Vazirmatn
+const vazirmatn = Vazirmatn({
+  subsets: ['arabic'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-vazirmatn',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
-  title: 'IranTour Guide | راهنمای رویدادهای فرهنگی و گردشگری ایران',
+  title: 'IranTour Guide | راهنمای رویدادهای ایران',
   description:
-    'کشف و تجربه بهترین رویدادهای فرهنگی، مذهبی، هنری و گردشگری ایران با پیشنهادات هوشمند',
+    'کشف و تجربه بهترین رویدادهای فرهنگی، مذهبی، هنری و گردشگری ایران',
   keywords: [
     'رویدادهای ایران',
     'گردشگری ایران',
-    'جشنواره های ایران',
-    'مناسبت های مذهبی',
+    'جشنواره‌های ایران',
     'نوروز',
     'یلدا',
     'Iran events',
@@ -26,10 +32,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl">
-      <body className="font-sans antialiased">
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+      <body className={`${vazirmatn.variable} font-sans antialiased bg-gray-50`}>
+        {children}
       </body>
     </html>
   )

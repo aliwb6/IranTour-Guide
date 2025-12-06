@@ -1,124 +1,73 @@
-import Link from 'next/link'
+'use client'
+
+import React from 'react'
 import Image from 'next/image'
-import { Calendar, MapPin, Bookmark } from 'lucide-react'
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { formatDate } from '@/lib/utils'
+import { Calendar, MapPin, Heart, Share2 } from 'lucide-react'
+import { Badge } from '@/components/ui/Badge'
+import { PersianButton } from '@/components/ui/PersianButton'
+import type { MockEvent } from '@/types/mock'
 
 interface EventCardProps {
-  event: {
-    id: string
-    title: string
-    slug: string
-    city: string
-    startDate: Date
-    endDate: Date
-    featuredImage?: string | null
-    type: string
-    style: string
-    shortDescription: string
-  }
-  variant?: 'default' | 'compact' | 'featured'
+  event: MockEvent
 }
 
-export function EventCard({ event, variant = 'default' }: EventCardProps) {
-  const isFeatured = variant === 'featured'
-  const isCompact = variant === 'compact'
-
+export function EventCard({ event }: EventCardProps) {
   return (
-    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-      <Link href={`/events/${event.slug}`}>
-        {/* Image */}
-        <div className={`relative ${isFeatured ? 'h-64' : isCompact ? 'h-40' : 'h-48'} bg-gray-200`}>
-          {event.featuredImage ? (
-            <Image
-              src={event.featuredImage}
-              alt={event.title}
-              fill
-              className="object-cover"
-              sizes={isFeatured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, 33vw'}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-muted">
-              <span className="text-muted-foreground">بدون تصویر</span>
-            </div>
-          )}
+    <div className="kashi-card">
+      <div className="tile-corner tile-corner-tl"></div>
+      <div className="tile-corner tile-corner-br"></div>
 
-          {/* Type Badge */}
-          <div className="absolute top-3 right-3">
-            <span className="px-3 py-1 bg-primary text-primary-foreground text-xs rounded-full">
-              {getTypeLabel(event.type)}
-            </span>
-          </div>
-        </div>
-      </Link>
+      <div className="image-overlay h-52 md:h-64">
+        <Image
+          src={event.image}
+          alt={event.title}
+          width={800}
+          height={600}
+          className="w-full h-full object-cover"
+        />
+        <Badge className="absolute top-4 right-4 text-xs md:text-sm px-4 py-2 z-10">
+          {event.emoji} {event.type}
+        </Badge>
+        <h3 className="absolute bottom-4 right-4 left-4 text-xl md:text-2xl font-black text-yellow-200 drop-shadow-lg z-10">
+          {event.title}
+        </h3>
+      </div>
 
-      <CardHeader className="pb-3">
-        <Link href={`/events/${event.slug}`}>
-          <h3 className={`font-bold hover:text-primary transition-colors ${isFeatured ? 'text-2xl' : 'text-lg'}`}>
-            {event.title}
-          </h3>
-        </Link>
-      </CardHeader>
-
-      <CardContent className="pb-3">
-        {!isCompact && <p className="text-sm text-muted-foreground line-clamp-2 mb-3">{event.shortDescription}</p>}
-
-        <div className="space-y-2 text-sm">
-          {/* Date */}
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Calendar className="h-4 w-4" />
+      <div className="p-5 md:p-6">
+        <div className="flex items-center gap-4 text-xs md:text-sm text-gray-800 mb-4 flex-wrap font-bold">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-4 h-4" />
             <span>
-              {formatDate(event.startDate)} {event.startDate !== event.endDate && `- ${formatDate(event.endDate)}`}
+              {event.startDate}
+              {event.endDate !== event.startDate && ` - ${event.endDate}`}
             </span>
           </div>
-
-          {/* Location */}
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <MapPin className="h-4 w-4" />
+          <div className="flex items-center gap-2">
+            <MapPin className="w-4 h-4" />
             <span>{event.city}</span>
           </div>
         </div>
-      </CardContent>
-
-      <CardFooter className="pt-3 border-t flex justify-between items-center">
-        <div className="flex gap-2">
-          <span className="px-2 py-1 bg-secondary text-secondary-foreground rounded-md text-xs">
-            {getStyleLabel(event.style)}
-          </span>
+        <p className="text-sm md:text-base text-gray-700 mb-5 leading-relaxed">
+          {event.shortDescription}
+        </p>
+        <div className="flex items-center justify-between gap-3">
+          <PersianButton className="flex-1 px-4 py-3 text-sm md:text-base font-bold">
+            جزئیات بیشتر
+          </PersianButton>
+          <button
+            type="button"
+            className="w-12 h-12 rounded-xl border-2 border-red-900 flex items-center justify-center hover:bg-red-900 hover:text-yellow-200 transition text-lg"
+          >
+            <Heart className="w-5 h-5" />
+          </button>
+          <button
+            type="button"
+            className="w-12 h-12 rounded-xl border-2 border-red-900 flex items-center justify-center hover:bg-red-900 hover:text-yellow-200 transition text-lg"
+          >
+            <Share2 className="w-5 h-5" />
+          </button>
         </div>
-
-        <Button variant="ghost" size="icon" className="h-8 w-8">
-          <Bookmark className="h-4 w-4" />
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   )
-}
-
-function getTypeLabel(type: string): string {
-  const labels: Record<string, string> = {
-    NATIONAL: 'ملی',
-    RELIGIOUS: 'مذهبی',
-    ECONOMIC: 'اقتصادی',
-    ARTISTIC: 'هنری',
-    SCIENTIFIC: 'علمی',
-    TOURISM: 'گردشگری',
-    SPORTS: 'ورزشی',
-  }
-  return labels[type] || type
-}
-
-function getStyleLabel(style: string): string {
-  const labels: Record<string, string> = {
-    EXHIBITION: 'نمایشگاه',
-    FESTIVAL: 'جشنواره',
-    CONFERENCE: 'همایش',
-    RELIGIOUS: 'مذهبی',
-    TOURISM: 'گردشگری',
-    SPORTS: 'ورزشی',
-    EDUCATIONAL: 'آموزشی',
-    OTHER: 'سایر',
-  }
-  return labels[style] || style
 }
