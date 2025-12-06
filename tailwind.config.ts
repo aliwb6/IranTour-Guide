@@ -10,9 +10,24 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Tahoma', 'Arial', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-vazirmatn)', 'Vazirmatn', 'Tahoma', 'Arial', 'system-ui', 'sans-serif'],
       },
       colors: {
+        // رنگ‌های ایرانی (Persian Red Palette)
+        'persian-red': '#A01C1C',
+        'deep-red': '#7A1515',
+        'burgundy': '#5C0F0F',
+        'brick-red': '#8B2E2E',
+        // طلایی (Gold & Accents)
+        'gold': '#D4AF37',
+        'light-gold': '#F4E5C2',
+        'dark-gold': '#B8941F',
+        // کاشی (Tile Colors)
+        'tile-blue': '#1A5F7A',
+        'tile-turquoise': '#159895',
+        'cream': '#FFF8DC',
+
+        // رنگ‌های پیش‌فرض
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
