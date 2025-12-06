@@ -53,7 +53,7 @@ export const mockEvents: MockEvent[] = [
     style: 'فرهنگی',
     startDate: '۳۰ آذر',
     endDate: '۳۰ آذر',
-    image: 'https://images.unsplash.com/photo-1597772515047-1c976c7f8f6e?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1587049352846-4a222e784720?w=800&q=80',
     shortDescription: 'طولانی‌ترین شب سال با هندوانه، انار، آجیل و دورهمی خانوادگی',
     featured: true,
     emoji: '🌙',
