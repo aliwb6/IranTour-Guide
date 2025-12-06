@@ -76,9 +76,8 @@ export default function EventsPage() {
           <main className="lg:col-span-3">
             {activeFilters.length > 0 && (
               <div className="mb-6 flex flex-wrap items-center gap-2">
-                <span className="font-black text-red-900">فیلترهای فعال:</span>
-                {activeFilters.map((filter) => (
-                  <span key={filter} className="kashi-badge px-4 py-2 text-sm">
+                {activeFilters.map((filter, index) => (
+                  <span key={index} className="kashi-badge px-4 py-2 text-sm">
                     {filter}
                   </span>
                 ))}
