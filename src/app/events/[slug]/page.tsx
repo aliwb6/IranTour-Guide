@@ -8,13 +8,14 @@ import RelatedEvents from '@/components/events/RelatedEvents'
 import Link from 'next/link'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function EventDetailPage({ params }: PageProps) {
-  const event = mockEvents.find((e) => e.slug === params.slug)
+export default async function EventDetailPage({ params }: PageProps) {
+  const { slug } = await params
+  const event = mockEvents.find((e) => e.slug === slug)
 
   if (!event) {
     notFound()
