@@ -1,73 +1,55 @@
+// src/components/events/EventCard.tsx
 'use client'
 
-import React from 'react'
-import Image from 'next/image'
-import { Calendar, MapPin, Heart, Share2 } from 'lucide-react'
-import { Badge } from '@/components/ui/Badge'
-import { PersianButton } from '@/components/ui/PersianButton'
-import type { MockEvent } from '@/types/mock'
+import Link from 'next/link'
+import type { Event } from '@/lib/mock-data/events'
 
 interface EventCardProps {
-  event: MockEvent
+  event: Event
 }
 
-export function EventCard({ event }: EventCardProps) {
+export default function EventCard({ event }: EventCardProps) {
   return (
-    <div className="kashi-card">
-      <div className="tile-corner tile-corner-tl"></div>
-      <div className="tile-corner tile-corner-br"></div>
-
-      <div className="image-overlay h-52 md:h-64">
-        <Image
+    <Link href={`/events/${event.slug}`} className="kashi-card block group overflow-hidden">
+      <div className="relative h-52 md:h-64 overflow-hidden">
+        <img
           src={event.image}
           alt={event.title}
-          width={800}
-          height={600}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
         />
-        <Badge className="absolute top-4 right-4 text-xs md:text-sm px-4 py-2 z-10">
-          {event.emoji} {event.type}
-        </Badge>
-        <h3 className="absolute bottom-4 right-4 left-4 text-xl md:text-2xl font-black text-yellow-200 drop-shadow-lg z-10">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+
+        <div className="absolute top-4 right-4">
+          <span className="kashi-badge text-xs md:text-sm px-4 py-2">
+            {event.type}
+          </span>
+        </div>
+
+        <h3 className="absolute bottom-4 right-4 left-4 text-xl md:text-2xl font-black text-yellow-200 drop-shadow-lg">
           {event.title}
         </h3>
       </div>
 
       <div className="p-5 md:p-6">
-        <div className="flex items-center gap-4 text-xs md:text-sm text-gray-800 mb-4 flex-wrap font-bold">
+        <div className="flex items-center gap-4 text-xs md:text-sm text-gray-700 mb-4 flex-wrap font-bold">
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            <span>
-              {event.startDate}
-              {event.endDate !== event.startDate && ` - ${event.endDate}`}
-            </span>
+            <span>📅</span>
+            <span>{event.startDate}</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
+            <span>📍</span>
             <span>{event.city}</span>
           </div>
         </div>
-        <p className="text-sm md:text-base text-gray-700 mb-5 leading-relaxed">
+
+        <p className="text-sm md:text-base text-gray-700 mb-4 leading-relaxed line-clamp-2">
           {event.shortDescription}
         </p>
-        <div className="flex items-center justify-between gap-3">
-          <PersianButton className="flex-1 px-4 py-3 text-sm md:text-base font-bold">
-            جزئیات بیشتر
-          </PersianButton>
-          <button
-            type="button"
-            className="w-12 h-12 rounded-xl border-2 border-red-900 flex items-center justify-center hover:bg-red-900 hover:text-yellow-200 transition text-lg"
-          >
-            <Heart className="w-5 h-5" />
-          </button>
-          <button
-            type="button"
-            className="w-12 h-12 rounded-xl border-2 border-red-900 flex items-center justify-center hover:bg-red-900 hover:text-yellow-200 transition text-lg"
-          >
-            <Share2 className="w-5 h-5" />
-          </button>
+
+        <div className="deep-persian-btn w-full text-center py-3 font-black text-sm md:text-base">
+          مشاهده جزئیات
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
