@@ -1,116 +1,153 @@
+// src/components/layout/Header.tsx
 'use client'
 
-import React, { useState } from 'react'
-import { PersianButton } from '@/components/ui/PersianButton'
+import Link from 'next/link'
+import { useState } from 'react'
 
-export function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+export default function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="kashi-star-pattern shadow-2xl sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 py-4 md:py-6 relative z-10">
-        <div className="flex justify-between items-center flex-wrap gap-4">
-          {/* Logo & Title */}
-          <div className="flex items-center gap-3">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-yellow-300 to-yellow-600 rounded-2xl flex items-center justify-center shadow-lg border-2 border-yellow-200 glow">
-              <span className="text-3xl md:text-4xl">🇮🇷</span>
-            </div>
-            <div>
-              <h1 className="text-xl md:text-3xl font-black text-yellow-200 drop-shadow-lg">
+    <header className="sticky top-0 z-50 bg-white border-b-4 border-gold shadow-lg">
+      <nav className="max-w-7xl mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          {/* لوگو */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <span className="text-4xl">🏛️</span>
+            <div className="flex flex-col">
+              <span className="text-2xl font-black text-red-900 group-hover:text-red-700 transition">
                 IranTour Guide
-              </h1>
-              <p className="text-xs md:text-sm text-yellow-100/90">
-                راهنمای جامع رویدادهای فرهنگی ایران
-              </p>
+              </span>
+              <span className="text-sm font-bold text-gray-600">
+                راهنمای رویدادهای ایران
+              </span>
             </div>
-          </div>
+          </Link>
 
-          {/* Desktop Menu */}
-          <nav className="hidden lg:flex gap-6 items-center">
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm"
+          {/* منوی دسکتاپ */}
+          <div className="hidden lg:flex items-center gap-6">
+            <Link
+              href="/"
+              className="font-black text-gray-700 hover:text-red-900 transition"
             >
               خانه
-            </a>
-            <a
-              href="#events"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm"
+            </Link>
+            <Link
+              href="/events"
+              className="font-black text-gray-700 hover:text-red-900 transition"
             >
-              رویدادها
-            </a>
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm"
+              🎭 رویدادها
+            </Link>
+            <Link
+              href="/calendar"
+              className="font-black text-gray-700 hover:text-red-900 transition"
             >
-              تقویم
-            </a>
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm"
+              📅 تقویم
+            </Link>
+            <Link
+              href="/map"
+              className="font-black text-gray-700 hover:text-red-900 transition"
             >
-              نقشه
-            </a>
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm"
+              🗺️ نقشه
+            </Link>
+            <Link
+              href="/cities"
+              className="font-black text-gray-700 hover:text-red-900 transition"
             >
-              پیشنهاد هوشمند
-            </a>
-            <PersianButton className="px-6 py-2.5 text-sm">
-              ورود / ثبت‌نام
-            </PersianButton>
-          </nav>
+              🏙️ شهرها
+            </Link>
+            <Link
+              href="/blog"
+              className="font-black text-gray-700 hover:text-red-900 transition"
+            >
+              📰 مجله
+            </Link>
+            <Link
+              href="/about"
+              className="font-black text-gray-700 hover:text-red-900 transition"
+            >
+              درباره ما
+            </Link>
+          </div>
 
-          {/* Mobile Menu Button */}
+          {/* دکمه CTA */}
+          <div className="hidden lg:block">
+            <Link href="/submit-event" className="deep-persian-btn px-6 py-3 font-black">
+              ➕ افزودن رویداد
+            </Link>
+          </div>
+
+          {/* دکمه منوی موبایل */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            type="button"
-            className="lg:hidden deep-persian-btn px-4 py-2 text-sm"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden w-10 h-10 flex items-center justify-center text-red-900 text-2xl font-black"
           >
-            ☰ منو
+            ☰
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden mt-4 flex flex-col gap-3 bg-deep-red/90 p-4 rounded-xl">
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm py-2"
+        {/* منوی موبایل */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden mt-4 py-4 border-t-2 border-gold space-y-3">
+            <Link
+              href="/"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
             >
               خانه
-            </a>
-            <a
-              href="#events"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm py-2"
+            </Link>
+            <Link
+              href="/events"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              رویدادها
-            </a>
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm py-2"
+              🎭 رویدادها
+            </Link>
+            <Link
+              href="/calendar"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              تقویم
-            </a>
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm py-2"
+              📅 تقویم
+            </Link>
+            <Link
+              href="/map"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              نقشه
-            </a>
-            <a
-              href="#"
-              className="text-yellow-100 hover:text-yellow-300 font-bold transition text-sm py-2"
+              🗺️ نقشه
+            </Link>
+            <Link
+              href="/cities"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              پیشنهاد هوشمند
-            </a>
-            <PersianButton className="px-6 py-2.5 text-sm w-full">
-              ورود / ثبت‌نام
-            </PersianButton>
+              🏙️ شهرها
+            </Link>
+            <Link
+              href="/blog"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              📰 مجله
+            </Link>
+            <Link
+              href="/about"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              درباره ما
+            </Link>
+            <Link
+              href="/submit-event"
+              className="block deep-persian-btn px-6 py-3 font-black text-center mt-4"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              ➕ افزودن رویداد
+            </Link>
           </div>
         )}
-      </div>
+      </nav>
     </header>
   )
 }

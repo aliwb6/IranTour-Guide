@@ -1,97 +1,103 @@
-'use client'
+// src/components/layout/Footer.tsx
 
-import React from 'react'
-import { PersianButton } from '@/components/ui/PersianButton'
+import Link from 'next/link'
 
-export function Footer() {
+export default function Footer() {
   return (
-    <footer className="deep-footer text-yellow-100 mt-16 md:mt-24 py-12 md:py-16 relative">
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+    <footer className="bg-red-900 text-yellow-200 py-12 mt-20">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* درباره */}
           <div>
-            <h3 className="text-xl md:text-2xl font-black text-yellow-200 mb-4 md:mb-6">
-              IranTour Guide
+            <h3 className="text-xl font-black mb-4 flex items-center gap-2">
+              🏛️ IranTour Guide
             </h3>
-            <p className="text-sm md:text-base leading-relaxed">
-              پلتفرم جامع رویدادهای فرهنگی، مذهبی، هنری و گردشگری ایران
+            <p className="text-yellow-100 font-bold leading-relaxed">
+              راهنمای جامع رویدادهای فرهنگی، مذهبی، هنری و گردشگری ایران
             </p>
           </div>
+
+          {/* لینک‌های سریع */}
           <div>
-            <h4 className="font-black text-yellow-200 mb-4 md:mb-6 text-base md:text-lg">
-              دسترسی سریع
-            </h4>
-            <ul className="space-y-2 md:space-y-3 text-sm md:text-base">
+            <h3 className="text-lg font-black mb-4">دسترسی سریع</h3>
+            <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-yellow-200 transition">
+                <Link href="/events" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
                   رویدادها
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-200 transition">
+                <Link href="/calendar" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
                   تقویم
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-200 transition">
-                  نقشه
-                </a>
+                <Link href="/cities" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
+                  شهرها
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-200 transition">
-                  افزودن رویداد
-                </a>
+                <Link href="/blog" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
+                  مجله
+                </Link>
               </li>
             </ul>
           </div>
+
+          {/* موضوعات محبوب */}
           <div>
-            <h4 className="font-black text-yellow-200 mb-4 md:mb-6 text-base md:text-lg">
-              درباره ما
-            </h4>
-            <ul className="space-y-2 md:space-y-3 text-sm md:text-base">
+            <h3 className="text-lg font-black mb-4">موضوعات محبوب</h3>
+            <ul className="space-y-2">
               <li>
-                <a href="#" className="hover:text-yellow-200 transition">
+                <Link href="/events?type=ملی" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
+                  رویدادهای ملی
+                </Link>
+              </li>
+              <li>
+                <Link href="/events?type=مذهبی" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
+                  مذهبی
+                </Link>
+              </li>
+              <li>
+                <Link href="/events?type=هنری" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
+                  هنری
+                </Link>
+              </li>
+              <li>
+                <Link href="/events?type=گردشگری" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
+                  گردشگری
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* تماس */}
+          <div>
+            <h3 className="text-lg font-black mb-4">تماس با ما</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="mailto:info@irantour-guide.com" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
+                  📧 info@irantour-guide.com
+                </a>
+              </li>
+              <li>
+                <Link href="/about" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
                   درباره ما
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-200 transition">
+                <Link href="/contact" className="text-yellow-100 hover:text-yellow-50 transition font-bold">
                   تماس با ما
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-yellow-200 transition">
-                  قوانین و مقررات
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-yellow-200 transition">
-                  حریم خصوصی
-                </a>
+                </Link>
               </li>
             </ul>
-          </div>
-          <div>
-            <h4 className="font-black text-yellow-200 mb-4 md:mb-6 text-base md:text-lg">
-              خبرنامه
-            </h4>
-            <p className="text-sm md:text-base mb-4">
-              از آخرین رویدادها باخبر شوید
-            </p>
-            <div className="flex flex-col md:flex-row gap-2 md:gap-3">
-              <input
-                type="email"
-                placeholder="ایمیل شما"
-                className="flex-1 px-4 py-2.5 md:py-3 rounded-xl text-gray-800 font-bold outline-none text-sm md:text-base border-2 border-transparent focus:border-yellow-400 transition"
-              />
-              <PersianButton className="px-5 md:px-6 py-2.5 md:py-3 font-black text-sm md:text-base whitespace-nowrap">
-                ثبت
-              </PersianButton>
-            </div>
           </div>
         </div>
-        <div className="border-t border-yellow-400/30 mt-10 md:mt-12 pt-8 md:pt-10 text-center text-sm md:text-base">
-          <p className="font-bold">
-            © ۱۴۰۴ IranTour Guide - تمامی حقوق محفوظ است 🇮🇷
+
+        {/* کپی‌رایت */}
+        <div className="border-t-2 border-gold mt-8 pt-8 text-center">
+          <p className="text-yellow-100 font-bold">
+            © {new Date().getFullYear()} IranTour Guide. تمامی حقوق محفوظ است.
           </p>
         </div>
       </div>
