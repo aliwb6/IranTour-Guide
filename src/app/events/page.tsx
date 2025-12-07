@@ -74,12 +74,11 @@ export default function EventsPage() {
           </aside>
 
           <main className="lg:col-span-3">
-            {activeFilters.length > 0 && (
-              <div className="mb-6 flex flex-wrap items-center gap-2">
-                {activeFilters.map((filter, index) => (
+               {activeFilters.map((filter, index) => (
                   <span key={index} className="kashi-badge px-4 py-2 text-sm">
                     {filter}
                   </span>
+                ))}
                 ))}
               </div>
             )}
