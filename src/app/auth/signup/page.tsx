@@ -1,12 +1,13 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { User, Mail, Lock, UserPlus, ArrowRight } from 'lucide-react'
+import { User, Mail, Lock, UserPlus, ArrowRight, AlertCircle } from 'lucide-react'
 
 const signupSchema = z.object({
   name: z.string().min(2, 'نام باید حداقل ۲ حرف باشد').max(50, 'نام نباید بیشتر از ۵۰ حرف باشد'),
@@ -21,6 +22,10 @@ const signupSchema = z.object({
 type SignupFormData = z.infer<typeof signupSchema>
 
 export default function SignupPage() {
+  const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -30,9 +35,38 @@ export default function SignupPage() {
   })
 
   const onSubmit = async (data: SignupFormData) => {
-    console.log('Signup data:', data)
-    // TODO: Implement NextAuth signup
-    alert('ثبت‌نام موفقیت‌آمیز بود! (این یک نسخه آزمایشی است)')
+    try {
+      setError(null)
+
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        setError(result.error || 'خطایی در ثبت‌نام رخ داد')
+        return
+      }
+
+      setSuccess(true)
+
+      // Redirect to signin page after 1.5 seconds
+      setTimeout(() => {
+        router.push('/auth/signin?registered=true')
+      }, 1500)
+    } catch (err) {
+      console.error('Signup error:', err)
+      setError('خطایی در ثبت‌نام رخ داد. لطفاً دوباره تلاش کنید')
+    }
   }
 
   return (
@@ -60,6 +94,34 @@ export default function SignupPage() {
 
         {/* Form Card */}
         <div className="kashi-card p-8">
+          {/* Success Message */}
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl flex items-center gap-3"
+            >
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white font-black">
+                ✓
+              </div>
+              <p className="text-green-800 font-bold">
+                ثبت‌نام با موفقیت انجام شد! در حال انتقال به صفحه ورود...
+              </p>
+            </motion.div>
+          )}
+
+          {/* Error Message */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl flex items-center gap-3"
+            >
+              <AlertCircle className="w-6 h-6 text-red-600" />
+              <p className="text-red-800 font-bold">{error}</p>
+            </motion.div>
+          )}
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Name Field */}
             <div>

@@ -1,12 +1,14 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Mail, Lock, LogIn, ArrowRight } from 'lucide-react'
+import { Mail, Lock, LogIn, ArrowRight, AlertCircle } from 'lucide-react'
+import { signIn } from 'next-auth/react'
 
 const signinSchema = z.object({
   email: z.string().email('لطفا یک ایمیل معتبر وارد کنید'),
@@ -15,7 +17,12 @@ const signinSchema = z.object({
 
 type SigninFormData = z.infer<typeof signinSchema>
 
-export default function SigninPage() {
+function SigninContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+
   const {
     register,
     handleSubmit,
@@ -24,10 +31,35 @@ export default function SigninPage() {
     resolver: zodResolver(signinSchema)
   })
 
+  // Check for registration success message
+  useEffect(() => {
+    if (searchParams.get('registered') === 'true') {
+      setSuccess('ثبت‌نام شما با موفقیت انجام شد! حالا می‌توانید وارد شوید')
+    }
+  }, [searchParams])
+
   const onSubmit = async (data: SigninFormData) => {
-    console.log('Signin data:', data)
-    // TODO: Implement NextAuth signin
-    alert('ورود موفقیت‌آمیز بود! (این یک نسخه آزمایشی است)')
+    try {
+      setError(null)
+
+      const result = await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('ایمیل یا رمز عبور اشتباه است')
+        return
+      }
+
+      // Redirect to home page
+      router.push('/')
+      router.refresh()
+    } catch (err) {
+      console.error('Signin error:', err)
+      setError('خطایی در ورود رخ داد. لطفاً دوباره تلاش کنید')
+    }
   }
 
   return (
@@ -55,6 +87,32 @@ export default function SigninPage() {
 
         {/* Form Card */}
         <div className="kashi-card p-8">
+          {/* Success Message */}
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl flex items-center gap-3"
+            >
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white font-black">
+                ✓
+              </div>
+              <p className="text-green-800 font-bold">{success}</p>
+            </motion.div>
+          )}
+
+          {/* Error Message */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl flex items-center gap-3"
+            >
+              <AlertCircle className="w-6 h-6 text-red-600" />
+              <p className="text-red-800 font-bold">{error}</p>
+            </motion.div>
+          )}
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Email Field */}
             <div>
@@ -165,5 +223,20 @@ export default function SigninPage() {
         </motion.div>
       </motion.div>
     </div>
+  )
+}
+
+export default function SigninPage() {
+  return (
+    <React.Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600 font-medium">در حال بارگذاری...</p>
+        </div>
+      </div>
+    }>
+      <SigninContent />
+    </React.Suspense>
   )
 }

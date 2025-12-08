@@ -5,20 +5,14 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { User, LogOut, Settings, Bookmark, ChevronDown } from 'lucide-react'
+import { useSession, signOut } from 'next-auth/react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const { data: session, status } = useSession()
 
-  // Mock user - Replace with NextAuth session
-  const mockUser = {
-    name: 'کاربر نمونه',
-    email: 'user@example.com',
-    image: null
-  }
-
-  // Set to null to test guest UI, or mockUser to test authenticated UI
-  const user = mockUser
+  const user = session?.user
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b-4 border-gold shadow-lg">
@@ -101,9 +95,9 @@ export default function Header() {
                   {/* User Avatar/Initial */}
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-black">
                     {user.image ? (
-                      <img src={user.image} alt={user.name} className="w-full h-full rounded-full object-cover" />
+                      <img src={user.image} alt={user.name || ''} className="w-full h-full rounded-full object-cover" />
                     ) : (
-                      user.name.charAt(0)
+                      user.name?.charAt(0) || 'U'
                     )}
                   </div>
                   <span className="font-bold text-gray-700">{user.name}</span>
@@ -156,8 +150,7 @@ export default function Header() {
                         <button
                           onClick={() => {
                             setUserMenuOpen(false)
-                            // TODO: Implement logout with NextAuth
-                            alert('خروج از حساب کاربری')
+                            signOut({ callbackUrl: '/' })
                           }}
                           className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 transition-colors border-t-2 border-gray-100"
                         >
@@ -270,9 +263,9 @@ export default function Header() {
                 <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-black">
                     {user.image ? (
-                      <img src={user.image} alt={user.name} className="w-full h-full rounded-full object-cover" />
+                      <img src={user.image} alt={user.name || ''} className="w-full h-full rounded-full object-cover" />
                     ) : (
-                      user.name.charAt(0)
+                      user.name?.charAt(0) || 'U'
                     )}
                   </div>
                   <div>
@@ -311,8 +304,7 @@ export default function Header() {
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false)
-                    // TODO: Implement logout with NextAuth
-                    alert('خروج از حساب کاربری')
+                    signOut({ callbackUrl: '/' })
                   }}
                   className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-50 rounded-xl transition-colors"
                 >
