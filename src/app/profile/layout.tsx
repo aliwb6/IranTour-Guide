@@ -1,26 +1,27 @@
 import React from 'react'
+import { redirect } from 'next/navigation'
 import { UserInfoCard } from '@/components/profile/UserInfoCard'
 import { ProfileNavigation } from '@/components/profile/ProfileNavigation'
+import { auth } from '@/lib/auth'
 
-// Mock user data - Replace with real authentication when NextAuth is configured
-const mockUser = {
-  id: 'user-1',
-  name: 'کاربر نمونه',
-  email: 'user@example.com',
-  image: null,
-  createdAt: '2024-03-01T10:00:00.000Z'
-}
-
-export default function ProfileLayout({
+export default async function ProfileLayout({
   children
 }: {
   children: React.ReactNode
 }) {
-  // TODO: Replace with real authentication
-  // const session = await getServerSession(authOptions)
-  // if (!session) {
-  //   redirect('/auth/signin')
-  // }
+  const session = await auth()
+
+  if (!session || !session.user) {
+    redirect('/auth/signin')
+  }
+
+  const user = {
+    id: session.user.id!,
+    name: session.user.name!,
+    email: session.user.email!,
+    image: session.user.image || null,
+    createdAt: new Date().toISOString() // Will be added later
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 py-12">
@@ -28,7 +29,7 @@ export default function ProfileLayout({
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Sidebar - Desktop */}
           <aside className="hidden md:block">
-            <UserInfoCard user={mockUser} />
+            <UserInfoCard user={user} />
             <ProfileNavigation />
           </aside>
 
@@ -40,7 +41,7 @@ export default function ProfileLayout({
 
         {/* Mobile: User Info at Top */}
         <div className="md:hidden mb-6">
-          <UserInfoCard user={mockUser} />
+          <UserInfoCard user={user} />
         </div>
       </div>
     </div>

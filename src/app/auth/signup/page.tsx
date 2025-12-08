@@ -1,0 +1,296 @@
+'use client'
+
+import React, { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { motion } from 'framer-motion'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import { User, Mail, Lock, UserPlus, ArrowRight, AlertCircle } from 'lucide-react'
+
+const signupSchema = z.object({
+  name: z.string().min(2, 'نام باید حداقل ۲ حرف باشد').max(50, 'نام نباید بیشتر از ۵۰ حرف باشد'),
+  email: z.string().email('لطفا یک ایمیل معتبر وارد کنید'),
+  password: z.string().min(8, 'رمز عبور باید حداقل ۸ کاراکتر باشد'),
+  confirmPassword: z.string()
+}).refine(data => data.password === data.confirmPassword, {
+  message: 'رمزهای عبور یکسان نیستند',
+  path: ['confirmPassword']
+})
+
+type SignupFormData = z.infer<typeof signupSchema>
+
+export default function SignupPage() {
+  const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting }
+  } = useForm<SignupFormData>({
+    resolver: zodResolver(signupSchema)
+  })
+
+  const onSubmit = async (data: SignupFormData) => {
+    try {
+      setError(null)
+
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        setError(result.error || 'خطایی در ثبت‌نام رخ داد')
+        return
+      }
+
+      setSuccess(true)
+
+      // Redirect to signin page after 1.5 seconds
+      setTimeout(() => {
+        router.push('/auth/signin?registered=true')
+      }, 1500)
+    } catch (err) {
+      console.error('Signup error:', err)
+      setError('خطایی در ثبت‌نام رخ داد. لطفاً دوباره تلاش کنید')
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 flex items-center justify-center py-12 px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        {/* Header */}
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-flex items-center gap-2 text-red-900 hover:text-red-700 transition mb-6">
+            <ArrowRight className="w-5 h-5" />
+            <span className="font-bold">بازگشت به صفحه اصلی</span>
+          </Link>
+
+          <h1 className="text-4xl font-black text-red-900 mb-2">
+            ثبت‌نام در IranTour Guide
+          </h1>
+          <p className="text-gray-600 font-medium">
+            به جامعه گردشگران ایران بپیوندید
+          </p>
+        </div>
+
+        {/* Form Card */}
+        <div className="kashi-card p-8">
+          {/* Success Message */}
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-xl flex items-center gap-3"
+            >
+              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white font-black">
+                ✓
+              </div>
+              <p className="text-green-800 font-bold">
+                ثبت‌نام با موفقیت انجام شد! در حال انتقال به صفحه ورود...
+              </p>
+            </motion.div>
+          )}
+
+          {/* Error Message */}
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl flex items-center gap-3"
+            >
+              <AlertCircle className="w-6 h-6 text-red-600" />
+              <p className="text-red-800 font-bold">{error}</p>
+            </motion.div>
+          )}
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {/* Name Field */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">
+                نام و نام خانوادگی *
+              </label>
+              <div className="relative">
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <User className="w-5 h-5" />
+                </div>
+                <input
+                  type="text"
+                  {...register('name')}
+                  placeholder="علی احمدی"
+                  className="w-full pr-12 pl-4 py-3 rounded-xl border-2 border-gray-300 focus:border-gold outline-none font-medium transition-colors"
+                />
+              </div>
+              {errors.name && (
+                <p className="mt-2 text-sm text-red-600 font-medium">
+                  {errors.name.message}
+                </p>
+              )}
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">
+                ایمیل *
+              </label>
+              <div className="relative">
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <input
+                  type="email"
+                  {...register('email')}
+                  placeholder="example@email.com"
+                  className="w-full pr-12 pl-4 py-3 rounded-xl border-2 border-gray-300 focus:border-gold outline-none font-medium transition-colors"
+                />
+              </div>
+              {errors.email && (
+                <p className="mt-2 text-sm text-red-600 font-medium">
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+
+            {/* Password Field */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">
+                رمز عبور *
+              </label>
+              <div className="relative">
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <Lock className="w-5 h-5" />
+                </div>
+                <input
+                  type="password"
+                  {...register('password')}
+                  placeholder="••••••••"
+                  className="w-full pr-12 pl-4 py-3 rounded-xl border-2 border-gray-300 focus:border-gold outline-none font-medium transition-colors"
+                />
+              </div>
+              {errors.password && (
+                <p className="mt-2 text-sm text-red-600 font-medium">
+                  {errors.password.message}
+                </p>
+              )}
+              <p className="mt-2 text-xs text-gray-500 font-medium">
+                حداقل ۸ کاراکتر
+              </p>
+            </div>
+
+            {/* Confirm Password Field */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">
+                تکرار رمز عبور *
+              </label>
+              <div className="relative">
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  <Lock className="w-5 h-5" />
+                </div>
+                <input
+                  type="password"
+                  {...register('confirmPassword')}
+                  placeholder="••••••••"
+                  className="w-full pr-12 pl-4 py-3 rounded-xl border-2 border-gray-300 focus:border-gold outline-none font-medium transition-colors"
+                />
+              </div>
+              {errors.confirmPassword && (
+                <p className="mt-2 text-sm text-red-600 font-medium">
+                  {errors.confirmPassword.message}
+                </p>
+              )}
+            </div>
+
+            {/* Terms Checkbox */}
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="terms"
+                required
+                className="mt-1 w-5 h-5 rounded border-2 border-gray-300 text-purple-600 focus:ring-gold"
+              />
+              <label htmlFor="terms" className="text-sm text-gray-600 font-medium">
+                با{' '}
+                <Link href="/terms" className="text-purple-600 hover:text-purple-700 font-bold">
+                  قوانین و مقررات
+                </Link>
+                {' '}و{' '}
+                <Link href="/privacy" className="text-purple-600 hover:text-purple-700 font-bold">
+                  حریم خصوصی
+                </Link>
+                {' '}موافقم
+              </label>
+            </div>
+
+            {/* Submit Button */}
+            <motion.button
+              type="submit"
+              disabled={isSubmitting}
+              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+              className="w-full deep-persian-btn px-8 py-4 font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <UserPlus className="w-5 h-5" />
+              {isSubmitting ? 'در حال ثبت‌نام...' : 'ثبت‌نام'}
+            </motion.button>
+          </form>
+
+          {/* Divider */}
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t-2 border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 bg-white text-gray-500 font-bold">یا</span>
+            </div>
+          </div>
+
+          {/* Signin Link */}
+          <div className="text-center">
+            <p className="text-gray-600 font-medium mb-4">
+              قبلاً ثبت‌نام کرده‌اید؟
+            </p>
+            <Link href="/auth/signin">
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full px-8 py-3 rounded-xl border-2 border-gray-300 text-gray-700 font-bold hover:border-gold hover:text-gold transition-colors"
+              >
+                ورود به حساب کاربری
+              </motion.button>
+            </Link>
+          </div>
+        </div>
+
+        {/* Info Notice */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="mt-6 p-4 bg-blue-50 border-2 border-blue-200 rounded-xl"
+        >
+          <p className="text-sm text-blue-800 font-medium text-center">
+            🔒 اطلاعات شما با رمزنگاری امن محافظت می‌شود
+          </p>
+        </motion.div>
+      </motion.div>
+    </div>
+  )
+}

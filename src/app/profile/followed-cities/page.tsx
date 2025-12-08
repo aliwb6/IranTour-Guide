@@ -7,6 +7,29 @@ import { motion } from 'framer-motion'
 import { MapPin, X, Plus, Calendar } from 'lucide-react'
 import { EmptyState } from '@/components/profile/EmptyState'
 
+interface ImageWithFallbackProps {
+  cityId: string
+  src: string
+  alt: string
+  className?: string
+}
+
+const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({ cityId, src, alt, className }) => {
+  const [imageError, setImageError] = useState(false)
+  const fallbackImage = 'https://via.placeholder.com/800x600/D4AF37/FFFFFF?text=' + encodeURIComponent(alt)
+
+  return (
+    <Image
+      src={imageError ? fallbackImage : src}
+      alt={alt}
+      fill
+      className={className}
+      onError={() => setImageError(true)}
+      unoptimized
+    />
+  )
+}
+
 interface City {
   id: string
   name: string
@@ -107,11 +130,11 @@ export default function FollowedCitiesPage() {
             </motion.button>
 
             {/* City Image */}
-            <div className="relative h-48">
-              <Image
+            <div className="relative h-48 bg-gray-200">
+              <ImageWithFallback
+                cityId={city.id}
                 src={city.image}
                 alt={city.name}
-                fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />

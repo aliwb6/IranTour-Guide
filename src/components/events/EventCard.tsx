@@ -2,6 +2,8 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
+import { useState } from 'react'
 import type { Event } from '@/lib/mock-data/events'
 
 interface EventCardProps {
@@ -9,13 +11,21 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event }: EventCardProps) {
+  const [imageError, setImageError] = useState(false)
+
+  // Fallback placeholder image
+  const fallbackImage = 'https://via.placeholder.com/800x600/D4AF37/FFFFFF?text=IranTour+Guide'
+
   return (
     <Link href={`/events/${event.slug}`} className="kashi-card block group overflow-hidden">
-      <div className="relative h-52 md:h-64 overflow-hidden">
-        <img
-          src={event.image}
+      <div className="relative h-52 md:h-64 overflow-hidden bg-gray-200">
+        <Image
+          src={imageError ? fallbackImage : event.image}
           alt={event.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+          fill
+          className="object-cover group-hover:scale-110 transition duration-500"
+          onError={() => setImageError(true)}
+          unoptimized
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
