@@ -5,6 +5,9 @@ import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import SessionProvider from '@/components/providers/SessionProvider'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 // const vazirmatn = Vazirmatn({
 //   subsets: ['arabic'],
