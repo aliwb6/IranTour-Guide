@@ -4,6 +4,10 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import './globals.css'
 
 // const vazirmatn = Vazirmatn({
 //   subsets: ['arabic'],
