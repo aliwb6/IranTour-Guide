@@ -13,8 +13,7 @@ export const organizationSchema = z.object({
     'PRIVATE',
     'OTHER'
   ], {
-    required_error: 'نوع سازمان الزامی است',
-    invalid_type_error: 'نوع سازمان نامعتبر است'
+    message: 'نوع سازمان نامعتبر است'
   }),
   description: z.string().max(1000, 'توضیحات نباید بیشتر از ۱۰۰۰ کاراکتر باشد').optional(),
   website: z.string().url('آدرس وب‌سایت نامعتبر است').optional().or(z.literal('')),

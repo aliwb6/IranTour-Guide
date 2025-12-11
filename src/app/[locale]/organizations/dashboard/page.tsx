@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation'
 import { KPICard } from '@/components/dashboard/KPICard'
 import { QuickActions } from '@/components/dashboard/QuickActions'
 import { RecentActivity, Activity } from '@/components/dashboard/RecentActivity'
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 import moment from 'moment-jalaali'
 
 async function getDashboardData(organizationId: string) {
@@ -75,12 +75,13 @@ const statusColors = {
 export default async function DashboardPage({
   params
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
   const session = await auth()
 
   if (!session || !session.user) {
-    redirect(`/${params.locale}/auth/signin`)
+    redirect(`/${locale}/auth/signin`)
   }
 
   const organization = await prisma.organization.findUnique({
@@ -88,7 +89,7 @@ export default async function DashboardPage({
   })
 
   if (!organization) {
-    redirect(`/${params.locale}`)
+    redirect(`/${locale}`)
   }
 
   const dashboardData = await getDashboardData(organization.id)
@@ -96,19 +97,19 @@ export default async function DashboardPage({
   const quickActions = [
     {
       label: 'افزودن رویداد جدید',
-      href: `/${params.locale}/organizations/dashboard/add-event`,
+      href: `/${locale}/organizations/dashboard/add-event`,
       icon: Plus,
       color: 'primary' as const
     },
     {
       label: 'مشاهده آمار کامل',
-      href: `/${params.locale}/organizations/dashboard/analytics`,
+      href: `/${locale}/organizations/dashboard/analytics`,
       icon: BarChart3,
       color: 'secondary' as const
     },
     {
       label: 'ویرایش پروفایل',
-      href: `/${params.locale}/organizations/dashboard/profile`,
+      href: `/${locale}/organizations/dashboard/profile`,
       icon: Edit,
       color: 'accent' as const
     }
@@ -167,7 +168,7 @@ export default async function DashboardPage({
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-bold text-gray-900">رویدادهای اخیر</h2>
             <Link
-              href={`/${params.locale}/organizations/dashboard/events`}
+              href={`/${locale}/organizations/dashboard/events`}
               className="text-sm text-[#A01C1C] hover:underline"
             >
               مشاهده همه
@@ -200,7 +201,7 @@ export default async function DashboardPage({
               <div className="p-8 text-center text-gray-500">
                 <p>هنوز رویدادی ثبت نکرده‌اید</p>
                 <Link
-                  href={`/${params.locale}/organizations/dashboard/add-event`}
+                  href={`/${locale}/organizations/dashboard/add-event`}
                   className="inline-block mt-4 px-6 py-2 bg-[#A01C1C] text-white rounded-lg hover:bg-[#7a1515] transition-colors"
                 >
                   افزودن اولین رویداد
