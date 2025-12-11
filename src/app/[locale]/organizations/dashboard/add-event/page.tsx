@@ -6,12 +6,13 @@ import { prisma } from '@/lib/prisma'
 export default async function AddEventPage({
   params
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
   const session = await auth()
 
   if (!session || !session.user) {
-    redirect(`/${params.locale}/auth/signin`)
+    redirect(`/${locale}/auth/signin`)
   }
 
   const organization = await prisma.organization.findUnique({
@@ -19,7 +20,7 @@ export default async function AddEventPage({
   })
 
   if (!organization) {
-    redirect(`/${params.locale}`)
+    redirect(`/${locale}`)
   }
 
   return (

@@ -12,18 +12,19 @@ export default async function DashboardLayout({
   params
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
   const session = await auth()
 
   // Check if user is authenticated
   if (!session || !session.user) {
-    redirect(`/${params.locale}/auth/signin`)
+    redirect(`/${locale}/auth/signin`)
   }
 
   // Check if user is organizer or admin
   if (session.user.role !== 'ORGANIZER' && session.user.role !== 'ADMIN') {
-    redirect(`/${params.locale}`)
+    redirect(`/${locale}`)
   }
 
   // Get organization data
@@ -42,7 +43,7 @@ export default async function DashboardLayout({
             برای دسترسی به داشبورد، ابتدا باید اطلاعات سازمان خود را تکمیل کنید.
           </p>
           <Link
-            href={`/${params.locale}`}
+            href={`/${locale}`}
             className="inline-block px-6 py-3 bg-[#A01C1C] text-white rounded-lg hover:bg-[#7a1515] transition-colors"
           >
             بازگشت به صفحه اصلی
@@ -88,7 +89,7 @@ export default async function DashboardLayout({
             {/* Actions */}
             <div className="flex items-center gap-4">
               <Link
-                href={`/${params.locale}`}
+                href={`/${locale}`}
                 className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <Home className="w-4 h-4" />
@@ -105,7 +106,7 @@ export default async function DashboardLayout({
           {/* Sidebar - Desktop */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
             <div className="bg-white rounded-xl shadow-md p-6 sticky top-24">
-              <DashboardSidebar />
+              <DashboardSidebar locale={locale} />
             </div>
           </aside>
 
@@ -121,7 +122,7 @@ export default async function DashboardLayout({
         <div className="grid grid-cols-5 gap-1 p-2">
           {/* Mobile nav items would go here - simplified for now */}
           <Link
-            href={`/${params.locale}/organizations/dashboard`}
+            href={`/${locale}/organizations/dashboard`}
             className="flex flex-col items-center justify-center p-2 text-xs text-gray-600 hover:text-[#A01C1C]"
           >
             <Menu className="w-5 h-5 mb-1" />

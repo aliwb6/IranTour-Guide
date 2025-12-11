@@ -40,31 +40,35 @@ const defaultNavItems: NavItem[] = [
 ]
 
 interface DashboardSidebarProps {
+  locale: string
   navItems?: NavItem[]
 }
 
 export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
+  locale,
   navItems = defaultNavItems
 }) => {
   const pathname = usePathname()
 
   const isActive = (href: string) => {
+    const fullHref = `/${locale}${href}`
     if (href === '/organizations/dashboard') {
-      return pathname === href
+      return pathname === fullHref
     }
-    return pathname?.startsWith(href)
+    return pathname?.startsWith(fullHref)
   }
 
   return (
     <nav className="space-y-2">
       {navItems.map((item) => {
         const Icon = item.icon
+        const fullHref = `/${locale}${item.href}`
         const active = isActive(item.href)
 
         return (
           <Link
             key={item.href}
-            href={item.href}
+            href={fullHref}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
               active
                 ? 'bg-gradient-to-r from-[#A01C1C] to-[#7a1515] text-white shadow-md'

@@ -5,9 +5,10 @@ import { prisma } from '@/lib/prisma'
 // GET - Get single event
 export async function GET(
   req: NextRequest,
-  { params }: { params: { eventId: string } }
+  { params }: { params: Promise<{ eventId: string }> }
 ) {
   try {
+    const { eventId } = await params
     const session = await auth()
 
     if (!session || !session.user) {
@@ -24,7 +25,7 @@ export async function GET(
 
     const event = await prisma.event.findFirst({
       where: {
-        id: params.eventId,
+        id: eventId,
         organizationId: organization.id
       },
       include: {
@@ -51,9 +52,10 @@ export async function GET(
 // PUT - Update event
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { eventId: string } }
+  { params }: { params: Promise<{ eventId: string }> }
 ) {
   try {
+    const { eventId } = await params
     const session = await auth()
 
     if (!session || !session.user) {
@@ -71,7 +73,7 @@ export async function PUT(
     // Verify event belongs to this organization
     const existingEvent = await prisma.event.findFirst({
       where: {
-        id: params.eventId,
+        id: eventId,
         organizationId: organization.id
       }
     })
@@ -84,7 +86,7 @@ export async function PUT(
 
     // Update event
     const event = await prisma.event.update({
-      where: { id: params.eventId },
+      where: { id: eventId },
       data: {
         ...body,
         // Reset to pending if content changed
@@ -105,9 +107,10 @@ export async function PUT(
 // DELETE - Delete event
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { eventId: string } }
+  { params }: { params: Promise<{ eventId: string }> }
 ) {
   try {
+    const { eventId } = await params
     const session = await auth()
 
     if (!session || !session.user) {
@@ -125,7 +128,7 @@ export async function DELETE(
     // Verify event belongs to this organization
     const existingEvent = await prisma.event.findFirst({
       where: {
-        id: params.eventId,
+        id: eventId,
         organizationId: organization.id
       }
     })
@@ -136,7 +139,7 @@ export async function DELETE(
 
     // Delete event
     await prisma.event.delete({
-      where: { id: params.eventId }
+      where: { id: eventId }
     })
 
     return NextResponse.json({ message: 'Event deleted successfully' })

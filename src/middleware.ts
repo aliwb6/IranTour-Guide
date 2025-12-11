@@ -9,6 +9,8 @@ export const config = {
     '/auth/signin',
     '/auth/signup',
     '/:locale/organizations/dashboard/:path*',
-    '/organizations/dashboard/:path*'
+    '/organizations/dashboard/:path*',
+    '/:locale/admin/dashboard/:path*',
+    '/admin/dashboard/:path*'
   ]
 }

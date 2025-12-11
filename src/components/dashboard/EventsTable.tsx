@@ -16,7 +16,7 @@ import {
 } from '@tanstack/react-table'
 import { Eye, Edit, Trash2, ChevronRight, ChevronLeft } from 'lucide-react'
 import moment from 'moment-jalaali'
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 
 export interface EventRow {
   id: string
