@@ -15,6 +15,17 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user
       const isProfilePage = nextUrl.pathname.startsWith('/profile')
       const isAuthPage = nextUrl.pathname.startsWith('/auth')
+      const isDashboardPage = nextUrl.pathname.includes('/organizations/dashboard')
+
+      // Check organization dashboard access
+      if (isDashboardPage) {
+        if (!isLoggedIn) return false
+        const userRole = (auth?.user as any)?.role
+        if (userRole !== 'ORGANIZER' && userRole !== 'ADMIN') {
+          return false
+        }
+        return true
+      }
 
       if (isProfilePage) {
         if (isLoggedIn) return true
@@ -30,12 +41,14 @@ export const authConfig = {
     jwt({ token, user }) {
       if (user) {
         token.id = user.id
+        token.role = user.role
       }
       return token
     },
     session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string
+        session.user.role = token.role as string
       }
       return session
     }

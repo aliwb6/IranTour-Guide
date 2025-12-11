@@ -10,7 +10,12 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string
+      role: string
     } & DefaultSession["user"]
+  }
+
+  interface User {
+    role: string
   }
 }
 
@@ -52,7 +57,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           id: user.id,
           email: user.email,
           name: user.name,
-          image: user.image
+          image: user.image,
+          role: user.role
         }
       }
     })

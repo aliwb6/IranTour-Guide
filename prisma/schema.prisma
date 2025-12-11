@@ -10,6 +10,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// Enums
+enum UserRole {
+  USER
+  ORGANIZER
+  ADMIN
+}
+
+enum EventStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum OrganizationType {
+  MUSEUM
+  UNIVERSITY
+  NGO
+  CULTURAL_CENTER
+  TOUR_COMPANY
+  LOCAL_ORGANIZATION
+  GOVERNMENT
+  PRIVATE
+  OTHER
+}
+
 // User model
 model User {
   id            String    @id @default(cuid())
@@ -18,15 +43,17 @@ model User {
   password      String
   image         String?
   bio           String?
+  role          UserRole  @default(USER)
   emailVerified DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
-  accounts      Account[]
-  sessions      Session[]
-  savedEvents   SavedEvent[]
+  accounts       Account[]
+  sessions       Session[]
+  savedEvents    SavedEvent[]
   followedTopics FollowedTopic[]
   followedCities FollowedCity[]
+  organization   Organization?
 }
 
 // NextAuth Account model
@@ -103,4 +130,122 @@ model FollowedCity {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, citySlug])
+}
+
+// Organization model
+model Organization {
+  id          String            @id @default(cuid())
+  userId      String            @unique
+  name        String
+  type        OrganizationType
+  description String?
+  logo        String?
+  website     String?
+  email       String?
+  phone       String?
+  address     String?
+  instagram   String?
+  telegram    String?
+  twitter     String?
+  facebook    String?
+  linkedin    String?
+  isVerified  Boolean           @default(false)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  events Event[]
+}
+
+// Category model
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  events EventOnCategory[]
+}
+
+// Event model
+model Event {
+  id                   String       @id @default(cuid())
+  title                String
+  slug                 String       @unique
+  style                String
+  type                 String
+  fixedOrVariable      String
+  country              String       @default("Iran")
+  city                 String
+  venue                String
+  address              String?
+  latitude             Float?
+  longitude            Float?
+  dateRangeText        String
+  startDate            DateTime
+  endDate              DateTime
+  registrationDeadline DateTime?
+  durationText         String?
+  shortDescription     String
+  description          String
+  opportunities        String?
+  challenges           String?
+  featuredImage        String?
+  images               String[]
+  videoUrl             String?
+  organizerName        String?
+  organizerEmail       String?
+  organizerPhone       String?
+  website              String?
+  registrationUrl      String?
+  status               EventStatus  @default(PENDING)
+  approvedAt           DateTime?
+  rejectedReason       String?
+  metaTitle            String?
+  metaDescription      String?
+  keywords             String[]
+  viewCount            Int          @default(0)
+  saveCount            Int          @default(0)
+  shareCount           Int          @default(0)
+  organizationId       String?
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+  publishedAt          DateTime?
+
+  organization Organization?      @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  categories   EventOnCategory[]
+  analytics    Analytics[]
+
+  @@index([city])
+  @@index([status])
+  @@index([organizationId])
+  @@index([startDate])
+}
+
+// EventOnCategory junction table
+model EventOnCategory {
+  id         String   @id @default(cuid())
+  eventId    String
+  categoryId String
+  createdAt  DateTime @default(now())
+
+  event    Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([eventId, categoryId])
+}
+
+// Analytics model
+model Analytics {
+  id        String   @id @default(cuid())
+  eventId   String
+  action    String   // "view", "save", "share"
+  createdAt DateTime @default(now())
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([action])
+  @@index([createdAt])
 }
