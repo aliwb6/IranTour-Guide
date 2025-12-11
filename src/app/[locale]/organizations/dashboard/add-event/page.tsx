@@ -6,8 +6,9 @@ import { prisma } from '@/lib/prisma'
 export default async function AddEventPage({
   params
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params
   const session = await auth()
 
   if (!session || !session.user) {
