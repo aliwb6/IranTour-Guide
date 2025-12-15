@@ -35,6 +35,32 @@ enum OrganizationType {
   OTHER
 }
 
+enum EventStyle {
+  EXHIBITION
+  FESTIVAL
+  CONFERENCE
+  RELIGIOUS
+  TOURISM
+  SPORTS
+  EDUCATIONAL
+  OTHER
+}
+
+enum EventType {
+  NATIONAL
+  RELIGIOUS
+  ECONOMIC
+  ARTISTIC
+  SCIENTIFIC
+  TOURISM
+  SPORTS
+}
+
+enum FixedVariable {
+  FIXED
+  VARIABLE
+}
+
 enum BookingStatus {
   PENDING
   CONFIRMED
@@ -47,6 +73,7 @@ enum PaymentStatus {
   PENDING
   PROCESSING
   COMPLETED
+  PAID
   FAILED
   REFUNDED
 }
@@ -200,13 +227,13 @@ model Category {
 
 // Event model
 model Event {
-  id                   String       @id @default(cuid())
+  id                   String        @id @default(cuid())
   title                String
-  slug                 String       @unique
-  style                String
-  type                 String
-  fixedOrVariable      String
-  country              String       @default("Iran")
+  slug                 String        @unique
+  style                EventStyle
+  type                 EventType
+  fixedOrVariable      FixedVariable
+  country              String        @default("Iran")
   city                 String
   venue                String
   address              String?
@@ -217,30 +244,51 @@ model Event {
   endDate              DateTime
   registrationDeadline DateTime?
   durationText         String?
+
+  // Pricing & Capacity
+  basePrice            Float?
+  currency             String        @default("IRR")
+  maxCapacity          Int?
+  availableSpots       Int?
+  isBookable           Boolean       @default(true)
+
+  // Content
   shortDescription     String
   description          String
   opportunities        String?
   challenges           String?
+
+  // Media
   featuredImage        String?
   images               String[]
   videoUrl             String?
+
+  // Contact
   organizerName        String?
   organizerEmail       String?
   organizerPhone       String?
   website              String?
   registrationUrl      String?
-  status               EventStatus  @default(PENDING)
+
+  // Status
+  status               EventStatus   @default(PENDING)
   approvedAt           DateTime?
   rejectedReason       String?
+
+  // SEO
   metaTitle            String?
   metaDescription      String?
   keywords             String[]
-  viewCount            Int          @default(0)
-  saveCount            Int          @default(0)
-  shareCount           Int          @default(0)
+
+  // Analytics
+  viewCount            Int           @default(0)
+  saveCount            Int           @default(0)
+  shareCount           Int           @default(0)
+  bookingCount         Int           @default(0)
+
   organizationId       String?
-  createdAt            DateTime     @default(now())
-  updatedAt            DateTime     @updatedAt
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
   publishedAt          DateTime?
 
   organization Organization?      @relation(fields: [organizationId], references: [id], onDelete: SetNull)
@@ -250,6 +298,7 @@ model Event {
   reviews      Review[]
 
   @@index([city])
+  @@index([type])
   @@index([status])
   @@index([organizationId])
   @@index([startDate])

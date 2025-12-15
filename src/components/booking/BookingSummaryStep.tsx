@@ -203,13 +203,13 @@ export default function BookingSummaryStep({
             <span className="text-sm font-medium text-gray-700">جمع جزء:</span>
           </div>
 
-          {formData.discount > 0 && (
+          {(formData.discount || 0) > 0 && (
             <div className="flex items-center justify-between pb-3 border-b border-gray-300">
               <span className="text-red-600">
                 -{formatPrice(totals.discountAmount)} تومان
               </span>
               <span className="text-sm text-gray-600">
-                تخفیف ({formData.discount}%)
+                تخفیف ({formData.discount || 0}%)
               </span>
             </div>
           )}
