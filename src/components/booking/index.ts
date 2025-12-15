@@ -1,4 +1,4 @@
-export { default as BookingForm } from './BookingForm';
+export { BookingForm } from './BookingForm';
 export { default as BookingContactStep } from './BookingContactStep';
 export { default as BookingParticipantsStep } from './BookingParticipantsStep';
 export { default as BookingSummaryStep } from './BookingSummaryStep';
