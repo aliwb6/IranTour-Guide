@@ -159,9 +159,12 @@ model SavedEvent {
   eventSlug String
   savedAt   DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@unique([userId, eventSlug])
+  @@index([userId])
+  @@index([eventId])
 }
 
 // Followed Topics
@@ -296,6 +299,7 @@ model Event {
   analytics    Analytics[]
   bookings     Booking[]
   reviews      Review[]
+  savedBy      SavedEvent[]
 
   @@index([city])
   @@index([type])
