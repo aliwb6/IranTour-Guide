@@ -48,9 +48,7 @@ export default async function CityDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-black text-yellow-200 mb-4">
-              {city.name}
-            </h1>
+            <h1 className="text-5xl md:text-7xl font-black text-yellow-200 mb-4">{city.name}</h1>
             <p className="text-xl text-yellow-100 font-bold">{city.province}</p>
           </div>
         </div>
@@ -66,9 +64,7 @@ export default async function CityDetailPage({ params }: PageProps) {
               <h2 className="text-2xl md:text-3xl font-black text-red-900 mb-6">
                 📝 درباره {city.name}
               </h2>
-              <p className="text-gray-700 leading-relaxed font-bold text-lg">
-                {city.description}
-              </p>
+              <p className="text-gray-700 leading-relaxed font-bold text-lg">{city.description}</p>
             </section>
 
             {/* جاذبه‌های گردشگری */}
@@ -117,9 +113,7 @@ export default async function CityDetailPage({ params }: PageProps) {
             <div className="sticky top-4 space-y-6">
               {/* اطلاعات کلیدی */}
               <div className="kashi-card p-6">
-                <h3 className="text-xl font-black text-red-900 mb-6">
-                  اطلاعات کلیدی
-                </h3>
+                <h3 className="text-xl font-black text-red-900 mb-6">اطلاعات کلیدی</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="text-sm text-gray-600 mb-1 font-bold">👥 جمعیت</p>

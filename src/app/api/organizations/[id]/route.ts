@@ -15,10 +15,7 @@ const organizationSchema = z.object({
   twitter: z.string().optional(),
 })
 
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
     const session = await auth()
@@ -29,7 +26,7 @@ export async function PUT(
 
     // Verify ownership
     const org = await prisma.organization.findUnique({
-      where: { id, userId: session.user.id }
+      where: { id, userId: session.user.id },
     })
 
     if (!org && session.user.role !== 'ADMIN') {
@@ -41,7 +38,7 @@ export async function PUT(
 
     const updated = await prisma.organization.update({
       where: { id },
-      data: validated
+      data: validated,
     })
 
     return NextResponse.json(updated)
@@ -53,9 +50,6 @@ export async function PUT(
       )
     }
 
-    return NextResponse.json(
-      { error: 'Failed to update organization' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Failed to update organization' }, { status: 500 })
   }
 }

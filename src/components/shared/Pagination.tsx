@@ -7,11 +7,7 @@ interface PaginationProps {
   onPageChange: (page: number) => void
 }
 
-export default function Pagination({
-  currentPage,
-  totalPages,
-  onPageChange,
-}: PaginationProps) {
+export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
   const handlePageChange = (page: number) => {
     onPageChange(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -58,25 +54,24 @@ export default function Pagination({
       </button>
 
       {getPageNumbers().map((page, index) =>
-  page === '...' ? (
-    <span key={`ellipsis-${index}`} className="px-2 text-red-900 font-black">
-      ...
-    </span>
-  ) : (
-    <button
-      key={page}
-      onClick={() => handlePageChange(page as number)}
-      className={`w-10 h-10 rounded-lg font-black transition ${
-        currentPage === page
-          ? 'bg-red-900 text-yellow-200 border-2 border-red-900'
-          : 'border-2 border-red-900 text-red-900 hover:bg-red-900 hover:text-yellow-200'
-      }`}
-    >
-      {page}
-    </button>
-  )
-)}
-
+        page === '...' ? (
+          <span key={`ellipsis-${index}`} className="px-2 text-red-900 font-black">
+            ...
+          </span>
+        ) : (
+          <button
+            key={page}
+            onClick={() => handlePageChange(page as number)}
+            className={`w-10 h-10 rounded-lg font-black transition ${
+              currentPage === page
+                ? 'bg-red-900 text-yellow-200 border-2 border-red-900'
+                : 'border-2 border-red-900 text-red-900 hover:bg-red-900 hover:text-yellow-200'
+            }`}
+          >
+            {page}
+          </button>
+        )
+      )}
 
       <button
         onClick={() => handlePageChange(currentPage + 1)}

@@ -25,9 +25,9 @@ export default function AboutPage() {
             🎯 ماموریت ما
           </h2>
           <p className="text-lg text-gray-700 leading-relaxed font-bold text-center max-w-3xl mx-auto">
-            هدف ما معرفی و ترویج فرهنگ غنی ایران از طریق ارائه اطلاعات جامع و به‌روز
-            درباره رویدادهای فرهنگی، هنری، مذهبی و گردشگری در سراسر کشور است. ما می‌خواهیم
-            پلی باشیم بین گردشگران و میراث فرهنگی ایران.
+            هدف ما معرفی و ترویج فرهنگ غنی ایران از طریق ارائه اطلاعات جامع و به‌روز درباره رویدادهای
+            فرهنگی، هنری، مذهبی و گردشگری در سراسر کشور است. ما می‌خواهیم پلی باشیم بین گردشگران و
+            میراث فرهنگی ایران.
           </p>
         </section>
 
@@ -91,9 +91,7 @@ export default function AboutPage() {
               { number: '10k+', label: 'بازدید ماهانه' },
             ].map((stat, index) => (
               <div key={index} className="text-center">
-                <p className="text-4xl md:text-5xl font-black text-red-900 mb-2">
-                  {stat.number}
-                </p>
+                <p className="text-4xl md:text-5xl font-black text-red-900 mb-2">{stat.number}</p>
                 <p className="text-gray-700 font-bold">{stat.label}</p>
               </div>
             ))}
@@ -102,9 +100,7 @@ export default function AboutPage() {
 
         {/* تماس */}
         <section className="text-center kashi-card p-8 md:p-12">
-          <h2 className="text-3xl font-black text-red-900 mb-6">
-            📞 با ما در تماس باشید
-          </h2>
+          <h2 className="text-3xl font-black text-red-900 mb-6">📞 با ما در تماس باشید</h2>
           <p className="text-lg text-gray-700 font-bold mb-8">
             سوال، پیشنهاد یا انتقاد دارید؟ دوست داریم از شما بشنویم!
           </p>

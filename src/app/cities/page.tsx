@@ -16,9 +16,7 @@ export default function CitiesPage() {
       {/* Hero Section */}
       <section className="kashi-star-pattern py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-4">
-            🏙️ شهرهای ایران
-          </h1>
+          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-4">🏙️ شهرهای ایران</h1>
           <p className="text-lg md:text-xl text-gray-700 font-bold max-w-2xl mx-auto">
             کشف فرهنگ، تاریخ و جاذبه‌های گردشگری شهرهای زیبای ایران
           </p>
@@ -44,9 +42,7 @@ export default function CitiesPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute bottom-4 right-4">
-                    <h2 className="text-3xl font-black text-yellow-200 mb-1">
-                      {city.name}
-                    </h2>
+                    <h2 className="text-3xl font-black text-yellow-200 mb-1">{city.name}</h2>
                     <p className="text-yellow-100 font-bold">{city.province}</p>
                   </div>
                 </div>
@@ -60,15 +56,11 @@ export default function CitiesPage() {
                   {/* آمار */}
                   <div className="flex items-center justify-between text-sm border-t-2 border-gold pt-4">
                     <div className="text-center">
-                      <p className="text-2xl font-black text-red-900">
-                        {city.eventCount}
-                      </p>
+                      <p className="text-2xl font-black text-red-900">{city.eventCount}</p>
                       <p className="text-gray-600 font-bold">رویداد</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-2xl font-black text-red-900">
-                        {city.attractions.length}
-                      </p>
+                      <p className="text-2xl font-black text-red-900">{city.attractions.length}</p>
                       <p className="text-gray-600 font-bold">جاذبه</p>
                     </div>
                     <div className="text-center">

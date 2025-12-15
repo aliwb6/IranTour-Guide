@@ -5,9 +5,9 @@ import { motion } from 'framer-motion'
 import { Mail, Check, AlertCircle } from 'lucide-react'
 
 const benefits = [
-  "دریافت رویدادهای جدید هر هفته",
-  "پیشنهادهای ویژه گردشگری",
-  "اطلاع از جشنواره‌های مهم"
+  'دریافت رویدادهای جدید هر هفته',
+  'پیشنهادهای ویژه گردشگری',
+  'اطلاع از جشنواره‌های مهم',
 ]
 
 export const Newsletter: React.FC = () => {
@@ -67,7 +67,7 @@ export const Newsletter: React.FC = () => {
           backgroundImage: `
             repeating-linear-gradient(45deg, transparent, transparent 20px, var(--persian-red) 20px, var(--persian-red) 22px),
             repeating-linear-gradient(-45deg, transparent, transparent 20px, var(--gold) 20px, var(--gold) 22px)
-          `
+          `,
         }}
       />
 
@@ -84,9 +84,7 @@ export const Newsletter: React.FC = () => {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Mail className="w-10 h-10 text-red-900" />
-                <h2 className="text-3xl md:text-4xl font-black text-red-900">
-                  عضویت در خبرنامه
-                </h2>
+                <h2 className="text-3xl md:text-4xl font-black text-red-900">عضویت در خبرنامه</h2>
               </div>
 
               <p className="text-lg text-gray-700 font-bold mb-6">

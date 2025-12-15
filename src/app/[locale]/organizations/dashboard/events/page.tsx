@@ -7,7 +7,9 @@ import { Filter } from 'lucide-react'
 export default function EventsManagementPage() {
   const [events, setEvents] = useState<EventRow[]>([])
   const [loading, setLoading] = useState(true)
-  const [statusFilter, setStatusFilter] = useState<'ALL' | 'PENDING' | 'APPROVED' | 'REJECTED'>('ALL')
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'PENDING' | 'APPROVED' | 'REJECTED'>(
+    'ALL'
+  )
 
   useEffect(() => {
     fetchEvents()
@@ -35,7 +37,7 @@ export default function EventsManagementPage() {
     try {
       // Placeholder for API call
       // await fetch(`/api/organizations/events/${id}`, { method: 'DELETE' })
-      setEvents(events.filter(e => e.id !== id))
+      setEvents(events.filter((e) => e.id !== id))
       alert('رویداد با موفقیت حذف شد')
     } catch (error) {
       console.error('Error deleting event:', error)
@@ -43,9 +45,8 @@ export default function EventsManagementPage() {
     }
   }
 
-  const filteredEvents = statusFilter === 'ALL'
-    ? events
-    : events.filter(e => e.status === statusFilter)
+  const filteredEvents =
+    statusFilter === 'ALL' ? events : events.filter((e) => e.status === statusFilter)
 
   if (loading) {
     return (
@@ -78,7 +79,7 @@ export default function EventsManagementPage() {
               { value: 'ALL', label: 'همه' },
               { value: 'PENDING', label: 'در انتظار' },
               { value: 'APPROVED', label: 'تأیید شده' },
-              { value: 'REJECTED', label: 'رد شده' }
+              { value: 'REJECTED', label: 'رد شده' },
             ].map((option) => (
               <button
                 key={option.value}
@@ -107,7 +108,9 @@ export default function EventsManagementPage() {
               <Filter className="w-12 h-12 text-gray-400" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              {statusFilter === 'ALL' ? 'هنوز رویدادی ثبت نشده است' : 'رویدادی با این وضعیت یافت نشد'}
+              {statusFilter === 'ALL'
+                ? 'هنوز رویدادی ثبت نشده است'
+                : 'رویدادی با این وضعیت یافت نشد'}
             </h3>
             <p className="text-gray-600 mb-6">
               {statusFilter === 'ALL'

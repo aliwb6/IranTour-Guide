@@ -9,15 +9,17 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { User, Mail, Lock, UserPlus, ArrowRight, AlertCircle } from 'lucide-react'
 
-const signupSchema = z.object({
-  name: z.string().min(2, 'نام باید حداقل ۲ حرف باشد').max(50, 'نام نباید بیشتر از ۵۰ حرف باشد'),
-  email: z.string().email('لطفا یک ایمیل معتبر وارد کنید'),
-  password: z.string().min(8, 'رمز عبور باید حداقل ۸ کاراکتر باشد'),
-  confirmPassword: z.string()
-}).refine(data => data.password === data.confirmPassword, {
-  message: 'رمزهای عبور یکسان نیستند',
-  path: ['confirmPassword']
-})
+const signupSchema = z
+  .object({
+    name: z.string().min(2, 'نام باید حداقل ۲ حرف باشد').max(50, 'نام نباید بیشتر از ۵۰ حرف باشد'),
+    email: z.string().email('لطفا یک ایمیل معتبر وارد کنید'),
+    password: z.string().min(8, 'رمز عبور باید حداقل ۸ کاراکتر باشد'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'رمزهای عبور یکسان نیستند',
+    path: ['confirmPassword'],
+  })
 
 type SignupFormData = z.infer<typeof signupSchema>
 
@@ -29,9 +31,9 @@ export default function SignupPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors, isSubmitting },
   } = useForm<SignupFormData>({
-    resolver: zodResolver(signupSchema)
+    resolver: zodResolver(signupSchema),
   })
 
   const onSubmit = async (data: SignupFormData) => {
@@ -79,17 +81,16 @@ export default function SignupPage() {
       >
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-red-900 hover:text-red-700 transition mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-red-900 hover:text-red-700 transition mb-6"
+          >
             <ArrowRight className="w-5 h-5" />
             <span className="font-bold">بازگشت به صفحه اصلی</span>
           </Link>
 
-          <h1 className="text-4xl font-black text-red-900 mb-2">
-            ثبت‌نام در IranTour Guide
-          </h1>
-          <p className="text-gray-600 font-medium">
-            به جامعه گردشگران ایران بپیوندید
-          </p>
+          <h1 className="text-4xl font-black text-red-900 mb-2">ثبت‌نام در IranTour Guide</h1>
+          <p className="text-gray-600 font-medium">به جامعه گردشگران ایران بپیوندید</p>
         </div>
 
         {/* Form Card */}
@@ -140,17 +141,13 @@ export default function SignupPage() {
                 />
               </div>
               {errors.name && (
-                <p className="mt-2 text-sm text-red-600 font-medium">
-                  {errors.name.message}
-                </p>
+                <p className="mt-2 text-sm text-red-600 font-medium">{errors.name.message}</p>
               )}
             </div>
 
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                ایمیل *
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">ایمیل *</label>
               <div className="relative">
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <Mail className="w-5 h-5" />
@@ -163,17 +160,13 @@ export default function SignupPage() {
                 />
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-red-600 font-medium">
-                  {errors.email.message}
-                </p>
+                <p className="mt-2 text-sm text-red-600 font-medium">{errors.email.message}</p>
               )}
             </div>
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                رمز عبور *
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">رمز عبور *</label>
               <div className="relative">
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <Lock className="w-5 h-5" />
@@ -186,20 +179,14 @@ export default function SignupPage() {
                 />
               </div>
               {errors.password && (
-                <p className="mt-2 text-sm text-red-600 font-medium">
-                  {errors.password.message}
-                </p>
+                <p className="mt-2 text-sm text-red-600 font-medium">{errors.password.message}</p>
               )}
-              <p className="mt-2 text-xs text-gray-500 font-medium">
-                حداقل ۸ کاراکتر
-              </p>
+              <p className="mt-2 text-xs text-gray-500 font-medium">حداقل ۸ کاراکتر</p>
             </div>
 
             {/* Confirm Password Field */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                تکرار رمز عبور *
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">تکرار رمز عبور *</label>
               <div className="relative">
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <Lock className="w-5 h-5" />
@@ -230,12 +217,12 @@ export default function SignupPage() {
                 با{' '}
                 <Link href="/terms" className="text-purple-600 hover:text-purple-700 font-bold">
                   قوانین و مقررات
-                </Link>
-                {' '}و{' '}
+                </Link>{' '}
+                و{' '}
                 <Link href="/privacy" className="text-purple-600 hover:text-purple-700 font-bold">
                   حریم خصوصی
-                </Link>
-                {' '}موافقم
+                </Link>{' '}
+                موافقم
               </label>
             </div>
 
@@ -264,9 +251,7 @@ export default function SignupPage() {
 
           {/* Signin Link */}
           <div className="text-center">
-            <p className="text-gray-600 font-medium mb-4">
-              قبلاً ثبت‌نام کرده‌اید؟
-            </p>
+            <p className="text-gray-600 font-medium mb-4">قبلاً ثبت‌نام کرده‌اید؟</p>
             <Link href="/auth/signin">
               <motion.button
                 whileHover={{ scale: 1.02 }}

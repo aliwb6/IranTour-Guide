@@ -22,7 +22,7 @@ export default function AdminEventsTable({ events, locale }: AdminEventsTablePro
     setLoading(eventId)
     try {
       const response = await fetch(`/api/admin/events/${eventId}/approve`, {
-        method: 'POST'
+        method: 'POST',
       })
 
       if (!response.ok) throw new Error('Failed to approve')
@@ -42,7 +42,7 @@ export default function AdminEventsTable({ events, locale }: AdminEventsTablePro
     setLoading(eventId)
     try {
       const response = await fetch(`/api/admin/events/${eventId}/reject`, {
-        method: 'POST'
+        method: 'POST',
       })
 
       if (!response.ok) throw new Error('Failed to reject')
@@ -62,10 +62,18 @@ export default function AdminEventsTable({ events, locale }: AdminEventsTablePro
         <table className="w-full">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">رویداد</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">سازمان</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">وضعیت</th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">عملیات</th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">
+                رویداد
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">
+                سازمان
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">
+                وضعیت
+              </th>
+              <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">
+                عملیات
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
@@ -95,22 +103,23 @@ export default function AdminEventsTable({ events, locale }: AdminEventsTablePro
                 <td className="px-6 py-4">
                   <Badge
                     variant={
-                      event.status === 'APPROVED' ? 'success' :
-                      event.status === 'PENDING' ? 'warning' :
-                      'destructive'
+                      event.status === 'APPROVED'
+                        ? 'success'
+                        : event.status === 'PENDING'
+                          ? 'warning'
+                          : 'destructive'
                     }
                   >
-                    {event.status === 'APPROVED' ? 'تأیید شده' :
-                     event.status === 'PENDING' ? 'در انتظار' :
-                     'رد شده'}
+                    {event.status === 'APPROVED'
+                      ? 'تأیید شده'
+                      : event.status === 'PENDING'
+                        ? 'در انتظار'
+                        : 'رد شده'}
                   </Badge>
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2">
-                    <Link
-                      href={`/${locale}/events/${event.slug}`}
-                      target="_blank"
-                    >
+                    <Link href={`/${locale}/events/${event.slug}`} target="_blank">
                       <Button size="sm" variant="ghost">
                         <Eye className="w-4 h-4" />
                       </Button>

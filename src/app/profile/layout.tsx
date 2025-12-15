@@ -5,7 +5,7 @@ import { ProfileNavigation } from '@/components/profile/ProfileNavigation'
 import { auth } from '@/lib/auth'
 
 export default async function ProfileLayout({
-  children
+  children,
 }: {
   children: React.ReactNode
 }) {
@@ -20,7 +20,7 @@ export default async function ProfileLayout({
     name: session.user.name!,
     email: session.user.email!,
     image: session.user.image || null,
-    createdAt: new Date().toISOString() // Will be added later
+    createdAt: new Date().toISOString(), // Will be added later
   }
 
   return (
@@ -34,9 +34,7 @@ export default async function ProfileLayout({
           </aside>
 
           {/* Main Content */}
-          <main className="md:col-span-3">
-            {children}
-          </main>
+          <main className="md:col-span-3">{children}</main>
         </div>
 
         {/* Mobile: User Info at Top */}

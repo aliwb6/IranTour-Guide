@@ -5,10 +5,10 @@ import { motion } from 'framer-motion'
 import { Sparkles, Search, Calendar, MapPin, CheckCircle } from 'lucide-react'
 
 const loadingSteps = [
-  { icon: Search, text: "در حال تحلیل علایق شما...", duration: 2000 },
-  { icon: Calendar, text: "جستجو در رویدادها...", duration: 2500 },
-  { icon: MapPin, text: "ایجاد برنامه سفر...", duration: 2000 },
-  { icon: CheckCircle, text: "تقریباً آماده است...", duration: 1500 }
+  { icon: Search, text: 'در حال تحلیل علایق شما...', duration: 2000 },
+  { icon: Calendar, text: 'جستجو در رویدادها...', duration: 2500 },
+  { icon: MapPin, text: 'ایجاد برنامه سفر...', duration: 2000 },
+  { icon: CheckCircle, text: 'تقریباً آماده است...', duration: 1500 },
 ]
 
 export const SuggestionLoading: React.FC = () => {
@@ -99,12 +99,12 @@ export const SuggestionLoading: React.FC = () => {
                 key={i}
                 animate={{
                   scale: [1, 1.2, 1],
-                  opacity: [0.5, 1, 0.5]
+                  opacity: [0.5, 1, 0.5],
                 }}
                 transition={{
                   duration: 1.5,
                   repeat: Infinity,
-                  delay: i * 0.3
+                  delay: i * 0.3,
                 }}
               >
                 <Sparkles className="w-5 h-5 text-gold" />

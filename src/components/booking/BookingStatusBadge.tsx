@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { Clock, CheckCircle, XCircle, Calendar, AlertCircle } from 'lucide-react';
-import type { BookingStatus } from '@/types/booking';
+import { Clock, CheckCircle, XCircle, Calendar, AlertCircle } from 'lucide-react'
+import type { BookingStatus } from '@/types/booking'
 
 interface BookingStatusBadgeProps {
-  status: BookingStatus;
-  size?: 'sm' | 'md' | 'lg';
-  showIcon?: boolean;
+  status: BookingStatus
+  size?: 'sm' | 'md' | 'lg'
+  showIcon?: boolean
 }
 
 const statusConfig: Record<
   BookingStatus,
   {
-    label: string;
-    color: string;
-    bgColor: string;
-    borderColor: string;
-    icon: React.ElementType;
+    label: string
+    color: string
+    bgColor: string
+    borderColor: string
+    icon: React.ElementType
   }
 > = {
   PENDING: {
@@ -54,27 +54,27 @@ const statusConfig: Record<
     borderColor: 'border-gray-200',
     icon: AlertCircle,
   },
-};
+}
 
 export default function BookingStatusBadge({
   status,
   size = 'md',
   showIcon = true,
 }: BookingStatusBadgeProps) {
-  const config = statusConfig[status];
-  const Icon = config.icon;
+  const config = statusConfig[status]
+  const Icon = config.icon
 
   const sizeClasses = {
     sm: 'text-xs px-2 py-1',
     md: 'text-sm px-3 py-1.5',
     lg: 'text-base px-4 py-2',
-  };
+  }
 
   const iconSizes = {
     sm: 'w-3 h-3',
     md: 'w-4 h-4',
     lg: 'w-5 h-5',
-  };
+  }
 
   return (
     <span
@@ -87,5 +87,5 @@ export default function BookingStatusBadge({
       {showIcon && <Icon className={iconSizes[size]} />}
       {config.label}
     </span>
-  );
+  )
 }

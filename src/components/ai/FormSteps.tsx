@@ -26,7 +26,7 @@ export const FormSteps: React.FC<FormStepsProps> = ({ currentStep, totalSteps, o
           className="absolute top-8 left-0 h-1 bg-gold"
           initial={{ width: '0%' }}
           animate={{ width: `${((currentStep - 1) / (totalSteps - 1)) * 100}%` }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
         />
 
         {/* Steps */}
@@ -54,20 +54,17 @@ export const FormSteps: React.FC<FormStepsProps> = ({ currentStep, totalSteps, o
                   className={`
                     relative w-16 h-16 rounded-full flex items-center justify-center
                     font-black text-lg transition-all duration-300 z-10
-                    ${isCompleted
-                      ? 'bg-green-600 text-white border-4 border-green-700 shadow-lg'
-                      : isActive
-                        ? 'bg-gold text-white border-4 border-yellow-600 shadow-xl scale-110'
-                        : 'bg-white text-gray-400 border-4 border-gray-300'
+                    ${
+                      isCompleted
+                        ? 'bg-green-600 text-white border-4 border-green-700 shadow-lg'
+                        : isActive
+                          ? 'bg-gold text-white border-4 border-yellow-600 shadow-xl scale-110'
+                          : 'bg-white text-gray-400 border-4 border-gray-300'
                     }
                     ${canClick ? 'cursor-pointer' : 'cursor-not-allowed'}
                   `}
                 >
-                  {isCompleted ? (
-                    <Check className="w-8 h-8" />
-                  ) : (
-                    <Icon className="w-6 h-6" />
-                  )}
+                  {isCompleted ? <Check className="w-8 h-8" /> : <Icon className="w-6 h-6" />}
 
                   {/* Pulse Animation for Active Step */}
                   {isActive && (
@@ -87,16 +84,20 @@ export const FormSteps: React.FC<FormStepsProps> = ({ currentStep, totalSteps, o
                   transition={{ delay: index * 0.1 }}
                   className="mt-3 text-center"
                 >
-                  <div className={`
+                  <div
+                    className={`
                     text-sm font-bold
                     ${isActive ? 'text-gold' : isCompleted ? 'text-green-600' : 'text-gray-500'}
-                  `}>
+                  `}
+                  >
                     {stepLabels[index]}
                   </div>
-                  <div className={`
+                  <div
+                    className={`
                     text-xs font-medium mt-1
                     ${isActive || isCompleted ? 'text-gray-700' : 'text-gray-400'}
-                  `}>
+                  `}
+                  >
                     {isCompleted ? '✓ تکمیل شده' : isActive ? 'در حال انجام' : 'منتظر'}
                   </div>
                 </motion.div>
@@ -112,16 +113,14 @@ export const FormSteps: React.FC<FormStepsProps> = ({ currentStep, totalSteps, o
           <span className="text-sm font-bold text-gray-700">
             قدم {currentStep} از {totalSteps}
           </span>
-          <span className="text-sm font-medium text-gray-600">
-            {stepLabels[currentStep - 1]}
-          </span>
+          <span className="text-sm font-medium text-gray-600">{stepLabels[currentStep - 1]}</span>
         </div>
         <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-gold"
             initial={{ width: '0%' }}
             animate={{ width: `${(currentStep / totalSteps) * 100}%` }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
           />
         </div>
       </div>

@@ -9,7 +9,7 @@ import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar'
 
 export default async function DashboardLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode
   params: Promise<{ locale: string }>
@@ -29,7 +29,7 @@ export default async function DashboardLayout({
 
   // Get organization data
   const organization = await prisma.organization.findUnique({
-    where: { userId: session.user.id }
+    where: { userId: session.user.id },
   })
 
   // If organizer doesn't have an organization yet, redirect to create one
@@ -111,9 +111,7 @@ export default async function DashboardLayout({
           </aside>
 
           {/* Main Content */}
-          <main className="flex-1 min-w-0">
-            {children}
-          </main>
+          <main className="flex-1 min-w-0">{children}</main>
         </div>
       </div>
 

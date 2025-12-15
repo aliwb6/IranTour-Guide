@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 // Payment Method Enum
 export const paymentMethodEnum = z.enum([
@@ -11,7 +11,7 @@ export const paymentMethodEnum = z.enum([
   'CASH',
   'CARD',
   'OTHER',
-]);
+])
 
 // Initiate Payment Schema
 export const initiatePaymentSchema = z.object({
@@ -24,9 +24,9 @@ export const initiatePaymentSchema = z.object({
   returnUrl: z.string().url('آدرس بازگشت معتبر نیست'),
 
   description: z.string().max(200, 'توضیحات نمی‌تواند بیشتر از ۲۰۰ کاراکتر باشد').optional(),
-});
+})
 
-export type InitiatePaymentSchema = z.infer<typeof initiatePaymentSchema>;
+export type InitiatePaymentSchema = z.infer<typeof initiatePaymentSchema>
 
 // Verify Payment Schema
 export const verifyPaymentSchema = z.object({
@@ -35,9 +35,9 @@ export const verifyPaymentSchema = z.object({
   status: z.string().min(1, 'وضعیت الزامی است'),
 
   transactionId: z.string().optional(),
-});
+})
 
-export type VerifyPaymentSchema = z.infer<typeof verifyPaymentSchema>;
+export type VerifyPaymentSchema = z.infer<typeof verifyPaymentSchema>
 
 // Refund Payment Schema
 export const refundPaymentSchema = z.object({
@@ -49,9 +49,9 @@ export const refundPaymentSchema = z.object({
     .string()
     .min(10, 'دلیل بازگشت وجه باید حداقل ۱۰ کاراکتر باشد')
     .max(500, 'دلیل بازگشت وجه نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد'),
-});
+})
 
-export type RefundPaymentSchema = z.infer<typeof refundPaymentSchema>;
+export type RefundPaymentSchema = z.infer<typeof refundPaymentSchema>
 
 // Payment Callback Schema (for gateway callbacks)
 export const paymentCallbackSchema = z.object({
@@ -62,9 +62,9 @@ export const paymentCallbackSchema = z.object({
   SaleReferenceId: z.string().optional(),
   Token: z.string().optional(),
   // Add more fields based on different gateways
-});
+})
 
-export type PaymentCallbackSchema = z.infer<typeof paymentCallbackSchema>;
+export type PaymentCallbackSchema = z.infer<typeof paymentCallbackSchema>
 
 // Payment Filter Schema
 export const paymentFiltersSchema = z.object({
@@ -75,6 +75,6 @@ export const paymentFiltersSchema = z.object({
   endDate: z.union([z.string(), z.date()]).optional(),
   page: z.number().int().min(1).optional().default(1),
   limit: z.number().int().min(1).max(100).optional().default(10),
-});
+})
 
-export type PaymentFiltersSchema = z.infer<typeof paymentFiltersSchema>;
+export type PaymentFiltersSchema = z.infer<typeof paymentFiltersSchema>

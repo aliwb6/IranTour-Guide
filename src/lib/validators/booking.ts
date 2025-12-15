@@ -1,13 +1,13 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 // Phone number regex for Iranian phone numbers
-const iranianPhoneRegex = /^(\+98|0)?9\d{9}$/;
+const iranianPhoneRegex = /^(\+98|0)?9\d{9}$/
 
 // National ID regex for Iranian national ID
-const iranianNationalIdRegex = /^\d{10}$/;
+const iranianNationalIdRegex = /^\d{10}$/
 
 // Email regex
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 // Create Booking Schema
 export const createBookingSchema = z.object({
@@ -56,9 +56,7 @@ export const createBookingSchema = z.object({
     .number()
     .int('تعداد باید عدد صحیح باشد')
     .min(0, 'تعداد کودکان نمی‌تواند منفی باشد')
-    .max(50, 'حداکثر ۵۰ کودک مجاز است')
-    .optional()
-    .default(0),
+    .max(50, 'حداکثر ۵۰ کودک مجاز است'),
 
   specialRequests: z
     .string()
@@ -69,12 +67,15 @@ export const createBookingSchema = z.object({
   // Pricing
   pricePerPerson: z.number().min(0, 'قیمت نمی‌تواند منفی باشد'),
 
-  childrenPrice: z.number().min(0, 'قیمت کودکان نمی‌تواند منفی باشد').optional(),
+  childrenPrice: z.number().min(0, 'قیمت کودکان نمی‌تواند منفی باشد'),
 
-  discount: z.number().min(0, 'تخفیف نمی‌تواند منفی باشد').max(100, 'تخفیف نمی‌تواند بیشتر از ۱۰۰٪ باشد').optional(),
-});
+  discount: z
+    .number()
+    .min(0, 'تخفیف نمی‌تواند منفی باشد')
+    .max(100, 'تخفیف نمی‌تواند بیشتر از ۱۰۰٪ باشد'),
+})
 
-export type CreateBookingSchema = z.infer<typeof createBookingSchema>;
+export type CreateBookingSchema = z.infer<typeof createBookingSchema>
 
 // Update Booking Schema
 export const updateBookingSchema = z.object({
@@ -97,10 +98,7 @@ export const updateBookingSchema = z.object({
     .max(500, 'درخواست‌های ویژه نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد')
     .optional(),
 
-  notes: z
-    .string()
-    .max(1000, 'یادداشت‌ها نمی‌تواند بیشتر از ۱۰۰۰ کاراکتر باشد')
-    .optional(),
+  notes: z.string().max(1000, 'یادداشت‌ها نمی‌تواند بیشتر از ۱۰۰۰ کاراکتر باشد').optional(),
 
   phone: z
     .string()
@@ -112,9 +110,9 @@ export const updateBookingSchema = z.object({
     .regex(emailRegex, 'فرمت ایمیل صحیح نیست')
     .email('فرمت ایمیل صحیح نیست')
     .optional(),
-});
+})
 
-export type UpdateBookingSchema = z.infer<typeof updateBookingSchema>;
+export type UpdateBookingSchema = z.infer<typeof updateBookingSchema>
 
 // Cancel Booking Schema
 export const cancelBookingSchema = z.object({
@@ -122,9 +120,9 @@ export const cancelBookingSchema = z.object({
     .string()
     .min(10, 'لطفاً دلیل لغو را با حداقل ۱۰ کاراکتر توضیح دهید')
     .max(500, 'دلیل لغو نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد'),
-});
+})
 
-export type CancelBookingSchema = z.infer<typeof cancelBookingSchema>;
+export type CancelBookingSchema = z.infer<typeof cancelBookingSchema>
 
 // Booking Query/Filter Schema
 export const bookingFiltersSchema = z.object({
@@ -135,9 +133,9 @@ export const bookingFiltersSchema = z.object({
   endDate: z.union([z.string(), z.date()]).optional(),
   page: z.number().int().min(1).optional().default(1),
   limit: z.number().int().min(1).max(100).optional().default(10),
-});
+})
 
-export type BookingFiltersSchema = z.infer<typeof bookingFiltersSchema>;
+export type BookingFiltersSchema = z.infer<typeof bookingFiltersSchema>
 
 // Booking Form Step 1: Contact Information
 export const bookingContactSchema = z.object({
@@ -169,9 +167,9 @@ export const bookingContactSchema = z.object({
     .regex(iranianNationalIdRegex, 'کد ملی باید ۱۰ رقم باشد')
     .optional()
     .or(z.literal('')),
-});
+})
 
-export type BookingContactSchema = z.infer<typeof bookingContactSchema>;
+export type BookingContactSchema = z.infer<typeof bookingContactSchema>
 
 // Booking Form Step 2: Participants
 export const bookingParticipantsSchema = z.object({
@@ -194,6 +192,6 @@ export const bookingParticipantsSchema = z.object({
     .max(500, 'درخواست‌های ویژه نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد')
     .optional()
     .or(z.literal('')),
-});
+})
 
-export type BookingParticipantsSchema = z.infer<typeof bookingParticipantsSchema>;
+export type BookingParticipantsSchema = z.infer<typeof bookingParticipantsSchema>

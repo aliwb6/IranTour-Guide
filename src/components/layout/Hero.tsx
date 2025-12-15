@@ -40,33 +40,25 @@ export const Hero: React.FC = () => {
             <div className="text-3xl md:text-5xl font-black bg-gradient-to-br from-red-900 to-red-700 bg-clip-text text-transparent mb-2">
               ۲۵۰+
             </div>
-            <div className="text-xs md:text-base font-bold text-gray-800">
-              رویداد فعال
-            </div>
+            <div className="text-xs md:text-base font-bold text-gray-800">رویداد فعال</div>
           </div>
           <div className="tile-stats p-4 md:p-8 text-center">
             <div className="text-3xl md:text-5xl font-black bg-gradient-to-br from-red-900 to-red-700 bg-clip-text text-transparent mb-2">
               ۳۱
             </div>
-            <div className="text-xs md:text-base font-bold text-gray-800">
-              استان
-            </div>
+            <div className="text-xs md:text-base font-bold text-gray-800">استان</div>
           </div>
           <div className="tile-stats p-4 md:p-8 text-center">
             <div className="text-3xl md:text-5xl font-black bg-gradient-to-br from-red-900 to-red-700 bg-clip-text text-transparent mb-2">
               ۱۵+
             </div>
-            <div className="text-xs md:text-base font-bold text-gray-800">
-              موضوع
-            </div>
+            <div className="text-xs md:text-base font-bold text-gray-800">موضوع</div>
           </div>
           <div className="tile-stats p-4 md:p-8 text-center">
             <div className="text-3xl md:text-5xl font-black bg-gradient-to-br from-red-900 to-red-700 bg-clip-text text-transparent mb-2">
               ۱۰۰K+
             </div>
-            <div className="text-xs md:text-base font-bold text-gray-800">
-              بازدید ماهانه
-            </div>
+            <div className="text-xs md:text-base font-bold text-gray-800">بازدید ماهانه</div>
           </div>
         </div>
       </div>

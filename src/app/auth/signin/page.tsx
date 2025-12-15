@@ -12,7 +12,7 @@ import { signIn } from 'next-auth/react'
 
 const signinSchema = z.object({
   email: z.string().email('لطفا یک ایمیل معتبر وارد کنید'),
-  password: z.string().min(8, 'رمز عبور باید حداقل ۸ کاراکتر باشد')
+  password: z.string().min(8, 'رمز عبور باید حداقل ۸ کاراکتر باشد'),
 })
 
 type SigninFormData = z.infer<typeof signinSchema>
@@ -26,9 +26,9 @@ function SigninContent() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting }
+    formState: { errors, isSubmitting },
   } = useForm<SigninFormData>({
-    resolver: zodResolver(signinSchema)
+    resolver: zodResolver(signinSchema),
   })
 
   // Check for registration success message
@@ -72,17 +72,16 @@ function SigninContent() {
       >
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 text-red-900 hover:text-red-700 transition mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-red-900 hover:text-red-700 transition mb-6"
+          >
             <ArrowRight className="w-5 h-5" />
             <span className="font-bold">بازگشت به صفحه اصلی</span>
           </Link>
 
-          <h1 className="text-4xl font-black text-red-900 mb-2">
-            ورود به حساب کاربری
-          </h1>
-          <p className="text-gray-600 font-medium">
-            به IranTour Guide خوش آمدید
-          </p>
+          <h1 className="text-4xl font-black text-red-900 mb-2">ورود به حساب کاربری</h1>
+          <p className="text-gray-600 font-medium">به IranTour Guide خوش آمدید</p>
         </div>
 
         {/* Form Card */}
@@ -116,9 +115,7 @@ function SigninContent() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                ایمیل *
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">ایمیل *</label>
               <div className="relative">
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <Mail className="w-5 h-5" />
@@ -131,17 +128,13 @@ function SigninContent() {
                 />
               </div>
               {errors.email && (
-                <p className="mt-2 text-sm text-red-600 font-medium">
-                  {errors.email.message}
-                </p>
+                <p className="mt-2 text-sm text-red-600 font-medium">{errors.email.message}</p>
               )}
             </div>
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                رمز عبور *
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">رمز عبور *</label>
               <div className="relative">
                 <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
                   <Lock className="w-5 h-5" />
@@ -154,9 +147,7 @@ function SigninContent() {
                 />
               </div>
               {errors.password && (
-                <p className="mt-2 text-sm text-red-600 font-medium">
-                  {errors.password.message}
-                </p>
+                <p className="mt-2 text-sm text-red-600 font-medium">{errors.password.message}</p>
               )}
             </div>
 
@@ -195,9 +186,7 @@ function SigninContent() {
 
           {/* Signup Link */}
           <div className="text-center">
-            <p className="text-gray-600 font-medium mb-4">
-              حساب کاربری ندارید؟
-            </p>
+            <p className="text-gray-600 font-medium mb-4">حساب کاربری ندارید؟</p>
             <Link href="/auth/signup">
               <motion.button
                 whileHover={{ scale: 1.02 }}
@@ -228,14 +217,16 @@ function SigninContent() {
 
 export default function SigninPage() {
   return (
-    <React.Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 font-medium">در حال بارگذاری...</p>
+    <React.Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600 font-medium">در حال بارگذاری...</p>
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <SigninContent />
     </React.Suspense>
   )

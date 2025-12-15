@@ -14,7 +14,7 @@ export default function SavedEventsPage() {
 
   const handleRemove = (eventId: string) => {
     if (confirm('آیا مطمئن هستید که می‌خواهید این رویداد را از لیست ذخیره‌شده‌ها حذف کنید؟')) {
-      setSavedEvents(prev => prev.filter(e => e.id !== eventId))
+      setSavedEvents((prev) => prev.filter((e) => e.id !== eventId))
     }
   }
 
@@ -35,12 +35,8 @@ export default function SavedEventsPage() {
       {/* Header */}
       <div className="kashi-card p-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black text-red-900 mb-2">
-            رویدادهای ذخیره‌شده
-          </h1>
-          <p className="text-gray-600 font-medium">
-            {savedEvents.length} رویداد ذخیره شده
-          </p>
+          <h1 className="text-3xl font-black text-red-900 mb-2">رویدادهای ذخیره‌شده</h1>
+          <p className="text-gray-600 font-medium">{savedEvents.length} رویداد ذخیره شده</p>
         </div>
 
         {/* View Toggle */}
@@ -73,11 +69,9 @@ export default function SavedEventsPage() {
       </div>
 
       {/* Events Grid/List */}
-      <div className={
-        viewMode === 'grid'
-          ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6'
-          : 'space-y-4'
-      }>
+      <div
+        className={viewMode === 'grid' ? 'grid md:grid-cols-2 lg:grid-cols-3 gap-6' : 'space-y-4'}
+      >
         {savedEvents.map((event, index) => (
           <motion.div
             key={event.id}

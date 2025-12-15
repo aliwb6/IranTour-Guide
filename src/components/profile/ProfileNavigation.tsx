@@ -11,7 +11,7 @@ const navigationItems = [
   { href: '/profile/saved', label: 'رویدادهای ذخیره‌شده', icon: Bookmark },
   { href: '/profile/followed-topics', label: 'موضوعات دنبال‌شده', icon: Tag },
   { href: '/profile/followed-cities', label: 'شهرهای دنبال‌شده', icon: MapPin },
-  { href: '/profile/settings', label: 'تنظیمات', icon: Settings }
+  { href: '/profile/settings', label: 'تنظیمات', icon: Settings },
 ]
 
 export const ProfileNavigation: React.FC = () => {
@@ -37,9 +37,10 @@ export const ProfileNavigation: React.FC = () => {
                   whileTap={{ scale: 0.98 }}
                   className={`
                     flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all
-                    ${isActive
-                      ? 'bg-gradient-to-r from-gold to-yellow-400 text-white shadow-lg'
-                      : 'text-gray-700 hover:bg-gray-100'
+                    ${
+                      isActive
+                        ? 'bg-gradient-to-r from-gold to-yellow-400 text-white shadow-lg'
+                        : 'text-gray-700 hover:bg-gray-100'
                     }
                   `}
                 >

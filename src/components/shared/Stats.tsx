@@ -13,10 +13,10 @@ interface StatItem {
 }
 
 const stats: StatItem[] = [
-  { label: "رویدادهای ثبت‌شده", value: 200, icon: Calendar, suffix: "+" },
-  { label: "شهرهای ایران", value: 15, icon: MapPin, suffix: "+" },
-  { label: "سازمان‌ها", value: 50, icon: Building2, suffix: "+" },
-  { label: "بازدید ماهانه", value: 10000, icon: Users, suffix: "+" }
+  { label: 'رویدادهای ثبت‌شده', value: 200, icon: Calendar, suffix: '+' },
+  { label: 'شهرهای ایران', value: 15, icon: MapPin, suffix: '+' },
+  { label: 'سازمان‌ها', value: 50, icon: Building2, suffix: '+' },
+  { label: 'بازدید ماهانه', value: 10000, icon: Users, suffix: '+' },
 ]
 
 // Helper to convert to Persian numbers
@@ -30,9 +30,12 @@ export const Stats: React.FC = () => {
     <section className="py-16 bg-white border-y-4 border-gold relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, var(--gold) 10px, var(--gold) 11px)`
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, var(--gold) 10px, var(--gold) 11px)`,
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -44,8 +47,8 @@ export const Stats: React.FC = () => {
             hidden: { opacity: 0 },
             show: {
               opacity: 1,
-              transition: { staggerChildren: 0.15 }
-            }
+              transition: { staggerChildren: 0.15 },
+            },
           }}
           className="grid grid-cols-2 md:grid-cols-4 gap-6"
         >
@@ -56,7 +59,7 @@ export const Stats: React.FC = () => {
                 key={index}
                 variants={{
                   hidden: { opacity: 0, y: 30 },
-                  show: { opacity: 1, y: 0 }
+                  show: { opacity: 1, y: 0 },
                 }}
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
@@ -76,17 +79,13 @@ export const Stats: React.FC = () => {
                     enableScrollSpy
                     scrollSpyOnce
                   >
-                    {({ countUpRef }) => (
-                      <span ref={countUpRef} className="inline-block" />
-                    )}
+                    {({ countUpRef }) => <span ref={countUpRef} className="inline-block" />}
                   </CountUp>
                   <span className="text-gold">{stat.suffix}</span>
                 </div>
 
                 {/* Label */}
-                <div className="text-sm md:text-base font-bold text-gray-800">
-                  {stat.label}
-                </div>
+                <div className="text-sm md:text-base font-bold text-gray-800">{stat.label}</div>
               </motion.div>
             )
           })}

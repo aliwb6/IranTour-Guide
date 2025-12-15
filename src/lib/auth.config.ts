@@ -1,14 +1,14 @@
 // src/lib/auth.config.ts
-import type { NextAuthConfig } from "next-auth"
+import type { NextAuthConfig } from 'next-auth'
 
 export const authConfig = {
   session: {
-    strategy: "jwt"
+    strategy: 'jwt',
   },
   pages: {
-    signIn: "/auth/signin",
-    signOut: "/",
-    error: "/auth/error",
+    signIn: '/auth/signin',
+    signOut: '/',
+    error: '/auth/error',
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
@@ -51,7 +51,7 @@ export const authConfig = {
         session.user.role = token.role as string
       }
       return session
-    }
+    },
   },
   providers: [], // Add providers with an empty array for the config
 } satisfies NextAuthConfig

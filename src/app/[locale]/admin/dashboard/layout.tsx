@@ -5,7 +5,7 @@ import AdminHeader from '@/components/admin/AdminHeader'
 
 export default async function AdminDashboardLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode
   params: Promise<{ locale: string }>
@@ -29,9 +29,7 @@ export default async function AdminDashboardLayout({
             </div>
           </aside>
 
-          <main className="flex-1 min-w-0">
-            {children}
-          </main>
+          <main className="flex-1 min-w-0">{children}</main>
         </div>
       </div>
     </div>

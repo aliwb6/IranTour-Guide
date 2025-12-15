@@ -1,41 +1,33 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  User,
-  Users,
-  FileText,
-  CheckCircle,
-  ArrowRight,
-  ArrowLeft,
-  Loader2
-} from 'lucide-react';
-import { createBookingSchema, type CreateBookingSchema } from '@/lib/validators/booking';
-import type { CreateBookingInput } from '@/types/booking';
-import { Button } from '@/components/ui/button';
-import BookingContactStep from './BookingContactStep';
-import BookingParticipantsStep from './BookingParticipantsStep';
-import BookingSummaryStep from './BookingSummaryStep';
+import { useState } from 'react'
+import { useForm, UseFormReturn } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { motion, AnimatePresence } from 'framer-motion'
+import { User, Users, FileText, CheckCircle, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react'
+import { createBookingSchema, type CreateBookingSchema } from '@/lib/validators/booking'
+import type { CreateBookingInput } from '@/types/booking'
+import { Button } from '@/components/ui/button'
+import BookingContactStep from './BookingContactStep'
+import BookingParticipantsStep from './BookingParticipantsStep'
+import BookingSummaryStep from './BookingSummaryStep'
 
 interface BookingFormProps {
-  eventId: string;
-  eventTitle: string;
-  eventDate: Date;
-  pricePerPerson: number;
-  childrenPrice?: number;
-  onSubmit: (data: CreateBookingInput) => Promise<void>;
-  onSuccess?: (bookingId: string) => void;
-  onCancel?: () => void;
+  eventId: string
+  eventTitle: string
+  eventDate: Date
+  pricePerPerson: number
+  childrenPrice?: number
+  onSubmit: (data: CreateBookingInput) => Promise<void>
+  onSuccess?: (bookingId: string) => void
+  onCancel?: () => void
 }
 
 const STEPS = [
   { id: 1, title: 'اطلاعات تماس', icon: User, description: 'نام، ایمیل و شماره تماس' },
   { id: 2, title: 'تعداد شرکت‌کنندگان', icon: Users, description: 'بزرگسال و کودک' },
   { id: 3, title: 'بررسی و تایید', icon: FileText, description: 'خلاصه رزرو شما' },
-];
+]
 
 export default function BookingForm({
   eventId,
@@ -47,9 +39,9 @@ export default function BookingForm({
   onSuccess,
   onCancel,
 }: BookingFormProps) {
-  const [currentStep, setCurrentStep] = useState(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [currentStep, setCurrentStep] = useState(1)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   const form = useForm<CreateBookingSchema>({
     resolver: zodResolver(createBookingSchema),
@@ -66,21 +58,23 @@ export default function BookingForm({
       numberOfChildren: 0,
       specialRequests: '',
       pricePerPerson,
-      childrenPrice,
+      childrenPrice: childrenPrice || 0,
       discount: 0,
     },
     mode: 'onChange',
-  });
+  })
 
-  const { watch, trigger } = form;
-  const formData = watch();
+  const { watch, trigger } = form
+  const formData = watch()
 
   // Calculate total price
   const calculateTotal = () => {
-    const adultsTotal = formData.numberOfAdults * pricePerPerson;
-    const childrenTotal = (formData.numberOfChildren || 0) * (childrenPrice || pricePerPerson * 0.5);
-    const subtotal = adultsTotal + childrenTotal;
-    const discountAmount = ((formData.discount || 0) / 100) * subtotal;
+    const adultsTotal = formData.numberOfAdults * pricePerPerson
+    const childrenTotal =
+      (formData.numberOfChildren || 0) *
+      (formData.childrenPrice || childrenPrice || pricePerPerson * 0.5)
+    const subtotal = adultsTotal + childrenTotal
+    const discountAmount = ((formData.discount || 0) / 100) * subtotal
     return {
       adultsTotal,
       childrenTotal,
@@ -88,62 +82,74 @@ export default function BookingForm({
       discountAmount,
       total: subtotal - discountAmount,
       totalParticipants: formData.numberOfAdults + (formData.numberOfChildren || 0),
-    };
-  };
+    }
+  }
 
   const handleNext = async () => {
-    let fieldsToValidate: (keyof CreateBookingSchema)[] = [];
+    let fieldsToValidate: (keyof CreateBookingSchema)[] = []
 
     if (currentStep === 1) {
-      fieldsToValidate = ['firstName', 'lastName', 'email', 'phone', 'nationalId'];
+      fieldsToValidate = ['firstName', 'lastName', 'email', 'phone']
     } else if (currentStep === 2) {
-      fieldsToValidate = ['numberOfAdults', 'numberOfChildren', 'specialRequests'];
+      fieldsToValidate = ['numberOfAdults', 'numberOfChildren']
     }
 
-    const isValid = await trigger(fieldsToValidate);
+    const isValid = await trigger(fieldsToValidate)
 
     if (isValid) {
-      setCurrentStep((prev) => Math.min(prev + 1, STEPS.length));
+      setCurrentStep((prev) => Math.min(prev + 1, STEPS.length))
     }
-  };
+  }
 
   const handleBack = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 1));
-  };
+    setCurrentStep((prev) => Math.max(prev - 1, 1))
+  }
 
   const handleFormSubmit = async (data: CreateBookingSchema) => {
     try {
-      setIsSubmitting(true);
-      setSubmitError(null);
+      setIsSubmitting(true)
+      setSubmitError(null)
 
-      const totals = calculateTotal();
+      const totals = calculateTotal()
 
       const bookingData: CreateBookingInput = {
-        ...data,
+        eventId: data.eventId,
+        eventTitle: data.eventTitle,
+        eventDate: data.eventDate,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        phone: data.phone,
+        nationalId: data.nationalId,
+        numberOfAdults: data.numberOfAdults,
         numberOfChildren: data.numberOfChildren || 0,
-        childrenPrice,
+        specialRequests: data.specialRequests,
+        pricePerPerson: data.pricePerPerson,
+        childrenPrice: data.childrenPrice || childrenPrice || 0,
         discount: data.discount || 0,
-      };
+      }
 
-      await onSubmit(bookingData);
+      await onSubmit(bookingData)
 
       if (onSuccess) {
-        onSuccess('booking-id-placeholder');
+        onSuccess('booking-id-placeholder')
       }
     } catch (error) {
-      console.error('Booking submission error:', error);
-      setSubmitError(error instanceof Error ? error.message : 'خطا در ثبت رزرو. لطفاً دوباره تلاش کنید.');
+      console.error('Booking submission error:', error)
+      setSubmitError(
+        error instanceof Error ? error.message : 'خطا در ثبت رزرو. لطفاً دوباره تلاش کنید.'
+      )
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
-  };
+  }
 
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
-        return <BookingContactStep form={form} />;
+        return <BookingContactStep form={form} />
       case 2:
-        return <BookingParticipantsStep form={form} />;
+        return <BookingParticipantsStep form={form} />
       case 3:
         return (
           <BookingSummaryStep
@@ -152,11 +158,11 @@ export default function BookingForm({
             eventDate={eventDate}
             totals={calculateTotal()}
           />
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
   return (
     <div className="w-full max-w-4xl mx-auto">
@@ -173,8 +179,8 @@ export default function BookingForm({
                       currentStep > step.id
                         ? 'bg-green-500 border-green-500 text-white'
                         : currentStep === step.id
-                        ? 'bg-primary border-primary text-white'
-                        : 'bg-white border-gray-300 text-gray-400'
+                          ? 'bg-primary border-primary text-white'
+                          : 'bg-white border-gray-300 text-gray-400'
                     }
                   `}
                 >
@@ -248,12 +254,7 @@ export default function BookingForm({
 
           <div className="flex items-center gap-3">
             {onCancel && (
-              <Button
-                type="button"
-                variant="outline"
-                onClick={onCancel}
-                disabled={isSubmitting}
-              >
+              <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>
                 لغو
               </Button>
             )}
@@ -291,5 +292,5 @@ export default function BookingForm({
         </div>
       </form>
     </div>
-  );
+  )
 }

@@ -16,9 +16,7 @@ interface UserInfoCardProps {
 }
 
 export const UserInfoCard: React.FC<UserInfoCardProps> = ({ user }) => {
-  const memberSince = user.createdAt
-    ? moment(user.createdAt).format('jMMMM jYYYY')
-    : 'اسفند ۱۴۰۳'
+  const memberSince = user.createdAt ? moment(user.createdAt).format('jMMMM jYYYY') : 'اسفند ۱۴۰۳'
 
   return (
     <motion.div
@@ -45,15 +43,9 @@ export const UserInfoCard: React.FC<UserInfoCardProps> = ({ user }) => {
 
       {/* User Info */}
       <div className="text-center mb-4">
-        <h3 className="text-xl font-black text-gold mb-1">
-          {user.name}
-        </h3>
-        <p className="text-sm text-gray-600 font-medium mb-2">
-          {user.email}
-        </p>
-        <p className="text-xs text-gray-500 font-medium">
-          عضو از {memberSince}
-        </p>
+        <h3 className="text-xl font-black text-gold mb-1">{user.name}</h3>
+        <p className="text-sm text-gray-600 font-medium mb-2">{user.email}</p>
+        <p className="text-xs text-gray-500 font-medium">عضو از {memberSince}</p>
       </div>
 
       {/* Edit Profile Button */}

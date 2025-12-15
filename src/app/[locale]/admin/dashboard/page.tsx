@@ -5,7 +5,7 @@ import { KPICard } from '@/components/dashboard/KPICard'
 import { Calendar, Users, Building2, Eye } from 'lucide-react'
 
 export default async function AdminDashboardPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>
 }) {
@@ -16,45 +16,40 @@ export default async function AdminDashboardPage({
     redirect(`/${locale}/auth/signin`)
   }
 
-  const [
-    totalEvents,
-    pendingEvents,
-    totalUsers,
-    totalOrganizations,
-    totalViews
-  ] = await Promise.all([
-    prisma.event.count(),
-    prisma.event.count({ where: { status: 'PENDING' } }),
-    prisma.user.count(),
-    prisma.organization.count(),
-    prisma.event.aggregate({ _sum: { viewCount: true } })
-  ])
+  const [totalEvents, pendingEvents, totalUsers, totalOrganizations, totalViews] =
+    await Promise.all([
+      prisma.event.count(),
+      prisma.event.count({ where: { status: 'PENDING' } }),
+      prisma.user.count(),
+      prisma.organization.count(),
+      prisma.event.aggregate({ _sum: { viewCount: true } }),
+    ])
 
   const kpis = [
     {
       label: 'کل رویدادها',
       value: totalEvents,
       icon: Calendar,
-      color: 'blue' as const
+      color: 'blue' as const,
     },
     {
       label: 'در انتظار تأیید',
       value: pendingEvents,
       icon: Calendar,
-      color: 'orange' as const
+      color: 'orange' as const,
     },
     {
       label: 'کاربران',
       value: totalUsers,
       icon: Users,
-      color: 'green' as const
+      color: 'green' as const,
     },
     {
       label: 'سازمان‌ها',
       value: totalOrganizations,
       icon: Building2,
-      color: 'purple' as const
-    }
+      color: 'purple' as const,
+    },
   ]
 
   return (
@@ -73,7 +68,10 @@ export default async function AdminDashboardPage({
       <div className="bg-white rounded-xl shadow-md p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-4">خلاصه فعالیت‌ها</h2>
         <p className="text-gray-600">
-          کل بازدیدها: <span className="font-bold">{(totalViews._sum.viewCount || 0).toLocaleString('fa-IR')}</span>
+          کل بازدیدها:{' '}
+          <span className="font-bold">
+            {(totalViews._sum.viewCount || 0).toLocaleString('fa-IR')}
+          </span>
         </p>
       </div>
     </div>

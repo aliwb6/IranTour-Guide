@@ -14,7 +14,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  ResponsiveContainer
+  ResponsiveContainer,
 } from 'recharts'
 
 interface ChartData {
@@ -56,7 +56,7 @@ export const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
   dataKey = 'value',
   xAxisKey = 'name',
   title,
-  colors = defaultColors
+  colors = defaultColors,
 }) => {
   if (!data || data.length === 0) {
     return (
@@ -68,9 +68,7 @@ export const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
 
   return (
     <div className="bg-white rounded-xl shadow-md p-6">
-      {title && (
-        <h3 className="text-lg font-bold text-gray-800 mb-4">{title}</h3>
-      )}
+      {title && <h3 className="text-lg font-bold text-gray-800 mb-4">{title}</h3>}
       <ResponsiveContainer width="100%" height={300}>
         {type === 'line' && (
           <LineChart data={data}>
@@ -80,10 +78,7 @@ export const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
               tick={{ fill: '#6b7280', fontSize: 12 }}
               tickLine={{ stroke: '#e5e7eb' }}
             />
-            <YAxis
-              tick={{ fill: '#6b7280', fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
-            />
+            <YAxis tick={{ fill: '#6b7280', fontSize: 12 }} tickLine={{ stroke: '#e5e7eb' }} />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ fontSize: '14px', paddingTop: '10px' }} />
             <Line
@@ -105,10 +100,7 @@ export const AnalyticsChart: React.FC<AnalyticsChartProps> = ({
               tick={{ fill: '#6b7280', fontSize: 12 }}
               tickLine={{ stroke: '#e5e7eb' }}
             />
-            <YAxis
-              tick={{ fill: '#6b7280', fontSize: 12 }}
-              tickLine={{ stroke: '#e5e7eb' }}
-            />
+            <YAxis tick={{ fill: '#6b7280', fontSize: 12 }} tickLine={{ stroke: '#e5e7eb' }} />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ fontSize: '14px', paddingTop: '10px' }} />
             <Bar dataKey={dataKey} fill={colors[0]} radius={[8, 8, 0, 0]} />

@@ -52,9 +52,7 @@ const FeaturedEventCard: React.FC<{ event: Event }> = ({ event }) => {
             unoptimized
           />
           {/* Featured Badge */}
-          <div className="absolute top-4 right-4 kashi-badge px-4 py-2 text-sm">
-            ویژه
-          </div>
+          <div className="absolute top-4 right-4 kashi-badge px-4 py-2 text-sm">ویژه</div>
         </div>
 
         {/* Event Info */}
@@ -63,9 +61,7 @@ const FeaturedEventCard: React.FC<{ event: Event }> = ({ event }) => {
             {event.title}
           </h3>
 
-          <p className="text-gray-700 font-medium mb-4 line-clamp-2">
-            {event.shortDescription}
-          </p>
+          <p className="text-gray-700 font-medium mb-4 line-clamp-2">{event.shortDescription}</p>
 
           <div className="flex items-center gap-4 text-sm text-gray-600">
             <div className="flex items-center gap-2">
@@ -86,7 +82,7 @@ const FeaturedEventCard: React.FC<{ event: Event }> = ({ event }) => {
 }
 
 export const FeaturedEvents: React.FC<FeaturedEventsProps> = ({ events }) => {
-  const featuredEvents = events.filter(event => event.featured)
+  const featuredEvents = events.filter((event) => event.featured)
 
   if (featuredEvents.length === 0) {
     return null
@@ -103,9 +99,7 @@ export const FeaturedEvents: React.FC<FeaturedEventsProps> = ({ events }) => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">
-            ⭐ رویدادهای ویژه
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">⭐ رویدادهای ویژه</h2>
           <p className="text-xl text-gray-700 font-bold">
             بهترین و محبوب‌ترین رویدادهای فرهنگی و هنری ایران
           </p>

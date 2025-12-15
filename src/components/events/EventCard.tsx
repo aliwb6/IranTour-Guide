@@ -30,9 +30,7 @@ export default function EventCard({ event }: EventCardProps) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
         <div className="absolute top-4 right-4">
-          <span className="kashi-badge text-xs md:text-sm px-4 py-2">
-            {event.type}
-          </span>
+          <span className="kashi-badge text-xs md:text-sm px-4 py-2">{event.type}</span>
         </div>
 
         <h3 className="absolute bottom-4 right-4 left-4 text-xl md:text-2xl font-black text-yellow-200 drop-shadow-lg">

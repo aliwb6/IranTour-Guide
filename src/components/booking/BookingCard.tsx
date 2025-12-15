@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
+import Link from 'next/link'
 import {
   Calendar,
   MapPin,
@@ -10,18 +10,18 @@ import {
   Download,
   XCircle,
   MoreVertical,
-} from 'lucide-react';
-import moment from 'moment-jalaali';
-import type { Booking } from '@/types/booking';
-import { Button } from '@/components/ui/button';
-import BookingStatusBadge from './BookingStatusBadge';
+} from 'lucide-react'
+import moment from 'moment-jalaali'
+import type { Booking } from '@/types/booking'
+import { Button } from '@/components/ui/button'
+import BookingStatusBadge from './BookingStatusBadge'
 
 interface BookingCardProps {
-  booking: Booking;
-  onView?: (bookingId: string) => void;
-  onCancel?: (bookingId: string) => void;
-  onDownload?: (bookingId: string) => void;
-  showActions?: boolean;
+  booking: Booking
+  onView?: (bookingId: string) => void
+  onCancel?: (bookingId: string) => void
+  onDownload?: (bookingId: string) => void
+  showActions?: boolean
 }
 
 export default function BookingCard({
@@ -32,18 +32,18 @@ export default function BookingCard({
   showActions = true,
 }: BookingCardProps) {
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fa-IR').format(price);
-  };
+    return new Intl.NumberFormat('fa-IR').format(price)
+  }
 
   const formatDate = (date: Date) => {
-    return moment(date).format('jYYYY/jMM/jDD');
-  };
+    return moment(date).format('jYYYY/jMM/jDD')
+  }
 
   const formatDateTime = (date: Date) => {
-    return moment(date).format('jYYYY/jMM/jDD - HH:mm');
-  };
+    return moment(date).format('jYYYY/jMM/jDD - HH:mm')
+  }
 
-  const canCancel = booking.status === 'PENDING' || booking.status === 'CONFIRMED';
+  const canCancel = booking.status === 'PENDING' || booking.status === 'CONFIRMED'
 
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
@@ -68,9 +68,7 @@ export default function BookingCard({
         {/* Booking Code */}
         <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
           <div className="flex items-center gap-2">
-            <span className="font-mono font-bold text-primary text-lg">
-              {booking.bookingCode}
-            </span>
+            <span className="font-mono font-bold text-primary text-lg">{booking.bookingCode}</span>
           </div>
           <div className="text-sm text-gray-600 flex items-center gap-2">
             <CreditCard className="w-4 h-4" />
@@ -83,9 +81,7 @@ export default function BookingCard({
           {/* Participants */}
           <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border border-blue-100">
             <div className="flex items-center gap-2">
-              <span className="font-semibold text-blue-700">
-                {booking.totalParticipants}
-              </span>
+              <span className="font-semibold text-blue-700">{booking.totalParticipants}</span>
               <span className="text-sm text-blue-600">نفر</span>
             </div>
             <div className="text-sm text-gray-600 flex items-center gap-1">
@@ -97,14 +93,10 @@ export default function BookingCard({
           {/* Price */}
           <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border border-green-100">
             <div className="flex flex-col items-start">
-              <span className="font-bold text-green-700">
-                {formatPrice(booking.finalPrice)}
-              </span>
+              <span className="font-bold text-green-700">{formatPrice(booking.finalPrice)}</span>
               <span className="text-xs text-green-600">تومان</span>
             </div>
-            <div className="text-sm text-gray-600">
-              مبلغ کل
-            </div>
+            <div className="text-sm text-gray-600">مبلغ کل</div>
           </div>
         </div>
 
@@ -128,9 +120,11 @@ export default function BookingCard({
         {/* Payment Status */}
         {booking.payment && (
           <div className="flex items-center justify-between p-2 bg-gray-50 rounded text-xs">
-            <span className={`font-medium ${
-              booking.payment.status === 'COMPLETED' ? 'text-green-600' : 'text-amber-600'
-            }`}>
+            <span
+              className={`font-medium ${
+                booking.payment.status === 'COMPLETED' ? 'text-green-600' : 'text-amber-600'
+              }`}
+            >
               {booking.payment.status === 'COMPLETED' ? 'پرداخت شده' : 'در انتظار پرداخت'}
             </span>
             <span className="text-gray-600">وضعیت پرداخت:</span>
@@ -181,5 +175,5 @@ export default function BookingCard({
         </div>
       )}
     </div>
-  );
+  )
 }

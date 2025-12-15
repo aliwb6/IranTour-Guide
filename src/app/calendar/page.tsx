@@ -77,9 +77,7 @@ export default function CalendarPage() {
       {/* Hero */}
       <section className="kashi-star-pattern py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-6">
-            📅 تقویم رویدادها
-          </h1>
+          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-6">📅 تقویم رویدادها</h1>
           <p className="text-xl text-gray-700 font-bold">
             برنامه‌ریزی سفر خود را با تقویم جامع رویدادهای ایران آسان کنید
           </p>
@@ -149,9 +147,7 @@ export default function CalendarPage() {
                       <div className="flex flex-col items-center justify-center h-full">
                         <span className="font-black">{date.getDate()}</span>
                         {hasEvents && (
-                          <span className="text-xs font-bold mt-1">
-                            {events.length} رویداد
-                          </span>
+                          <span className="text-xs font-bold mt-1">{events.length} رویداد</span>
                         )}
                       </div>
                     </button>
@@ -184,15 +180,9 @@ export default function CalendarPage() {
                       href={`/events/${event.slug}`}
                       className="block p-4 rounded-xl bg-cream border-2 border-gold hover:border-red-900 transition"
                     >
-                      <h4 className="font-black text-red-900 mb-2">
-                        {event.title}
-                      </h4>
-                      <p className="text-sm text-gray-700 font-bold">
-                        📍 {event.city}
-                      </p>
-                      <p className="text-sm text-gray-700 font-bold">
-                        🏷️ {event.type}
-                      </p>
+                      <h4 className="font-black text-red-900 mb-2">{event.title}</h4>
+                      <p className="text-sm text-gray-700 font-bold">📍 {event.city}</p>
+                      <p className="text-sm text-gray-700 font-bold">🏷️ {event.type}</p>
                     </Link>
                   ))}
                 </div>

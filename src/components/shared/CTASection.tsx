@@ -17,7 +17,8 @@ export const CTASection: React.FC<CTASectionProps> = ({ type }) => {
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600)',
+            backgroundImage:
+              'url(https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600)',
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-r from-red-900/95 via-red-900/90 to-transparent" />
@@ -27,16 +28,16 @@ export const CTASection: React.FC<CTASectionProps> = ({ type }) => {
         <motion.div
           className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 20px, var(--gold) 20px, var(--gold) 22px)`
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 20px, var(--gold) 20px, var(--gold) 22px)`,
           }}
           animate={{
             x: [0, 40, 0],
-            y: [0, 40, 0]
+            y: [0, 40, 0],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "linear"
+            ease: 'linear',
           }}
         />
 
@@ -104,15 +105,15 @@ export const CTASection: React.FC<CTASectionProps> = ({ type }) => {
             linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px'
+          backgroundSize: '50px 50px',
         }}
         animate={{
-          backgroundPosition: ['0px 0px', '50px 50px']
+          backgroundPosition: ['0px 0px', '50px 50px'],
         }}
         transition={{
           duration: 10,
           repeat: Infinity,
-          ease: "linear"
+          ease: 'linear',
         }}
       />
 
@@ -124,7 +125,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ type }) => {
         transition={{
           duration: 3,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: 'easeInOut',
         }}
       >
         {[...Array(20)].map((_, i) => (
@@ -137,12 +138,12 @@ export const CTASection: React.FC<CTASectionProps> = ({ type }) => {
             }}
             animate={{
               scale: [1, 2, 1],
-              opacity: [0.3, 1, 0.3]
+              opacity: [0.3, 1, 0.3],
             }}
             transition={{
               duration: 2 + Math.random() * 2,
               repeat: Infinity,
-              delay: Math.random() * 2
+              delay: Math.random() * 2,
             }}
           />
         ))}
@@ -158,13 +159,11 @@ export const CTASection: React.FC<CTASectionProps> = ({ type }) => {
           <div className="flex items-center justify-center gap-3 mb-6">
             <motion.div
               animate={{ rotate: [0, 360] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
             >
               <Sparkles className="w-12 h-12 text-gold" />
             </motion.div>
-            <h2 className="text-4xl md:text-5xl font-black text-white">
-              پیشنهاد هوشمند سفر
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-black text-white">پیشنهاد هوشمند سفر</h2>
           </div>
 
           <p className="text-xl md:text-2xl text-blue-100 mb-8 font-bold leading-relaxed max-w-3xl mx-auto">

@@ -18,7 +18,7 @@ export const StatisticsCard: React.FC<StatisticsCardProps> = ({
   value,
   icon: Icon,
   link,
-  index = 0
+  index = 0,
 }) => {
   const content = (
     <motion.div
@@ -34,13 +34,9 @@ export const StatisticsCard: React.FC<StatisticsCardProps> = ({
         </div>
       </div>
 
-      <div className="text-4xl font-black text-gold mb-2">
-        {value.toLocaleString('fa-IR')}
-      </div>
+      <div className="text-4xl font-black text-gold mb-2">{value.toLocaleString('fa-IR')}</div>
 
-      <div className="text-sm font-bold text-gray-800">
-        {label}
-      </div>
+      <div className="text-sm font-bold text-gray-800">{label}</div>
     </motion.div>
   )
 

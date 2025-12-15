@@ -6,33 +6,33 @@ import { ArrowRight, Calendar } from 'lucide-react'
 import { formatPersianDate } from '@/lib/date-utils'
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
 
   const post = await prisma.post.findUnique({
-    where: { slug }
+    where: { slug },
   })
 
   if (!post) return {}
 
   return {
     title: post.metaTitle || post.title,
-    description: post.metaDescription || post.excerpt
+    description: post.metaDescription || post.excerpt,
   }
 }
 
 export default async function BlogPostPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string; slug: string }>
 }) {
   const { locale, slug } = await params
 
   const post = await prisma.post.findUnique({
-    where: { slug }
+    where: { slug },
   })
 
   if (!post || !post.isPublished) {
@@ -42,7 +42,7 @@ export default async function BlogPostPage({
   // Increment view count
   await prisma.post.update({
     where: { id: post.id },
-    data: { viewCount: { increment: 1 } }
+    data: { viewCount: { increment: 1 } },
   })
 
   return (
@@ -59,12 +59,7 @@ export default async function BlogPostPage({
         <article className="bg-white rounded-xl shadow-md overflow-hidden">
           {post.featuredImage && (
             <div className="relative h-96 w-full">
-              <Image
-                src={post.featuredImage}
-                alt={post.title}
-                fill
-                className="object-cover"
-              />
+              <Image src={post.featuredImage} alt={post.title} fill className="object-cover" />
             </div>
           )}
 

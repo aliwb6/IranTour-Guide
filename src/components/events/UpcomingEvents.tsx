@@ -48,9 +48,7 @@ export const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">
-            📅 رویدادهای پیش رو
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">📅 رویدادهای پیش رو</h2>
           <p className="text-xl text-gray-700 font-bold">
             برنامه‌ریزی کنید و رویدادهای آینده را از دست ندهید
           </p>
@@ -81,15 +79,15 @@ export const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
                     className="relative"
                   >
                     {/* Timeline Connector */}
-                    {index > 0 && (
-                      <div className="absolute top-14 right-full w-8 h-0.5 bg-gold" />
-                    )}
+                    {index > 0 && <div className="absolute top-14 right-full w-8 h-0.5 bg-gold" />}
 
                     {/* Date Bubble */}
                     <div className={`mb-4 text-center ${isToday ? 'animate-pulse' : ''}`}>
-                      <div className={`inline-block rounded-full px-6 py-3 font-black text-white ${
-                        isToday ? 'bg-gradient-to-br from-red-900 to-red-700' : 'bg-gold'
-                      }`}>
+                      <div
+                        className={`inline-block rounded-full px-6 py-3 font-black text-white ${
+                          isToday ? 'bg-gradient-to-br from-red-900 to-red-700' : 'bg-gold'
+                        }`}
+                      >
                         <div className="text-sm">{startDate.format('jDD jMMMM')}</div>
                         <div className="text-xs opacity-90">{startDate.format('jYYYY')}</div>
                       </div>
@@ -173,12 +171,7 @@ export const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
 
                       {/* Thumbnail */}
                       <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden">
-                        <Image
-                          src={event.image}
-                          alt={event.title}
-                          fill
-                          className="object-cover"
-                        />
+                        <Image src={event.image} alt={event.title} fill className="object-cover" />
                       </div>
                     </div>
                   </Link>

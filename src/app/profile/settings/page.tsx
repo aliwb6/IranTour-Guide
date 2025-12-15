@@ -10,17 +10,19 @@ import { User, Lock, Bell, Globe, Shield, AlertTriangle, Save } from 'lucide-rea
 // Validation schemas
 const profileSchema = z.object({
   name: z.string().min(2, 'نام باید حداقل ۲ حرف باشد').max(50),
-  bio: z.string().max(500, 'بیوگرافی نباید بیشتر از ۵۰۰ حرف باشد').optional()
+  bio: z.string().max(500, 'بیوگرافی نباید بیشتر از ۵۰۰ حرف باشد').optional(),
 })
 
-const passwordSchema = z.object({
-  currentPassword: z.string().min(8, 'رمز عبور باید حداقل ۸ کاراکتر باشد'),
-  newPassword: z.string().min(8, 'رمز عبور جدید باید حداقل ۸ کاراکتر باشد'),
-  confirmPassword: z.string()
-}).refine(data => data.newPassword === data.confirmPassword, {
-  message: 'رمزهای عبور یکسان نیستند',
-  path: ['confirmPassword']
-})
+const passwordSchema = z
+  .object({
+    currentPassword: z.string().min(8, 'رمز عبور باید حداقل ۸ کاراکتر باشد'),
+    newPassword: z.string().min(8, 'رمز عبور جدید باید حداقل ۸ کاراکتر باشد'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: 'رمزهای عبور یکسان نیستند',
+    path: ['confirmPassword'],
+  })
 
 type ProfileFormData = z.infer<typeof profileSchema>
 type PasswordFormData = z.infer<typeof passwordSchema>
@@ -30,7 +32,7 @@ export default function SettingsPage() {
   const [notifications, setNotifications] = useState({
     email: true,
     newEvents: true,
-    newsletter: false
+    newsletter: false,
   })
 
   // Profile Form
@@ -38,13 +40,13 @@ export default function SettingsPage() {
     resolver: zodResolver(profileSchema),
     defaultValues: {
       name: 'کاربر نمونه',
-      bio: ''
-    }
+      bio: '',
+    },
   })
 
   // Password Form
   const passwordForm = useForm<PasswordFormData>({
-    resolver: zodResolver(passwordSchema)
+    resolver: zodResolver(passwordSchema),
   })
 
   const onProfileSubmit = (data: ProfileFormData) => {
@@ -62,24 +64,20 @@ export default function SettingsPage() {
     { id: 'profile', label: 'اطلاعات پروفایل', icon: User },
     { id: 'password', label: 'تغییر رمز عبور', icon: Lock },
     { id: 'notifications', label: 'اعلان‌ها', icon: Bell },
-    { id: 'privacy', label: 'حریم خصوصی', icon: Shield }
+    { id: 'privacy', label: 'حریم خصوصی', icon: Shield },
   ]
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="kashi-card p-6">
-        <h1 className="text-3xl font-black text-red-900">
-          تنظیمات
-        </h1>
-        <p className="text-gray-600 font-medium mt-2">
-          مدیریت حساب کاربری و تنظیمات خود
-        </p>
+        <h1 className="text-3xl font-black text-red-900">تنظیمات</h1>
+        <p className="text-gray-600 font-medium mt-2">مدیریت حساب کاربری و تنظیمات خود</p>
       </div>
 
       {/* Tabs */}
       <div className="flex gap-2 overflow-x-auto pb-2">
-        {tabs.map(tab => {
+        {tabs.map((tab) => {
           const Icon = tab.icon
           return (
             <motion.button
@@ -89,9 +87,10 @@ export default function SettingsPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`
                 flex items-center gap-2 px-6 py-3 rounded-xl font-bold whitespace-nowrap transition-all
-                ${activeTab === tab.id
-                  ? 'deep-persian-btn'
-                  : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-gold'
+                ${
+                  activeTab === tab.id
+                    ? 'deep-persian-btn'
+                    : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-gold'
                 }
               `}
             >
@@ -123,18 +122,14 @@ export default function SettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                ایمیل
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">ایمیل</label>
               <input
                 type="email"
                 value="user@example.com"
                 disabled
                 className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-100 font-medium cursor-not-allowed"
               />
-              <p className="mt-2 text-xs text-gray-500 font-medium">
-                ایمیل قابل تغییر نیست
-              </p>
+              <p className="mt-2 text-xs text-gray-500 font-medium">ایمیل قابل تغییر نیست</p>
             </div>
 
             <div>
@@ -147,9 +142,7 @@ export default function SettingsPage() {
                 placeholder="درباره خودتان بنویسید..."
                 className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-gold outline-none font-medium resize-none"
               />
-              <p className="mt-2 text-xs text-gray-500 font-medium">
-                حداکثر ۵۰۰ کاراکتر
-              </p>
+              <p className="mt-2 text-xs text-gray-500 font-medium">حداکثر ۵۰۰ کاراکتر</p>
             </div>
 
             <motion.button
@@ -168,9 +161,7 @@ export default function SettingsPage() {
         {activeTab === 'password' && (
           <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-6">
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                رمز عبور فعلی *
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">رمز عبور فعلی *</label>
               <input
                 type="password"
                 {...passwordForm.register('currentPassword')}
@@ -184,9 +175,7 @@ export default function SettingsPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-bold text-gray-700 mb-2">
-                رمز عبور جدید *
-              </label>
+              <label className="block text-sm font-bold text-gray-700 mb-2">رمز عبور جدید *</label>
               <input
                 type="password"
                 {...passwordForm.register('newPassword')}
@@ -232,18 +221,14 @@ export default function SettingsPage() {
           <div className="space-y-6">
             <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
               <div>
-                <h3 className="font-black text-gray-900 mb-1">
-                  اعلان‌های ایمیل
-                </h3>
-                <p className="text-sm text-gray-600 font-medium">
-                  دریافت اعلان‌ها از طریق ایمیل
-                </p>
+                <h3 className="font-black text-gray-900 mb-1">اعلان‌های ایمیل</h3>
+                <p className="text-sm text-gray-600 font-medium">دریافت اعلان‌ها از طریق ایمیل</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={notifications.email}
-                  onChange={(e) => setNotifications({...notifications, email: e.target.checked})}
+                  onChange={(e) => setNotifications({ ...notifications, email: e.target.checked })}
                   className="sr-only peer"
                 />
                 <div className="w-14 h-7 bg-gray-300 rounded-full peer peer-checked:bg-gold transition-colors" />
@@ -253,9 +238,7 @@ export default function SettingsPage() {
 
             <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
               <div>
-                <h3 className="font-black text-gray-900 mb-1">
-                  رویدادهای جدید
-                </h3>
+                <h3 className="font-black text-gray-900 mb-1">رویدادهای جدید</h3>
                 <p className="text-sm text-gray-600 font-medium">
                   اطلاع از رویدادهای جدید در شهرها و موضوعات دنبال‌شده
                 </p>
@@ -264,7 +247,9 @@ export default function SettingsPage() {
                 <input
                   type="checkbox"
                   checked={notifications.newEvents}
-                  onChange={(e) => setNotifications({...notifications, newEvents: e.target.checked})}
+                  onChange={(e) =>
+                    setNotifications({ ...notifications, newEvents: e.target.checked })
+                  }
                   className="sr-only peer"
                 />
                 <div className="w-14 h-7 bg-gray-300 rounded-full peer peer-checked:bg-gold transition-colors" />
@@ -274,18 +259,16 @@ export default function SettingsPage() {
 
             <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
               <div>
-                <h3 className="font-black text-gray-900 mb-1">
-                  خبرنامه
-                </h3>
-                <p className="text-sm text-gray-600 font-medium">
-                  دریافت خبرنامه هفتگی
-                </p>
+                <h3 className="font-black text-gray-900 mb-1">خبرنامه</h3>
+                <p className="text-sm text-gray-600 font-medium">دریافت خبرنامه هفتگی</p>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
                   checked={notifications.newsletter}
-                  onChange={(e) => setNotifications({...notifications, newsletter: e.target.checked})}
+                  onChange={(e) =>
+                    setNotifications({ ...notifications, newsletter: e.target.checked })
+                  }
                   className="sr-only peer"
                 />
                 <div className="w-14 h-7 bg-gray-300 rounded-full peer peer-checked:bg-gold transition-colors" />
@@ -302,9 +285,7 @@ export default function SettingsPage() {
               <div className="flex items-start gap-3 mb-6">
                 <AlertTriangle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-xl font-black text-red-900 mb-2">
-                    منطقه خطرناک
-                  </h3>
+                  <h3 className="text-xl font-black text-red-900 mb-2">منطقه خطرناک</h3>
                   <p className="text-red-800 font-medium">
                     حذف حساب کاربری غیرقابل بازگشت است و تمام داده‌های شما پاک خواهد شد.
                   </p>
@@ -315,7 +296,11 @@ export default function SettingsPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => {
-                  if (confirm('آیا مطمئن هستید که می‌خواهید حساب خود را حذف کنید؟ این عمل غیرقابل بازگشت است!')) {
+                  if (
+                    confirm(
+                      'آیا مطمئن هستید که می‌خواهید حساب خود را حذف کنید؟ این عمل غیرقابل بازگشت است!'
+                    )
+                  ) {
                     alert('حساب کاربری حذف شد')
                   }
                 }}

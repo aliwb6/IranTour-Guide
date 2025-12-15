@@ -18,36 +18,43 @@ async function getDashboardData(organizationId: string) {
       take: 5,
       include: {
         categories: {
-          include: { category: true }
-        }
-      }
+          include: { category: true },
+        },
+      },
     }),
     prisma.event.aggregate({
       where: { organizationId },
-      _sum: { viewCount: true }
+      _sum: { viewCount: true },
     }),
     prisma.event.aggregate({
       where: { organizationId },
-      _sum: { saveCount: true }
+      _sum: { saveCount: true },
     }),
     prisma.event.aggregate({
       where: { organizationId },
-      _sum: { shareCount: true }
-    })
+      _sum: { shareCount: true },
+    }),
   ])
 
-  const activeEventsCount = events.filter(e => e.status === 'APPROVED').length
+  const activeEventsCount = events.filter((e) => e.status === 'APPROVED').length
 
   // Generate recent activity (simplified version)
   const recentActivity: Activity[] = events.slice(0, 5).map((event, index) => ({
     id: event.id,
-    type: event.status === 'APPROVED' ? 'event_approved' :
-          event.status === 'REJECTED' ? 'event_rejected' : 'event_published',
-    message: event.status === 'APPROVED' ? `رویداد "${event.title}" تأیید شد` :
-             event.status === 'REJECTED' ? `رویداد "${event.title}" رد شد` :
-             `رویداد "${event.title}" منتشر شد`,
+    type:
+      event.status === 'APPROVED'
+        ? 'event_approved'
+        : event.status === 'REJECTED'
+          ? 'event_rejected'
+          : 'event_published',
+    message:
+      event.status === 'APPROVED'
+        ? `رویداد "${event.title}" تأیید شد`
+        : event.status === 'REJECTED'
+          ? `رویداد "${event.title}" رد شد`
+          : `رویداد "${event.title}" منتشر شد`,
     timestamp: event.createdAt,
-    eventTitle: event.title
+    eventTitle: event.title,
   }))
 
   return {
@@ -56,24 +63,24 @@ async function getDashboardData(organizationId: string) {
     totalSaves: savesAgg._sum.saveCount || 0,
     totalShares: sharesAgg._sum.shareCount || 0,
     activeEventsCount,
-    recentActivity
+    recentActivity,
   }
 }
 
 const statusLabels = {
   APPROVED: 'تأیید شده',
   PENDING: 'در انتظار',
-  REJECTED: 'رد شده'
+  REJECTED: 'رد شده',
 }
 
 const statusColors = {
   APPROVED: 'bg-green-100 text-green-700 border-green-300',
   PENDING: 'bg-yellow-100 text-yellow-700 border-yellow-300',
-  REJECTED: 'bg-red-100 text-red-700 border-red-300'
+  REJECTED: 'bg-red-100 text-red-700 border-red-300',
 }
 
 export default async function DashboardPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>
 }) {
@@ -85,7 +92,7 @@ export default async function DashboardPage({
   }
 
   const organization = await prisma.organization.findUnique({
-    where: { userId: session.user.id }
+    where: { userId: session.user.id },
   })
 
   if (!organization) {
@@ -99,20 +106,20 @@ export default async function DashboardPage({
       label: 'افزودن رویداد جدید',
       href: `/${locale}/organizations/dashboard/add-event`,
       icon: Plus,
-      color: 'primary' as const
+      color: 'primary' as const,
     },
     {
       label: 'مشاهده آمار کامل',
       href: `/${locale}/organizations/dashboard/analytics`,
       icon: BarChart3,
-      color: 'secondary' as const
+      color: 'secondary' as const,
     },
     {
       label: 'ویرایش پروفایل',
       href: `/${locale}/organizations/dashboard/profile`,
       icon: Edit,
-      color: 'accent' as const
-    }
+      color: 'accent' as const,
+    },
   ]
 
   return (
@@ -181,16 +188,16 @@ export default async function DashboardPage({
                   <div key={event.id} className="p-4 hover:bg-gray-50 transition-colors">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-medium text-gray-900 truncate mb-1">
-                          {event.title}
-                        </h3>
+                        <h3 className="font-medium text-gray-900 truncate mb-1">{event.title}</h3>
                         <p className="text-sm text-gray-500 mb-2">{event.city}</p>
                         <div className="flex items-center gap-4 text-xs text-gray-400">
                           <span>{moment(event.startDate).format('jYYYY/jMM/jDD')}</span>
                           <span>{event.viewCount.toLocaleString('fa-IR')} بازدید</span>
                         </div>
                       </div>
-                      <Badge className={`${statusColors[event.status]} px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap`}>
+                      <Badge
+                        className={`${statusColors[event.status]} px-3 py-1 rounded-full text-xs font-medium border whitespace-nowrap`}
+                      >
                         {statusLabels[event.status]}
                       </Badge>
                     </div>

@@ -5,7 +5,8 @@ import { ArrowRight } from 'lucide-react'
 const guides: Record<string, { title: string; description: string; content: string }> = {
   norooz: {
     title: 'نوروز',
-    description: 'نوروز یا سال نو ایرانی، جشن تحویل سال نو در تقویم هجری شمسی است که در اولین روز بهار برگزار می‌شود.',
+    description:
+      'نوروز یا سال نو ایرانی، جشن تحویل سال نو در تقویم هجری شمسی است که در اولین روز بهار برگزار می‌شود.',
     content: `
       <h2>تاریخچه نوروز</h2>
       <p>نوروز از دوران باستان ایران زمین برگزار می‌شده و ریشه در فرهنگ ایرانی دارد.</p>
@@ -29,7 +30,7 @@ const guides: Record<string, { title: string; description: string; content: stri
         <li><strong>سرکه:</strong> نماد بردباری</li>
         <li><strong>سماق:</strong> نماد طلوع خورشید</li>
       </ul>
-    `
+    `,
   },
   yalda: {
     title: 'شب یلدا',
@@ -45,7 +46,7 @@ const guides: Record<string, { title: string; description: string; content: stri
         <li>گرد هم آمدن خانواده</li>
         <li>خوردن آجیل و میوه</li>
       </ul>
-    `
+    `,
   },
   'chaharshanbe-suri': {
     title: 'چهارشنبه‌سوری',
@@ -61,7 +62,7 @@ const guides: Record<string, { title: string; description: string; content: stri
         <li>قاشق زنی (در برخی مناطق)</li>
         <li>فال‌گوش</li>
       </ul>
-    `
+    `,
   },
   'sizdah-bedar': {
     title: 'سیزده‌بدر',
@@ -76,7 +77,7 @@ const guides: Record<string, { title: string; description: string; content: stri
         <li>گره زدن سبزه</li>
         <li>پیک‌نیک خانوادگی</li>
       </ul>
-    `
+    `,
   },
   ashura: {
     title: 'عاشورا و محرم',
@@ -92,12 +93,12 @@ const guides: Record<string, { title: string; description: string; content: stri
         <li>نذری و طبخ غذا</li>
         <li>تعزیه</li>
       </ul>
-    `
-  }
+    `,
+  },
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<{ slug: string }>
 }) {
@@ -108,12 +109,12 @@ export async function generateMetadata({
 
   return {
     title: `${guide.title} | دانشنامه فرهنگی`,
-    description: guide.description
+    description: guide.description,
   }
 }
 
 export default async function CulturalGuideDetailPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string; slug: string }>
 }) {

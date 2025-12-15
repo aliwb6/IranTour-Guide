@@ -15,28 +15,28 @@ const defaultNavItems: NavItem[] = [
   {
     href: '/organizations/dashboard',
     label: 'داشبورد',
-    icon: LayoutDashboard
+    icon: LayoutDashboard,
   },
   {
     href: '/organizations/dashboard/events',
     label: 'رویدادهای من',
-    icon: Calendar
+    icon: Calendar,
   },
   {
     href: '/organizations/dashboard/add-event',
     label: 'افزودن رویداد',
-    icon: Plus
+    icon: Plus,
   },
   {
     href: '/organizations/dashboard/analytics',
     label: 'آمار و گزارش',
-    icon: BarChart3
+    icon: BarChart3,
   },
   {
     href: '/organizations/dashboard/profile',
     label: 'پروفایل سازمان',
-    icon: Building2
-  }
+    icon: Building2,
+  },
 ]
 
 interface DashboardSidebarProps {
@@ -46,7 +46,7 @@ interface DashboardSidebarProps {
 
 export const DashboardSidebar: React.FC<DashboardSidebarProps> = ({
   locale,
-  navItems = defaultNavItems
+  navItems = defaultNavItems,
 }) => {
   const pathname = usePathname()
 

@@ -1,6 +1,6 @@
-'use client';
+'use client'
 
-import { UseFormReturn } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form'
 import {
   Calendar,
   MapPin,
@@ -12,22 +12,22 @@ import {
   CreditCard,
   Tag,
   FileText,
-} from 'lucide-react';
-import type { CreateBookingSchema } from '@/lib/validators/booking';
-import moment from 'moment-jalaali';
+} from 'lucide-react'
+import type { CreateBookingSchema } from '@/lib/validators/booking'
+import moment from 'moment-jalaali'
 
 interface BookingSummaryStepProps {
-  form: UseFormReturn<CreateBookingSchema>;
-  eventTitle: string;
-  eventDate: Date;
+  form: UseFormReturn<CreateBookingSchema, any, any>
+  eventTitle: string
+  eventDate: Date
   totals: {
-    adultsTotal: number;
-    childrenTotal: number;
-    subtotal: number;
-    discountAmount: number;
-    total: number;
-    totalParticipants: number;
-  };
+    adultsTotal: number
+    childrenTotal: number
+    subtotal: number
+    discountAmount: number
+    total: number
+    totalParticipants: number
+  }
 }
 
 export default function BookingSummaryStep({
@@ -36,24 +36,22 @@ export default function BookingSummaryStep({
   eventDate,
   totals,
 }: BookingSummaryStepProps) {
-  const { watch } = form;
-  const formData = watch();
+  const { watch } = form
+  const formData = watch()
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('fa-IR').format(price);
-  };
+    return new Intl.NumberFormat('fa-IR').format(price)
+  }
 
   const formatDate = (date: Date) => {
-    return moment(date).format('jYYYY/jMM/jDD');
-  };
+    return moment(date).format('jYYYY/jMM/jDD')
+  }
 
   return (
     <div className="space-y-6">
       <div>
         <h3 className="text-xl font-bold text-gray-900 mb-2 text-right">بررسی و تایید نهایی</h3>
-        <p className="text-sm text-gray-600 text-right">
-          لطفاً اطلاعات رزرو خود را بررسی کنید
-        </p>
+        <p className="text-sm text-gray-600 text-right">لطفاً اطلاعات رزرو خود را بررسی کنید</p>
       </div>
 
       {/* Event Information */}
@@ -146,9 +144,7 @@ export default function BookingSummaryStep({
             </span>
           </div>
           <div className="flex items-center justify-between p-4 bg-purple-50 rounded-lg border border-purple-200">
-            <span className="text-2xl font-bold text-purple-600">
-              {totals.totalParticipants}
-            </span>
+            <span className="text-2xl font-bold text-purple-600">{totals.totalParticipants}</span>
             <span className="text-sm text-gray-600">جمع کل</span>
           </div>
         </div>
@@ -175,49 +171,36 @@ export default function BookingSummaryStep({
         </h4>
         <div className="space-y-3">
           <div className="flex items-center justify-between pb-3 border-b border-gray-300">
-            <span className="text-gray-900">
-              {formatPrice(totals.adultsTotal)} تومان
-            </span>
+            <span className="text-gray-900">{formatPrice(totals.adultsTotal)} تومان</span>
             <span className="text-sm text-gray-600">
-              بزرگسال ({formData.numberOfAdults} نفر × {formatPrice(formData.pricePerPerson)}{' '}
-              تومان)
+              بزرگسال ({formData.numberOfAdults} نفر × {formatPrice(formData.pricePerPerson)} تومان)
             </span>
           </div>
 
           {formData.numberOfChildren > 0 && (
             <div className="flex items-center justify-between pb-3 border-b border-gray-300">
-              <span className="text-gray-900">
-                {formatPrice(totals.childrenTotal)} تومان
-              </span>
+              <span className="text-gray-900">{formatPrice(totals.childrenTotal)} تومان</span>
               <span className="text-sm text-gray-600">
-                کودک ({formData.numberOfChildren} نفر ×{' '}
-                {formatPrice(formData.childrenPrice || 0)} تومان)
+                کودک ({formData.numberOfChildren} نفر × {formatPrice(formData.childrenPrice || 0)}{' '}
+                تومان)
               </span>
             </div>
           )}
 
           <div className="flex items-center justify-between pb-3 border-b border-gray-300">
-            <span className="text-gray-900">
-              {formatPrice(totals.subtotal)} تومان
-            </span>
+            <span className="text-gray-900">{formatPrice(totals.subtotal)} تومان</span>
             <span className="text-sm font-medium text-gray-700">جمع جزء:</span>
           </div>
 
-          {formData.discount > 0 && (
+          {formData.discount && formData.discount > 0 && (
             <div className="flex items-center justify-between pb-3 border-b border-gray-300">
-              <span className="text-red-600">
-                -{formatPrice(totals.discountAmount)} تومان
-              </span>
-              <span className="text-sm text-gray-600">
-                تخفیف ({formData.discount}%)
-              </span>
+              <span className="text-red-600">-{formatPrice(totals.discountAmount)} تومان</span>
+              <span className="text-sm text-gray-600">تخفیف ({formData.discount}%)</span>
             </div>
           )}
 
           <div className="flex items-center justify-between pt-3 bg-gradient-to-r from-primary to-primary/80 text-white rounded-lg p-4 mt-4">
-            <span className="text-2xl font-bold">
-              {formatPrice(totals.total)} تومان
-            </span>
+            <span className="text-2xl font-bold">{formatPrice(totals.total)} تومان</span>
             <span className="text-lg font-bold">مبلغ قابل پرداخت:</span>
           </div>
         </div>
@@ -257,12 +240,12 @@ export default function BookingSummaryStep({
           <div className="flex-1 text-right">
             <h4 className="text-sm font-semibold text-red-900 mb-1">توجه</h4>
             <p className="text-sm text-red-700">
-              پس از تایید و ثبت رزرو، به صفحه پرداخت منتقل خواهید شد. در صورت عدم پرداخت در
-              مدت ۳۰ دقیقه، رزرو شما لغو خواهد شد.
+              پس از تایید و ثبت رزرو، به صفحه پرداخت منتقل خواهید شد. در صورت عدم پرداخت در مدت ۳۰
+              دقیقه، رزرو شما لغو خواهد شد.
             </p>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

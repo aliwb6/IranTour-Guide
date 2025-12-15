@@ -29,7 +29,7 @@ export const CITIES: CityData[] = [
     province: 'اصفهان',
     description: 'نصف جهان - شهر تاریخی و فرهنگی ایران',
     latitude: 32.6546,
-    longitude: 51.6680,
+    longitude: 51.668,
   },
   {
     name: 'شیراز',
@@ -137,7 +137,7 @@ export const CITIES: CityData[] = [
     province: 'کرمانشاه',
     description: 'شهر تاریخی با آثار باستانی',
     latitude: 34.3142,
-    longitude: 47.0650,
+    longitude: 47.065,
   },
   {
     name: 'ارومیه',

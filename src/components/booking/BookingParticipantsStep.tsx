@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import { UseFormReturn } from 'react-hook-form';
-import { Users, Baby, Plus, Minus, MessageSquare } from 'lucide-react';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import type { CreateBookingSchema } from '@/lib/validators/booking';
+import { UseFormReturn } from 'react-hook-form'
+import { Users, Baby, Plus, Minus, MessageSquare } from 'lucide-react'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Textarea } from '@/components/ui/textarea'
+import type { CreateBookingSchema } from '@/lib/validators/booking'
 
 interface BookingParticipantsStepProps {
-  form: UseFormReturn<CreateBookingSchema>;
+  form: UseFormReturn<CreateBookingSchema, any, any>
 }
 
 export default function BookingParticipantsStep({ form }: BookingParticipantsStepProps) {
@@ -17,36 +17,36 @@ export default function BookingParticipantsStep({ form }: BookingParticipantsSte
     setValue,
     register,
     formState: { errors },
-  } = form;
+  } = form
 
-  const numberOfAdults = watch('numberOfAdults');
-  const numberOfChildren = watch('numberOfChildren') || 0;
+  const numberOfAdults = watch('numberOfAdults')
+  const numberOfChildren = watch('numberOfChildren') || 0
 
   const incrementAdults = () => {
     if (numberOfAdults < 50) {
-      setValue('numberOfAdults', numberOfAdults + 1, { shouldValidate: true });
+      setValue('numberOfAdults', numberOfAdults + 1, { shouldValidate: true })
     }
-  };
+  }
 
   const decrementAdults = () => {
     if (numberOfAdults > 1) {
-      setValue('numberOfAdults', numberOfAdults - 1, { shouldValidate: true });
+      setValue('numberOfAdults', numberOfAdults - 1, { shouldValidate: true })
     }
-  };
+  }
 
   const incrementChildren = () => {
     if (numberOfChildren < 50) {
-      setValue('numberOfChildren', numberOfChildren + 1, { shouldValidate: true });
+      setValue('numberOfChildren', numberOfChildren + 1, { shouldValidate: true })
     }
-  };
+  }
 
   const decrementChildren = () => {
     if (numberOfChildren > 0) {
-      setValue('numberOfChildren', numberOfChildren - 1, { shouldValidate: true });
+      setValue('numberOfChildren', numberOfChildren - 1, { shouldValidate: true })
     }
-  };
+  }
 
-  const totalParticipants = numberOfAdults + numberOfChildren;
+  const totalParticipants = numberOfAdults + numberOfChildren
 
   return (
     <div className="space-y-6">
@@ -158,10 +158,7 @@ export default function BookingParticipantsStep({ form }: BookingParticipantsSte
 
       {/* Special Requests */}
       <div className="space-y-2">
-        <Label
-          htmlFor="specialRequests"
-          className="text-right flex items-center justify-end gap-2"
-        >
+        <Label htmlFor="specialRequests" className="text-right flex items-center justify-end gap-2">
           درخواست‌های ویژه (اختیاری)
           <MessageSquare className="w-4 h-4" />
         </Label>
@@ -202,5 +199,5 @@ export default function BookingParticipantsStep({ form }: BookingParticipantsSte
         </div>
       </div>
     </div>
-  );
+  )
 }

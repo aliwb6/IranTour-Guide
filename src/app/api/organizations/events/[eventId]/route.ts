@@ -3,10 +3,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
 // GET - Get single event
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ eventId: string }> }
-) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ eventId: string }> }) {
   try {
     const { eventId } = await params
     const session = await auth()
@@ -16,7 +13,7 @@ export async function GET(
     }
 
     const organization = await prisma.organization.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     })
 
     if (!organization) {
@@ -26,13 +23,13 @@ export async function GET(
     const event = await prisma.event.findFirst({
       where: {
         id: eventId,
-        organizationId: organization.id
+        organizationId: organization.id,
       },
       include: {
         categories: {
-          include: { category: true }
-        }
-      }
+          include: { category: true },
+        },
+      },
     })
 
     if (!event) {
@@ -42,18 +39,12 @@ export async function GET(
     return NextResponse.json(event)
   } catch (error) {
     console.error('Error fetching event:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
 // PUT - Update event
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: Promise<{ eventId: string }> }
-) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ eventId: string }> }) {
   try {
     const { eventId } = await params
     const session = await auth()
@@ -63,7 +54,7 @@ export async function PUT(
     }
 
     const organization = await prisma.organization.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     })
 
     if (!organization) {
@@ -74,8 +65,8 @@ export async function PUT(
     const existingEvent = await prisma.event.findFirst({
       where: {
         id: eventId,
-        organizationId: organization.id
-      }
+        organizationId: organization.id,
+      },
     })
 
     if (!existingEvent) {
@@ -90,17 +81,14 @@ export async function PUT(
       data: {
         ...body,
         // Reset to pending if content changed
-        status: 'PENDING'
-      }
+        status: 'PENDING',
+      },
     })
 
     return NextResponse.json(event)
   } catch (error) {
     console.error('Error updating event:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
@@ -118,7 +106,7 @@ export async function DELETE(
     }
 
     const organization = await prisma.organization.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     })
 
     if (!organization) {
@@ -129,8 +117,8 @@ export async function DELETE(
     const existingEvent = await prisma.event.findFirst({
       where: {
         id: eventId,
-        organizationId: organization.id
-      }
+        organizationId: organization.id,
+      },
     })
 
     if (!existingEvent) {
@@ -139,15 +127,12 @@ export async function DELETE(
 
     // Delete event
     await prisma.event.delete({
-      where: { id: eventId }
+      where: { id: eventId },
     })
 
     return NextResponse.json({ message: 'Event deleted successfully' })
   } catch (error) {
     console.error('Error deleting event:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

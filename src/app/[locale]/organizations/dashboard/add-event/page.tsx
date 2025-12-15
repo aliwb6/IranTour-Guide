@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
 export default async function AddEventPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>
 }) {
@@ -16,7 +16,7 @@ export default async function AddEventPage({
   }
 
   const organization = await prisma.organization.findUnique({
-    where: { userId: session.user.id }
+    where: { userId: session.user.id },
   })
 
   if (!organization) {
@@ -231,9 +231,7 @@ export default async function AddEventPage({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  ایمیل
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">ایمیل</label>
                 <input
                   type="email"
                   name="organizerEmail"
@@ -243,9 +241,7 @@ export default async function AddEventPage({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  تلفن تماس
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">تلفن تماس</label>
                 <input
                   type="tel"
                   name="organizerPhone"
@@ -255,9 +251,7 @@ export default async function AddEventPage({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  وب‌سایت
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">وب‌سایت</label>
                 <input
                   type="url"
                   name="website"

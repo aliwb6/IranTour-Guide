@@ -17,7 +17,7 @@ export const Hero: React.FC = () => {
         transition={{
           duration: 5,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: 'easeInOut',
         }}
       />
 
@@ -26,7 +26,7 @@ export const Hero: React.FC = () => {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
           className="text-4xl md:text-6xl lg:text-7xl font-black text-yellow-100 mb-4 leading-tight drop-shadow-2xl"
         >
           رویدادهای فرهنگی و گردشگری ایران
@@ -36,7 +36,7 @@ export const Hero: React.FC = () => {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
           className="text-lg md:text-2xl text-yellow-50 mb-8 drop-shadow-lg max-w-3xl font-bold"
         >
           کشف و تجربه بهترین رویدادهای ایران با هوش مصنوعی
@@ -46,7 +46,7 @@ export const Hero: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 0.4, ease: 'easeOut' }}
           className="w-full max-w-3xl mb-8"
         >
           <div className="kashi-search p-3 md:p-4 flex flex-col md:flex-row gap-3 items-stretch md:items-center">
@@ -68,7 +68,7 @@ export const Hero: React.FC = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.6, delay: 0.6, ease: 'easeOut' }}
           className="flex flex-col sm:flex-row gap-4 mb-12"
         >
           <Link href="/events">
@@ -97,7 +97,7 @@ export const Hero: React.FC = () => {
           animate={{ opacity: 1, y: [0, 10, 0] }}
           transition={{
             opacity: { duration: 1, delay: 1 },
-            y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+            y: { duration: 2, repeat: Infinity, ease: 'easeInOut' },
           }}
           className="absolute bottom-8"
         >

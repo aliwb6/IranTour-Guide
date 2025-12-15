@@ -5,7 +5,13 @@ import { faIR } from 'date-fns/locale'
 
 export interface Activity {
   id: string
-  type: 'event_published' | 'event_approved' | 'event_rejected' | 'new_view' | 'new_save' | 'new_share'
+  type:
+    | 'event_published'
+    | 'event_approved'
+    | 'event_rejected'
+    | 'new_view'
+    | 'new_save'
+    | 'new_share'
   message: string
   timestamp: Date
   eventTitle?: string
@@ -15,37 +21,40 @@ interface RecentActivityProps {
   activities: Activity[]
 }
 
-const activityConfig: Record<Activity['type'], { icon: LucideIcon; color: string; bgColor: string }> = {
+const activityConfig: Record<
+  Activity['type'],
+  { icon: LucideIcon; color: string; bgColor: string }
+> = {
   event_published: {
     icon: Calendar,
     color: 'text-blue-600',
-    bgColor: 'bg-blue-50'
+    bgColor: 'bg-blue-50',
   },
   event_approved: {
     icon: CheckCircle,
     color: 'text-green-600',
-    bgColor: 'bg-green-50'
+    bgColor: 'bg-green-50',
   },
   event_rejected: {
     icon: XCircle,
     color: 'text-red-600',
-    bgColor: 'bg-red-50'
+    bgColor: 'bg-red-50',
   },
   new_view: {
     icon: Eye,
     color: 'text-purple-600',
-    bgColor: 'bg-purple-50'
+    bgColor: 'bg-purple-50',
   },
   new_save: {
     icon: Bookmark,
     color: 'text-orange-600',
-    bgColor: 'bg-orange-50'
+    bgColor: 'bg-orange-50',
   },
   new_share: {
     icon: Share2,
     color: 'text-cyan-600',
-    bgColor: 'bg-cyan-50'
-  }
+    bgColor: 'bg-cyan-50',
+  },
 }
 
 const getPersianRelativeTime = (date: Date): string => {

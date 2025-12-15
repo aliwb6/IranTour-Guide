@@ -4,7 +4,7 @@ export const USER_ROLES = {
   TOUR_OPERATOR: 'TOUR_OPERATOR',
   GUIDE: 'GUIDE',
   USER: 'USER',
-} as const;
+} as const
 
 // Booking Status
 export const BOOKING_STATUS = {
@@ -12,7 +12,7 @@ export const BOOKING_STATUS = {
   CONFIRMED: 'CONFIRMED',
   CANCELLED: 'CANCELLED',
   COMPLETED: 'COMPLETED',
-} as const;
+} as const
 
 // Payment Status
 export const PAYMENT_STATUS = {
@@ -20,7 +20,7 @@ export const PAYMENT_STATUS = {
   PAID: 'PAID',
   FAILED: 'FAILED',
   REFUNDED: 'REFUNDED',
-} as const;
+} as const
 
 // Tour Categories
 export const TOUR_CATEGORIES = {
@@ -30,7 +30,7 @@ export const TOUR_CATEGORIES = {
   HISTORICAL: 'HISTORICAL',
   RELIGIOUS: 'RELIGIOUS',
   FOOD: 'FOOD',
-} as const;
+} as const
 
 // Routes
 export const ROUTES = {
@@ -43,4 +43,4 @@ export const ROUTES = {
   PROFILE: '/profile',
   BOOKINGS: '/bookings',
   ADMIN: '/admin',
-} as const;
+} as const

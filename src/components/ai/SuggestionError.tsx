@@ -13,23 +13,19 @@ interface SuggestionErrorProps {
 const suggestions = [
   {
     icon: Calendar,
-    text: "تاریخ سفر را بررسی کنید - آیا رویدادی در آن بازه وجود دارد؟"
+    text: 'تاریخ سفر را بررسی کنید - آیا رویدادی در آن بازه وجود دارد؟',
   },
   {
     icon: MapPin,
-    text: "شهرهای بیشتری انتخاب کنید یا شهرهای دیگر را امتحان کنید"
+    text: 'شهرهای بیشتری انتخاب کنید یا شهرهای دیگر را امتحان کنید',
   },
   {
     icon: FileText,
-    text: "بیوگرافی دقیق‌تری بنویسید و علایق خود را واضح‌تر بیان کنید"
-  }
+    text: 'بیوگرافی دقیق‌تری بنویسید و علایق خود را واضح‌تر بیان کنید',
+  },
 ]
 
-export const SuggestionError: React.FC<SuggestionErrorProps> = ({
-  error,
-  onRetry,
-  onBack
-}) => {
+export const SuggestionError: React.FC<SuggestionErrorProps> = ({ error, onRetry, onBack }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
       <div className="max-w-2xl w-full">
@@ -42,7 +38,7 @@ export const SuggestionError: React.FC<SuggestionErrorProps> = ({
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
             className="flex justify-center mb-6"
           >
             <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center">
@@ -51,9 +47,7 @@ export const SuggestionError: React.FC<SuggestionErrorProps> = ({
           </motion.div>
 
           {/* Error Title */}
-          <h2 className="text-3xl font-black text-red-900 text-center mb-4">
-            مشکلی پیش آمده!
-          </h2>
+          <h2 className="text-3xl font-black text-red-900 text-center mb-4">مشکلی پیش آمده!</h2>
 
           {/* Error Message */}
           <div className="bg-red-50 border-2 border-red-200 rounded-xl p-4 mb-6">
@@ -79,9 +73,7 @@ export const SuggestionError: React.FC<SuggestionErrorProps> = ({
                     className="flex items-start gap-3 p-4 bg-yellow-50 rounded-xl border border-yellow-200"
                   >
                     <Icon className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
-                    <p className="text-gray-700 font-medium text-sm">
-                      {suggestion.text}
-                    </p>
+                    <p className="text-gray-700 font-medium text-sm">{suggestion.text}</p>
                   </motion.div>
                 )
               })}

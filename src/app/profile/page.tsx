@@ -14,7 +14,7 @@ const mockStats = {
   savedEvents: 12,
   followedTopics: 5,
   followedCities: 3,
-  views: 156
+  views: 156,
 }
 
 const mockActivities = [
@@ -24,21 +24,21 @@ const mockActivities = [
     title: 'جشنواره فیلم فجر',
     subtitle: 'تهران',
     link: '/events/fajr-film-festival',
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
   },
   {
     id: '2',
     type: 'followed_topic' as const,
     title: 'سینما و فیلم',
     link: '/events?topic=cinema',
-    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString()
+    timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000).toISOString(),
   },
   {
     id: '3',
     type: 'followed_city' as const,
     title: 'اصفهان',
     link: '/cities/isfahan',
-    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
+    timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
   },
   {
     id: '4',
@@ -46,11 +46,11 @@ const mockActivities = [
     title: 'نمایشگاه کتاب تهران',
     subtitle: 'تهران',
     link: '/events/tehran-book-fair',
-    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
-  }
+    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+  },
 ]
 
-const recommendedEvents = mockEvents.filter(e => e.featured).slice(0, 3)
+const recommendedEvents = mockEvents.filter((e) => e.featured).slice(0, 3)
 
 export default function ProfilePage() {
   return (
@@ -61,11 +61,10 @@ export default function ProfilePage() {
         animate={{ opacity: 1, y: 0 }}
         className="kashi-card p-8"
       >
-        <h1 className="text-4xl font-black text-red-900 mb-3">
-          سلام، کاربر عزیز! 👋
-        </h1>
+        <h1 className="text-4xl font-black text-red-900 mb-3">سلام، کاربر عزیز! 👋</h1>
         <p className="text-lg text-gray-700 font-medium mb-6">
-          به پروفایل خود خوش آمدید. از اینجا می‌توانید رویدادهای ذخیره‌شده، موضوعات و شهرهای مورد علاقه خود را مدیریت کنید.
+          به پروفایل خود خوش آمدید. از اینجا می‌توانید رویدادهای ذخیره‌شده، موضوعات و شهرهای مورد
+          علاقه خود را مدیریت کنید.
         </p>
 
         {/* Quick Actions */}
@@ -96,9 +95,7 @@ export default function ProfilePage() {
 
       {/* Statistics */}
       <div>
-        <h2 className="text-2xl font-black text-red-900 mb-4">
-          آمار فعالیت
-        </h2>
+        <h2 className="text-2xl font-black text-red-900 mb-4">آمار فعالیت</h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <StatisticsCard
             label="رویدادهای ذخیره‌شده"
@@ -121,12 +118,7 @@ export default function ProfilePage() {
             link="/profile/followed-cities"
             index={2}
           />
-          <StatisticsCard
-            label="بازدیدها"
-            value={mockStats.views}
-            icon={Eye}
-            index={3}
-          />
+          <StatisticsCard label="بازدیدها" value={mockStats.views} icon={Eye} index={3} />
         </div>
       </div>
 
@@ -134,9 +126,7 @@ export default function ProfilePage() {
         {/* Recent Activity */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-black text-red-900">
-              فعالیت‌های اخیر
-            </h2>
+            <h2 className="text-2xl font-black text-red-900">فعالیت‌های اخیر</h2>
             <Link href="/profile/activity" className="text-gold font-bold text-sm hover:underline">
               مشاهده همه
             </Link>
@@ -148,9 +138,7 @@ export default function ProfilePage() {
         {/* Recommended Events */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-black text-red-900">
-              پیشنهاد ویژه
-            </h2>
+            <h2 className="text-2xl font-black text-red-900">پیشنهاد ویژه</h2>
             <Link href="/events" className="text-gold font-bold text-sm hover:underline">
               مشاهده همه
             </Link>

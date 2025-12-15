@@ -6,17 +6,9 @@ interface TagProps {
   className?: string
 }
 
-export const Tag: React.FC<TagProps> = ({
-  children,
-  onClick,
-  className = '',
-}) => {
+export const Tag: React.FC<TagProps> = ({ children, onClick, className = '' }) => {
   return (
-    <button
-      onClick={onClick}
-      className={`deep-tag ${className}`}
-      type="button"
-    >
+    <button onClick={onClick} className={`deep-tag ${className}`} type="button">
       {children}
     </button>
   )

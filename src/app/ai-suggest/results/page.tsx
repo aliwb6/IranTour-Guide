@@ -52,7 +52,7 @@ function ResultsContent() {
     return (
       <SuggestionError
         error={error || 'پیشنهادی یافت نشد'}
-        onBack={() => window.location.href = '/ai-suggest/form'}
+        onBack={() => (window.location.href = '/ai-suggest/form')}
       />
     )
   }

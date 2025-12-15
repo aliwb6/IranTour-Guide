@@ -6,24 +6,24 @@ export function formatPrice(amount: number): string {
     style: 'currency',
     currency: 'IRR',
     minimumFractionDigits: 0,
-  }).format(amount);
+  }).format(amount)
 }
 
 /**
  * Format date to Persian date
  */
 export function formatDate(date: Date | string, locale = 'fa-IR'): string {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === 'string' ? new Date(date) : date
   return new Intl.DateTimeFormat(locale, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  }).format(dateObj);
+  }).format(dateObj)
 }
 
 /**
  * Format phone number
  */
 export function formatPhone(phone: string): string {
-  return phone.replace(/(\d{4})(\d{3})(\d{4})/, '$1-$2-$3');
+  return phone.replace(/(\d{4})(\d{3})(\d{4})/, '$1-$2-$3')
 }

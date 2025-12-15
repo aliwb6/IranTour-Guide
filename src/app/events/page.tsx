@@ -57,9 +57,7 @@ export default function EventsPage() {
       {/* Hero Section */}
       <section className="kashi-star-pattern py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-4">
-            🎭 رویدادهای ایران
-          </h1>
+          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-4">🎭 رویدادهای ایران</h1>
           <p className="text-lg md:text-xl text-gray-700 font-bold max-w-2xl mx-auto">
             کشف و تجربه بهترین رویدادهای فرهنگی، هنری و گردشگری ایران
           </p>
@@ -96,9 +94,7 @@ export default function EventsPage() {
 
             {/* تعداد نتایج */}
             <div className="mb-6">
-              <p className="text-gray-700 font-bold">
-                {filteredEvents.length} رویداد یافت شد
-              </p>
+              <p className="text-gray-700 font-bold">{filteredEvents.length} رویداد یافت شد</p>
             </div>
 
             {/* نمایش رویدادها یا پیام خالی */}
@@ -124,9 +120,7 @@ export default function EventsPage() {
               /* پیام رویدادی یافت نشد */
               <div className="text-center kashi-card p-12">
                 <p className="text-6xl mb-4">😔</p>
-                <p className="text-2xl font-black text-red-900 mb-4">
-                  رویدادی یافت نشد
-                </p>
+                <p className="text-2xl font-black text-red-900 mb-4">رویدادی یافت نشد</p>
                 <p className="text-gray-700 font-bold mb-6">
                   لطفاً فیلترهای خود را تغییر دهید یا همه فیلترها را پاک کنید
                 </p>

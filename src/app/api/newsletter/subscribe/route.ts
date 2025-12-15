@@ -10,27 +10,18 @@ export async function POST(request: NextRequest) {
 
     // Validate email
     if (!email || typeof email !== 'string') {
-      return NextResponse.json(
-        { error: 'ایمیل الزامی است' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'ایمیل الزامی است' }, { status: 400 })
     }
 
     // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'فرمت ایمیل صحیح نیست' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'فرمت ایمیل صحیح نیست' }, { status: 400 })
     }
 
     // Check if already subscribed
     if (subscribers.has(email.toLowerCase())) {
-      return NextResponse.json(
-        { error: 'این ایمیل قبلاً ثبت شده است' },
-        { status: 409 }
-      )
+      return NextResponse.json({ error: 'این ایمیل قبلاً ثبت شده است' }, { status: 409 })
     }
 
     // Add to subscribers
@@ -46,22 +37,19 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: 'با موفقیت در خبرنامه عضو شدید'
+        message: 'با موفقیت در خبرنامه عضو شدید',
       },
       { status: 200 }
     )
   } catch (error) {
     console.error('Newsletter subscription error:', error)
-    return NextResponse.json(
-      { error: 'خطای سرور. لطفاً دوباره تلاش کنید' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'خطای سرور. لطفاً دوباره تلاش کنید' }, { status: 500 })
   }
 }
 
 // Get subscriber count (optional endpoint)
 export async function GET() {
   return NextResponse.json({
-    count: subscribers.size
+    count: subscribers.size,
   })
 }

@@ -15,46 +15,47 @@ interface City {
 
 const cities: City[] = [
   {
-    name: "تهران",
-    slug: "tehran",
-    image: "https://images.unsplash.com/photo-1585916420730-d7f95e942d43?w=800",
-    eventCount: 85
+    name: 'تهران',
+    slug: 'tehran',
+    image: 'https://images.unsplash.com/photo-1585916420730-d7f95e942d43?w=800',
+    eventCount: 85,
   },
   {
-    name: "اصفهان",
-    slug: "isfahan",
-    image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800",
-    eventCount: 42
+    name: 'اصفهان',
+    slug: 'isfahan',
+    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800',
+    eventCount: 42,
   },
   {
-    name: "شیراز",
-    slug: "shiraz",
-    image: "https://images.unsplash.com/photo-1546785939-8e899ac0f0a4?w=800",
-    eventCount: 38
+    name: 'شیراز',
+    slug: 'shiraz',
+    image: 'https://images.unsplash.com/photo-1546785939-8e899ac0f0a4?w=800',
+    eventCount: 38,
   },
   {
-    name: "مشهد",
-    slug: "mashhad",
-    image: "https://images.unsplash.com/photo-1590655964464-0f90c2598242?w=800",
-    eventCount: 56
+    name: 'مشهد',
+    slug: 'mashhad',
+    image: 'https://images.unsplash.com/photo-1590655964464-0f90c2598242?w=800',
+    eventCount: 56,
   },
   {
-    name: "یزد",
-    slug: "yazd",
-    image: "https://images.unsplash.com/photo-1608017157530-e3d6885c0bb8?w=800",
-    eventCount: 24
+    name: 'یزد',
+    slug: 'yazd',
+    image: 'https://images.unsplash.com/photo-1608017157530-e3d6885c0bb8?w=800',
+    eventCount: 24,
   },
   {
-    name: "تبریز",
-    slug: "tabriz",
-    image: "https://images.unsplash.com/photo-1548678967-f1aec58f6fb2?w=800",
-    eventCount: 31
-  }
+    name: 'تبریز',
+    slug: 'tabriz',
+    image: 'https://images.unsplash.com/photo-1548678967-f1aec58f6fb2?w=800',
+    eventCount: 31,
+  },
 ]
 
 const CityCard: React.FC<{ city: City }> = ({ city }) => {
   const [imageError, setImageError] = useState(false)
-  const fallbackImage = 'https://via.placeholder.com/800x600/D4AF37/FFFFFF?text=' + encodeURIComponent(city.name)
+  const fallbackImage =
+    'https://via.placeholder.com/800x600/D4AF37/FFFFFF?text=' + encodeURIComponent(city.name)
 
   return (
     <Link href={`/cities/${city.slug}`}>
@@ -81,16 +82,12 @@ const CityCard: React.FC<{ city: City }> = ({ city }) => {
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
           <div className="flex items-center gap-2 mb-2">
             <MapPin className="w-5 h-5" />
-            <h3 className="text-2xl md:text-3xl font-black">
-              {city.name}
-            </h3>
+            <h3 className="text-2xl md:text-3xl font-black">{city.name}</h3>
           </div>
 
           {/* Event Count Badge */}
           <div className="inline-block bg-gold/90 backdrop-blur-sm rounded-full px-4 py-1.5">
-            <span className="text-white font-black text-sm">
-              {city.eventCount} رویداد
-            </span>
+            <span className="text-white font-black text-sm">{city.eventCount} رویداد</span>
           </div>
         </div>
 
@@ -113,9 +110,7 @@ export const CitiesShowcase: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">
-            🗺️ شهرهای برتر
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">🗺️ شهرهای برتر</h2>
           <p className="text-xl text-gray-700 font-bold">
             رویدادهای فرهنگی و گردشگری را در شهرهای مختلف کشف کنید
           </p>
@@ -130,8 +125,8 @@ export const CitiesShowcase: React.FC = () => {
             hidden: { opacity: 0 },
             show: {
               opacity: 1,
-              transition: { staggerChildren: 0.1 }
-            }
+              transition: { staggerChildren: 0.1 },
+            },
           }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
@@ -140,7 +135,7 @@ export const CitiesShowcase: React.FC = () => {
               key={city.slug}
               variants={{
                 hidden: { opacity: 0, y: 30 },
-                show: { opacity: 1, y: 0 }
+                show: { opacity: 1, y: 0 },
               }}
             >
               <CityCard city={city} />

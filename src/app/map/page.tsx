@@ -28,9 +28,7 @@ export default function MapPage() {
       {/* Hero */}
       <section className="kashi-star-pattern py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-6">
-            🗺️ نقشه رویدادها
-          </h1>
+          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-6">🗺️ نقشه رویدادها</h1>
           <p className="text-xl text-gray-700 font-bold">
             رویدادهای فرهنگی ایران را روی نقشه کشف کنید
           </p>
@@ -43,9 +41,7 @@ export default function MapPage() {
           {/* نقشه (فعلاً لیست شهرها) */}
           <div className="lg:col-span-2">
             <div className="kashi-card p-6">
-              <h2 className="text-2xl font-black text-red-900 mb-4">
-                شهرهای ایران
-              </h2>
+              <h2 className="text-2xl font-black text-red-900 mb-4">شهرهای ایران</h2>
               <p className="text-sm text-gray-600 font-bold mb-6">
                 💡 در نسخه آینده، نقشه تعاملی Mapbox/Leaflet اضافه خواهد شد
               </p>
@@ -62,12 +58,8 @@ export default function MapPage() {
                         : 'border-gold hover:bg-gold hover:text-white'
                     }`}
                   >
-                    <div className="font-black text-lg mb-1">
-                      📍 {city.name}
-                    </div>
-                    <div className="text-sm font-bold">
-                      {city.eventCount} رویداد
-                    </div>
+                    <div className="font-black text-lg mb-1">📍 {city.name}</div>
+                    <div className="text-sm font-bold">{city.eventCount} رویداد</div>
                   </button>
                 ))}
               </div>
@@ -78,9 +70,7 @@ export default function MapPage() {
           <div className="lg:col-span-1">
             <div className="kashi-card p-6 sticky top-4">
               <h3 className="text-xl font-black text-red-900 mb-6">
-                {selectedCityData
-                  ? `رویدادهای ${selectedCityData.name}`
-                  : 'شهری را انتخاب کنید'}
+                {selectedCityData ? `رویدادهای ${selectedCityData.name}` : 'شهری را انتخاب کنید'}
               </h3>
 
               {!selectedCityData && (
@@ -91,9 +81,7 @@ export default function MapPage() {
 
               {selectedCityData && selectedCityEvents.length === 0 && (
                 <div className="text-center py-8">
-                  <p className="text-gray-600 font-bold mb-4">
-                    رویدادی برای این شهر ثبت نشده است
-                  </p>
+                  <p className="text-gray-600 font-bold mb-4">رویدادی برای این شهر ثبت نشده است</p>
                   <Link
                     href={`/cities/${selectedCityData.slug}`}
                     className="deep-persian-btn px-6 py-3 font-black inline-block"
@@ -112,15 +100,9 @@ export default function MapPage() {
                         href={`/events/${event.slug}`}
                         className="block p-4 rounded-xl bg-cream border-2 border-gold hover:border-red-900 transition"
                       >
-                        <h4 className="font-black text-red-900 mb-2">
-                          {event.title}
-                        </h4>
-                        <p className="text-sm text-gray-700 font-bold">
-                          📅 {event.startDate}
-                        </p>
-                        <p className="text-sm text-gray-700 font-bold">
-                          🏷️ {event.type}
-                        </p>
+                        <h4 className="font-black text-red-900 mb-2">{event.title}</h4>
+                        <p className="text-sm text-gray-700 font-bold">📅 {event.startDate}</p>
+                        <p className="text-sm text-gray-700 font-bold">🏷️ {event.type}</p>
                       </Link>
                     ))}
                   </div>

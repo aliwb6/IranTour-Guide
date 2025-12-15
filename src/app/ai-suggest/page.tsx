@@ -9,44 +9,44 @@ const steps = [
   {
     step: 1,
     icon: MessageSquare,
-    title: "علایق خود را بنویسید",
-    description: "درباره خودتان و چیزهایی که دوست دارید بگویید"
+    title: 'علایق خود را بنویسید',
+    description: 'درباره خودتان و چیزهایی که دوست دارید بگویید',
   },
   {
     step: 2,
     icon: Calendar,
-    title: "تاریخ و مقصد را انتخاب کنید",
-    description: "تاریخ سفر و شهرهای مورد نظرتان را مشخص کنید"
+    title: 'تاریخ و مقصد را انتخاب کنید',
+    description: 'تاریخ سفر و شهرهای مورد نظرتان را مشخص کنید',
   },
   {
     step: 3,
     icon: Sparkles,
-    title: "پیشنهادهای هوشمند دریافت کنید",
-    description: "برنامه سفر کامل با بهترین رویدادها"
-  }
+    title: 'پیشنهادهای هوشمند دریافت کنید',
+    description: 'برنامه سفر کامل با بهترین رویدادها',
+  },
 ]
 
 const benefits = [
   {
     icon: Brain,
-    title: "هوشمند و شخصی‌سازی شده",
-    description: "پیشنهادات بر اساس علایق و سلیقه شما"
+    title: 'هوشمند و شخصی‌سازی شده',
+    description: 'پیشنهادات بر اساس علایق و سلیقه شما',
   },
   {
     icon: Map,
-    title: "برنامه سفر کامل",
-    description: "برنامه روزانه با رویدادها و فعالیت‌ها"
+    title: 'برنامه سفر کامل',
+    description: 'برنامه روزانه با رویدادها و فعالیت‌ها',
   },
   {
     icon: Zap,
-    title: "سریع و آسان",
-    description: "تنها در چند دقیقه نتیجه بگیرید"
+    title: 'سریع و آسان',
+    description: 'تنها در چند دقیقه نتیجه بگیرید',
   },
   {
     icon: CheckCircle,
-    title: "رویدادهای تایید شده",
-    description: "فقط بهترین و معتبرترین رویدادها"
-  }
+    title: 'رویدادهای تایید شده',
+    description: 'فقط بهترین و معتبرترین رویدادها',
+  },
 ]
 
 export default function AISuggestPage() {
@@ -64,15 +64,15 @@ export default function AISuggestPage() {
                 linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px)
               `,
-              backgroundSize: '50px 50px'
+              backgroundSize: '50px 50px',
             }}
             animate={{
-              backgroundPosition: ['0px 0px', '50px 50px']
+              backgroundPosition: ['0px 0px', '50px 50px'],
             }}
             transition={{
               duration: 20,
               repeat: Infinity,
-              ease: "linear"
+              ease: 'linear',
             }}
           />
         </div>
@@ -88,7 +88,7 @@ export default function AISuggestPage() {
             <motion.div
               className="flex justify-center mb-6"
               animate={{ rotate: [0, 360] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
             >
               <Sparkles className="w-16 h-16 text-gold" />
             </motion.div>
@@ -133,12 +133,8 @@ export default function AISuggestPage() {
             transition={{ duration: 0.5 }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">
-              چطور کار می‌کنه؟
-            </h2>
-            <p className="text-xl text-gray-700 font-bold">
-              فقط سه قدم ساده تا برنامه سفر ایده‌آل
-            </p>
+            <h2 className="text-4xl md:text-5xl font-black text-red-900 mb-4">چطور کار می‌کنه؟</h2>
+            <p className="text-xl text-gray-700 font-bold">فقط سه قدم ساده تا برنامه سفر ایده‌آل</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -167,14 +163,10 @@ export default function AISuggestPage() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-2xl font-black text-red-900 mb-3">
-                      {step.title}
-                    </h3>
+                    <h3 className="text-2xl font-black text-red-900 mb-3">{step.title}</h3>
 
                     {/* Description */}
-                    <p className="text-gray-700 font-medium">
-                      {step.description}
-                    </p>
+                    <p className="text-gray-700 font-medium">{step.description}</p>
                   </div>
 
                   {/* Connector Arrow (desktop only) */}
@@ -222,12 +214,8 @@ export default function AISuggestPage() {
                   <div className="flex justify-center mb-4">
                     <Icon className="w-12 h-12 text-red-900" />
                   </div>
-                  <h3 className="text-xl font-black text-red-900 mb-2">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-gray-700 font-medium text-sm">
-                    {benefit.description}
-                  </p>
+                  <h3 className="text-xl font-black text-red-900 mb-2">{benefit.title}</h3>
+                  <p className="text-gray-700 font-medium text-sm">{benefit.description}</p>
                 </motion.div>
               )
             })}
@@ -240,16 +228,16 @@ export default function AISuggestPage() {
         <motion.div
           className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 20px, var(--gold) 20px, var(--gold) 22px)`
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 20px, var(--gold) 20px, var(--gold) 22px)`,
           }}
           animate={{
             x: [0, 40, 0],
-            y: [0, 40, 0]
+            y: [0, 40, 0],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "linear"
+            ease: 'linear',
           }}
         />
 

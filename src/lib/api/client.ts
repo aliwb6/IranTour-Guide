@@ -16,30 +16,29 @@ export async function fetcher<T>(url: string, options?: RequestInit): Promise<T>
 }
 
 export const api = {
-  get: <T>(url: string, options?: RequestInit) => 
-    fetcher<T>(url, { ...options, method: 'GET' }),
-  
+  get: <T>(url: string, options?: RequestInit) => fetcher<T>(url, { ...options, method: 'GET' }),
+
   post: <T>(url: string, data?: any, options?: RequestInit) =>
     fetcher<T>(url, {
       ...options,
       method: 'POST',
       body: data ? JSON.stringify(data) : undefined,
     }),
-  
+
   put: <T>(url: string, data?: any, options?: RequestInit) =>
     fetcher<T>(url, {
       ...options,
       method: 'PUT',
       body: data ? JSON.stringify(data) : undefined,
     }),
-  
+
   patch: <T>(url: string, data?: any, options?: RequestInit) =>
     fetcher<T>(url, {
       ...options,
       method: 'PATCH',
       body: data ? JSON.stringify(data) : undefined,
     }),
-  
+
   delete: <T>(url: string, options?: RequestInit) =>
     fetcher<T>(url, { ...options, method: 'DELETE' }),
 }

@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params
     const session = await auth()
@@ -17,15 +14,12 @@ export async function POST(
     const event = await prisma.event.update({
       where: { id },
       data: {
-        status: 'REJECTED'
-      }
+        status: 'REJECTED',
+      },
     })
 
     return NextResponse.json(event)
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to reject event' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Failed to reject event' }, { status: 500 })
   }
 }

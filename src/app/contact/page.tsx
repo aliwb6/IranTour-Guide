@@ -22,9 +22,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="kashi-star-pattern py-16 md:py-24">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-6">
-            📞 تماس با ما
-          </h1>
+          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-6">📞 تماس با ما</h1>
           <p className="text-xl text-gray-700 font-bold">
             سوال، پیشنهاد یا انتقاد خود را با ما در میان بگذارید
           </p>
@@ -37,9 +35,7 @@ export default function ContactPage() {
           {/* فرم تماس */}
           <div className="lg:col-span-2">
             <div className="kashi-card p-8">
-              <h2 className="text-2xl font-black text-red-900 mb-6">
-                📧 فرم تماس
-              </h2>
+              <h2 className="text-2xl font-black text-red-900 mb-6">📧 فرم تماس</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* نام */}
                 <div>
@@ -58,9 +54,7 @@ export default function ContactPage() {
 
                 {/* ایمیل */}
                 <div>
-                  <label className="block text-gray-700 font-black mb-2">
-                    ایمیل *
-                  </label>
+                  <label className="block text-gray-700 font-black mb-2">ایمیل *</label>
                   <input
                     type="email"
                     required
@@ -73,9 +67,7 @@ export default function ContactPage() {
 
                 {/* موضوع */}
                 <div>
-                  <label className="block text-gray-700 font-black mb-2">
-                    موضوع *
-                  </label>
+                  <label className="block text-gray-700 font-black mb-2">موضوع *</label>
                   <input
                     type="text"
                     required
@@ -88,9 +80,7 @@ export default function ContactPage() {
 
                 {/* پیام */}
                 <div>
-                  <label className="block text-gray-700 font-black mb-2">
-                    پیام *
-                  </label>
+                  <label className="block text-gray-700 font-black mb-2">پیام *</label>
                   <textarea
                     required
                     rows={6}
@@ -136,8 +126,7 @@ export default function ContactPage() {
               <h3 className="text-lg font-black text-red-900 mb-2">ساعات کاری</h3>
               <p className="text-gray-700 font-bold">
                 شنبه تا چهارشنبه
-                <br />
-                9 صبح تا 6 عصر
+                <br />9 صبح تا 6 عصر
               </p>
             </div>
 

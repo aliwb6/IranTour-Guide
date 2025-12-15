@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import AdminEventsTable from '@/components/admin/AdminEventsTable'
 
 export default async function AdminEventsPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>
 }) {
@@ -20,9 +20,9 @@ export default async function AdminEventsPage({
     include: {
       organization: true,
       categories: {
-        include: { category: true }
-      }
-    }
+        include: { category: true },
+      },
+    },
   })
 
   return (

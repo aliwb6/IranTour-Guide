@@ -1,7 +1,21 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Building2, Mail, Phone, Globe, MapPin, Instagram, Send as Telegram, Twitter, Facebook, Linkedin, CheckCircle, Calendar, Eye } from 'lucide-react'
+import {
+  Building2,
+  Mail,
+  Phone,
+  Globe,
+  MapPin,
+  Instagram,
+  Send as Telegram,
+  Twitter,
+  Facebook,
+  Linkedin,
+  CheckCircle,
+  Calendar,
+  Eye,
+} from 'lucide-react'
 import { organizationTypeLabels } from '@/lib/validators/organization'
 
 // This would normally come from server props or API
@@ -23,17 +37,19 @@ const mockOrganization = {
   isVerified: true,
   createdAt: new Date('2024-01-01'),
   totalEvents: 23,
-  totalViews: 8750
+  totalViews: 8750,
 }
 
 export default function OrganizationProfilePage() {
   const [formData, setFormData] = useState(mockOrganization)
   const [saving, setSaving] = useState(false)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
   }
 
@@ -49,7 +65,7 @@ export default function OrganizationProfilePage() {
       //   body: JSON.stringify(formData)
       // })
 
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise((resolve) => setTimeout(resolve, 1000))
       alert('اطلاعات با موفقیت ذخیره شد')
     } catch (error) {
       console.error('Error saving profile:', error)
@@ -105,15 +121,15 @@ export default function OrganizationProfilePage() {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A01C1C]"
                   >
                     {Object.entries(organizationTypeLabels).map(([value, label]) => (
-                      <option key={value} value={value}>{label}</option>
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    توضیحات
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">توضیحات</label>
                   <textarea
                     name="description"
                     value={formData.description || ''}

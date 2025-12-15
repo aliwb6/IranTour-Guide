@@ -6,11 +6,11 @@ import { formatPersianDate } from '@/lib/date-utils'
 
 export const metadata = {
   title: 'مجله و بلاگ | IranTour Guide',
-  description: 'مقالات فرهنگی و گردشگری ایران'
+  description: 'مقالات فرهنگی و گردشگری ایران',
 }
 
 export default async function BlogPage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>
 }) {
@@ -19,10 +19,10 @@ export default async function BlogPage({
   const posts = await prisma.post.findMany({
     where: {
       type: 'BLOG',
-      isPublished: true
+      isPublished: true,
     },
     orderBy: { publishedAt: 'desc' },
-    take: 20
+    take: 20,
   })
 
   return (

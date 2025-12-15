@@ -1,20 +1,20 @@
-'use client';
+'use client'
 
-import { UseFormReturn } from 'react-hook-form';
-import { Mail, Phone, User, CreditCard } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import type { CreateBookingSchema } from '@/lib/validators/booking';
+import { UseFormReturn } from 'react-hook-form'
+import { Mail, Phone, User, CreditCard } from 'lucide-react'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import type { CreateBookingSchema } from '@/lib/validators/booking'
 
 interface BookingContactStepProps {
-  form: UseFormReturn<CreateBookingSchema>;
+  form: UseFormReturn<CreateBookingSchema, any, any>
 }
 
 export default function BookingContactStep({ form }: BookingContactStepProps) {
   const {
     register,
     formState: { errors },
-  } = form;
+  } = form
 
   return (
     <div className="space-y-6">
@@ -141,12 +141,12 @@ export default function BookingContactStep({ form }: BookingContactStepProps) {
           <div className="flex-1 text-right">
             <h4 className="text-sm font-semibold text-blue-900 mb-1">نکته مهم</h4>
             <p className="text-sm text-blue-700">
-              اطلاعات تماس برای ارسال تیکت، یادآوری‌ها و اطلاعات مهم رویداد استفاده خواهد شد.
-              لطفاً از صحت اطلاعات خود اطمینان حاصل کنید.
+              اطلاعات تماس برای ارسال تیکت، یادآوری‌ها و اطلاعات مهم رویداد استفاده خواهد شد. لطفاً از
+              صحت اطلاعات خود اطمینان حاصل کنید.
             </p>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

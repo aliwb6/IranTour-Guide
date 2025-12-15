@@ -19,7 +19,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           error: 'اطلاعات وارد شده نامعتبر است',
-          issues: result.error.issues
+          issues: result.error.issues,
         },
         { status: 400 }
       )
@@ -29,14 +29,11 @@ export async function POST(request: Request) {
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
-      where: { email }
+      where: { email },
     })
 
     if (existingUser) {
-      return NextResponse.json(
-        { error: 'این ایمیل قبلاً ثبت شده است' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'این ایمیل قبلاً ثبت شده است' }, { status: 400 })
     }
 
     // Hash password
@@ -54,13 +51,13 @@ export async function POST(request: Request) {
         name: true,
         email: true,
         createdAt: true,
-      }
+      },
     })
 
     return NextResponse.json(
       {
         message: 'ثبت‌نام با موفقیت انجام شد',
-        user
+        user,
       },
       { status: 201 }
     )

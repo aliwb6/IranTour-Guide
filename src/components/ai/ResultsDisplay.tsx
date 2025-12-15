@@ -12,7 +12,7 @@ import {
   Save,
   ChevronDown,
   Lightbulb,
-  Heart
+  Heart,
 } from 'lucide-react'
 import { ItineraryTimeline } from './ItineraryTimeline'
 import moment from 'moment-jalaali'
@@ -38,16 +38,14 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
   summary,
   suggestions,
   itinerary,
-  tips
+  tips,
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('events')
   const [expandedReasons, setExpandedReasons] = useState<string[]>([])
 
   const toggleReason = (eventId: string) => {
-    setExpandedReasons(prev =>
-      prev.includes(eventId)
-        ? prev.filter(id => id !== eventId)
-        : [...prev, eventId]
+    setExpandedReasons((prev) =>
+      prev.includes(eventId) ? prev.filter((id) => id !== eventId) : [...prev, eventId]
     )
   }
 
@@ -57,7 +55,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         await navigator.share({
           title: 'برنامه سفر من',
           text: summary,
-          url: window.location.href
+          url: window.location.href,
         })
       } catch (err) {
         console.error('Share failed:', err)
@@ -93,9 +91,7 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               <h1 className="text-3xl md:text-4xl font-black text-red-900 mb-3">
                 سلام {userName} عزیز! ✨
               </h1>
-              <p className="text-lg text-gray-700 font-bold leading-relaxed">
-                {summary}
-              </p>
+              <p className="text-lg text-gray-700 font-bold leading-relaxed">{summary}</p>
             </div>
 
             {/* Action Buttons */}
@@ -148,9 +144,10 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               onClick={() => setActiveTab('events')}
               className={`
                 px-6 py-3 rounded-xl font-black whitespace-nowrap transition-all
-                ${activeTab === 'events'
-                  ? 'deep-persian-btn'
-                  : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-gold'
+                ${
+                  activeTab === 'events'
+                    ? 'deep-persian-btn'
+                    : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-gold'
                 }
               `}
             >
@@ -161,9 +158,10 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               onClick={() => setActiveTab('itinerary')}
               className={`
                 px-6 py-3 rounded-xl font-black whitespace-nowrap transition-all
-                ${activeTab === 'itinerary'
-                  ? 'deep-persian-btn'
-                  : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-gold'
+                ${
+                  activeTab === 'itinerary'
+                    ? 'deep-persian-btn'
+                    : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-gold'
                 }
               `}
             >
@@ -174,9 +172,10 @@ export const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
               onClick={() => setActiveTab('tips')}
               className={`
                 px-6 py-3 rounded-xl font-black whitespace-nowrap transition-all
-                ${activeTab === 'tips'
-                  ? 'deep-persian-btn'
-                  : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-gold'
+                ${
+                  activeTab === 'tips'
+                    ? 'deep-persian-btn'
+                    : 'bg-white text-gray-700 border-2 border-gray-300 hover:border-gold'
                 }
               `}
             >

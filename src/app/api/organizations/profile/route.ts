@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
     }
 
     const organization = await prisma.organization.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     })
 
     if (!organization) {
@@ -23,10 +23,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json(organization)
   } catch (error) {
     console.error('Error fetching organization:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
@@ -40,7 +37,7 @@ export async function PUT(req: NextRequest) {
     }
 
     const organization = await prisma.organization.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     })
 
     if (!organization) {
@@ -55,7 +52,7 @@ export async function PUT(req: NextRequest) {
     // Update organization
     const updated = await prisma.organization.update({
       where: { id: organization.id },
-      data: validatedData
+      data: validatedData,
     })
 
     return NextResponse.json(updated)
@@ -69,9 +66,6 @@ export async function PUT(req: NextRequest) {
       )
     }
 
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

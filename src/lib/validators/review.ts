@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod'
 
 // Create Review Schema
 export const createReviewSchema = z.object({
@@ -41,9 +41,9 @@ export const createReviewSchema = z.object({
     .max(5, 'حداکثر ۵ تصویر مجاز است')
     .optional()
     .default([]),
-});
+})
 
-export type CreateReviewSchema = z.infer<typeof createReviewSchema>;
+export type CreateReviewSchema = z.infer<typeof createReviewSchema>
 
 // Update Review Schema
 export const updateReviewSchema = z.object({
@@ -66,23 +66,17 @@ export const updateReviewSchema = z.object({
     .max(1000, 'نظر نمی‌تواند بیشتر از ۱۰۰۰ کاراکتر باشد')
     .optional(),
 
-  pros: z
-    .string()
-    .max(500, 'نکات مثبت نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد')
-    .optional(),
+  pros: z.string().max(500, 'نکات مثبت نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد').optional(),
 
-  cons: z
-    .string()
-    .max(500, 'نکات منفی نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد')
-    .optional(),
+  cons: z.string().max(500, 'نکات منفی نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد').optional(),
 
   images: z
     .array(z.string().url('آدرس تصویر معتبر نیست'))
     .max(5, 'حداکثر ۵ تصویر مجاز است')
     .optional(),
-});
+})
 
-export type UpdateReviewSchema = z.infer<typeof updateReviewSchema>;
+export type UpdateReviewSchema = z.infer<typeof updateReviewSchema>
 
 // Review Response Schema (for organization response)
 export const reviewResponseSchema = z.object({
@@ -92,9 +86,9 @@ export const reviewResponseSchema = z.object({
     .string()
     .min(10, 'پاسخ باید حداقل ۱۰ کاراکتر باشد')
     .max(500, 'پاسخ نمی‌تواند بیشتر از ۵۰۰ کاراکتر باشد'),
-});
+})
 
-export type ReviewResponseSchema = z.infer<typeof reviewResponseSchema>;
+export type ReviewResponseSchema = z.infer<typeof reviewResponseSchema>
 
 // Review Filters Schema
 export const reviewFiltersSchema = z.object({
@@ -108,15 +102,15 @@ export const reviewFiltersSchema = z.object({
   page: z.number().int().min(1).optional().default(1),
   limit: z.number().int().min(1).max(100).optional().default(10),
   sortBy: z.enum(['recent', 'rating', 'helpful']).optional().default('recent'),
-});
+})
 
-export type ReviewFiltersSchema = z.infer<typeof reviewFiltersSchema>;
+export type ReviewFiltersSchema = z.infer<typeof reviewFiltersSchema>
 
 // Review Action Schema (for helpful, report, etc.)
 export const reviewActionSchema = z.object({
   reviewId: z.string().min(1, 'شناسه نظر الزامی است'),
   action: z.enum(['helpful', 'report', 'approve', 'reject', 'pin', 'unpin', 'verify']),
   reason: z.string().max(200, 'دلیل نمی‌تواند بیشتر از ۲۰۰ کاراکتر باشد').optional(),
-});
+})
 
-export type ReviewActionSchema = z.infer<typeof reviewActionSchema>;
+export type ReviewActionSchema = z.infer<typeof reviewActionSchema>

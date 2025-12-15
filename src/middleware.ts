@@ -1,5 +1,5 @@
-import NextAuth from "next-auth"
-import { authConfig } from "./lib/auth.config"
+import NextAuth from 'next-auth'
+import { authConfig } from './lib/auth.config'
 
 export default NextAuth(authConfig).auth
 
@@ -11,6 +11,6 @@ export const config = {
     '/:locale/organizations/dashboard/:path*',
     '/organizations/dashboard/:path*',
     '/:locale/admin/dashboard/:path*',
-    '/admin/dashboard/:path*'
-  ]
+    '/admin/dashboard/:path*',
+  ],
 }

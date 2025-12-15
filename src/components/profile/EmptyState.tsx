@@ -20,7 +20,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
   description,
   actionLabel,
   actionHref,
-  onAction
+  onAction,
 }) => {
   return (
     <motion.div
@@ -36,17 +36,13 @@ export const EmptyState: React.FC<EmptyStateProps> = ({
       </div>
 
       {/* Title */}
-      <h3 className="text-2xl font-black text-gray-800 mb-3">
-        {title}
-      </h3>
+      <h3 className="text-2xl font-black text-gray-800 mb-3">{title}</h3>
 
       {/* Description */}
-      <p className="text-gray-600 font-medium mb-6 max-w-md mx-auto">
-        {description}
-      </p>
+      <p className="text-gray-600 font-medium mb-6 max-w-md mx-auto">{description}</p>
 
       {/* Action Button */}
-      {(actionLabel && (actionHref || onAction)) && (
+      {actionLabel && (actionHref || onAction) && (
         <div>
           {actionHref ? (
             <Link href={actionHref}>

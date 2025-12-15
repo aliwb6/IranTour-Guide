@@ -12,16 +12,16 @@ export const appConfig = {
     enableReviews: true,
     enableBooking: true,
   },
-} as const;
+} as const
 
 export const apiConfig = {
   baseUrl: '/api',
   timeout: 30000,
   retries: 3,
-} as const;
+} as const
 
 export const uploadConfig = {
   maxSize: parseInt(process.env.UPLOAD_MAX_SIZE || '5242880'), // 5MB
   allowedTypes: ['image/jpeg', 'image/png', 'image/webp'],
   uploadDir: 'public/uploads',
-} as const;
+} as const

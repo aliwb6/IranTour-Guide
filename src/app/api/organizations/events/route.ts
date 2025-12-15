@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
 
     // Get organization
     const organization = await prisma.organization.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     })
 
     if (!organization) {
@@ -25,19 +25,16 @@ export async function GET(req: NextRequest) {
       where: { organizationId: organization.id },
       include: {
         categories: {
-          include: { category: true }
-        }
+          include: { category: true },
+        },
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
     })
 
     return NextResponse.json(events)
   } catch (error) {
     console.error('Error fetching events:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
 
@@ -52,7 +49,7 @@ export async function POST(req: NextRequest) {
 
     // Get organization
     const organization = await prisma.organization.findUnique({
-      where: { userId: session.user.id }
+      where: { userId: session.user.id },
     })
 
     if (!organization) {
@@ -76,16 +73,13 @@ export async function POST(req: NextRequest) {
         organizationId: organization.id,
         status: 'PENDING',
         images: body.images || [],
-        keywords: body.keywords || []
-      }
+        keywords: body.keywords || [],
+      },
     })
 
     return NextResponse.json(event, { status: 201 })
   } catch (error) {
     console.error('Error creating event:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

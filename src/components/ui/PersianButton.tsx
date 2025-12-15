@@ -14,11 +14,7 @@ export const PersianButton: React.FC<PersianButtonProps> = ({
   type = 'button',
 }) => {
   return (
-    <button
-      type={type}
-      onClick={onClick}
-      className={`deep-persian-btn ${className}`}
-    >
+    <button type={type} onClick={onClick} className={`deep-persian-btn ${className}`}>
       {children}
     </button>
   )

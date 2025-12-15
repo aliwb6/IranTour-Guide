@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { Search, Filter, ChevronDown, Loader2, FileX } from 'lucide-react';
-import type { Booking, BookingStatus } from '@/types/booking';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import BookingCard from './BookingCard';
-import BookingStatusBadge from './BookingStatusBadge';
+import { useState } from 'react'
+import { Search, Filter, ChevronDown, Loader2, FileX } from 'lucide-react'
+import type { Booking, BookingStatus } from '@/types/booking'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import BookingCard from './BookingCard'
+import BookingStatusBadge from './BookingStatusBadge'
 
 interface BookingListProps {
-  bookings: Booking[];
-  loading?: boolean;
-  onView?: (bookingId: string) => void;
-  onCancel?: (bookingId: string) => void;
-  onDownload?: (bookingId: string) => void;
-  onLoadMore?: () => void;
-  hasMore?: boolean;
-  showFilter?: boolean;
+  bookings: Booking[]
+  loading?: boolean
+  onView?: (bookingId: string) => void
+  onCancel?: (bookingId: string) => void
+  onDownload?: (bookingId: string) => void
+  onLoadMore?: () => void
+  hasMore?: boolean
+  showFilter?: boolean
 }
 
 export default function BookingList({
@@ -29,27 +29,30 @@ export default function BookingList({
   hasMore = false,
   showFilter = true,
 }: BookingListProps) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState<BookingStatus | 'ALL'>('ALL');
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedStatus, setSelectedStatus] = useState<BookingStatus | 'ALL'>('ALL')
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   // Filter bookings
   const filteredBookings = bookings.filter((booking) => {
     const matchesSearch =
       booking.bookingCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
       booking.eventTitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      `${booking.firstName} ${booking.lastName}`.toLowerCase().includes(searchQuery.toLowerCase());
+      `${booking.firstName} ${booking.lastName}`.toLowerCase().includes(searchQuery.toLowerCase())
 
-    const matchesStatus = selectedStatus === 'ALL' || booking.status === selectedStatus;
+    const matchesStatus = selectedStatus === 'ALL' || booking.status === selectedStatus
 
-    return matchesSearch && matchesStatus;
-  });
+    return matchesSearch && matchesStatus
+  })
 
   // Group bookings by status for stats
-  const statusCounts = bookings.reduce((acc, booking) => {
-    acc[booking.status] = (acc[booking.status] || 0) + 1;
-    return acc;
-  }, {} as Record<BookingStatus, number>);
+  const statusCounts = bookings.reduce(
+    (acc, booking) => {
+      acc[booking.status] = (acc[booking.status] || 0) + 1
+      return acc
+    },
+    {} as Record<BookingStatus, number>
+  )
 
   const statuses: Array<BookingStatus | 'ALL'> = [
     'ALL',
@@ -58,7 +61,7 @@ export default function BookingList({
     'COMPLETED',
     'CANCELLED',
     'EXPIRED',
-  ];
+  ]
 
   return (
     <div className="space-y-6">
@@ -85,9 +88,7 @@ export default function BookingList({
             className="w-full flex items-center justify-between"
           >
             <ChevronDown
-              className={`w-4 h-4 transition-transform ${
-                isFilterOpen ? 'rotate-180' : ''
-              }`}
+              className={`w-4 h-4 transition-transform ${isFilterOpen ? 'rotate-180' : ''}`}
             />
             <span className="flex items-center gap-2">
               فیلتر بر اساس وضعیت
@@ -99,9 +100,8 @@ export default function BookingList({
           {isFilterOpen && (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 pt-2">
               {statuses.map((status) => {
-                const count = status === 'ALL'
-                  ? bookings.length
-                  : statusCounts[status as BookingStatus] || 0;
+                const count =
+                  status === 'ALL' ? bookings.length : statusCounts[status as BookingStatus] || 0
 
                 return (
                   <button
@@ -125,12 +125,16 @@ export default function BookingList({
                       <div>
                         <div className="text-lg font-bold text-gray-900">{count}</div>
                         <div className="mt-1">
-                          <BookingStatusBadge status={status as BookingStatus} size="sm" showIcon={false} />
+                          <BookingStatusBadge
+                            status={status as BookingStatus}
+                            size="sm"
+                            showIcon={false}
+                          />
                         </div>
                       </div>
                     )}
                   </button>
-                );
+                )
               })}
             </div>
           )}
@@ -183,21 +187,17 @@ export default function BookingList({
           <div className="flex flex-col items-center gap-4">
             <FileX className="w-16 h-16 text-gray-300" />
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                رزروی یافت نشد
-              </h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">رزروی یافت نشد</h3>
               <p className="text-sm text-gray-600">
-                {searchQuery
-                  ? 'نتیجه‌ای برای جستجوی شما یافت نشد'
-                  : 'هنوز هیچ رزروی ثبت نکرده‌اید'}
+                {searchQuery ? 'نتیجه‌ای برای جستجوی شما یافت نشد' : 'هنوز هیچ رزروی ثبت نکرده‌اید'}
               </p>
             </div>
             {searchQuery && (
               <Button
                 variant="outline"
                 onClick={() => {
-                  setSearchQuery('');
-                  setSelectedStatus('ALL');
+                  setSearchQuery('')
+                  setSelectedStatus('ALL')
                 }}
               >
                 پاک کردن جستجو
@@ -210,15 +210,11 @@ export default function BookingList({
       {/* Load More */}
       {hasMore && !loading && (
         <div className="text-center pt-6">
-          <Button
-            variant="outline"
-            onClick={onLoadMore}
-            className="min-w-[200px]"
-          >
+          <Button variant="outline" onClick={onLoadMore} className="min-w-[200px]">
             بارگذاری بیشتر
           </Button>
         </div>
       )}
     </div>
-  );
+  )
 }

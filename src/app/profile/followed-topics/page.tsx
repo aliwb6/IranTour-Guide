@@ -17,7 +17,7 @@ const mockTopics: Topic[] = [
   { id: '2', name: 'موسیقی', eventCount: 38 },
   { id: '3', name: 'تاریخ و معماری', eventCount: 56 },
   { id: '4', name: 'طبیعت و کوهنوردی', eventCount: 24 },
-  { id: '5', name: 'جشنواره‌ها', eventCount: 31 }
+  { id: '5', name: 'جشنواره‌ها', eventCount: 31 },
 ]
 
 export default function FollowedTopicsPage() {
@@ -25,7 +25,7 @@ export default function FollowedTopicsPage() {
 
   const handleUnfollow = (topicId: string) => {
     if (confirm('آیا مطمئن هستید که می‌خواهید این موضوع را دنبال نکنید؟')) {
-      setTopics(prev => prev.filter(t => t.id !== topicId))
+      setTopics((prev) => prev.filter((t) => t.id !== topicId))
     }
   }
 
@@ -46,12 +46,8 @@ export default function FollowedTopicsPage() {
       {/* Header */}
       <div className="kashi-card p-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black text-red-900 mb-2">
-            موضوعات دنبال‌شده
-          </h1>
-          <p className="text-gray-600 font-medium">
-            {topics.length} موضوع دنبال می‌کنید
-          </p>
+          <h1 className="text-3xl font-black text-red-900 mb-2">موضوعات دنبال‌شده</h1>
+          <p className="text-gray-600 font-medium">{topics.length} موضوع دنبال می‌کنید</p>
         </div>
 
         <Link href="/events">
@@ -95,9 +91,7 @@ export default function FollowedTopicsPage() {
             </div>
 
             {/* Topic Name */}
-            <h3 className="text-xl font-black text-red-900 mb-2 text-center">
-              {topic.name}
-            </h3>
+            <h3 className="text-xl font-black text-red-900 mb-2 text-center">{topic.name}</h3>
 
             {/* Event Count */}
             <div className="flex items-center justify-center gap-2 text-gray-600 font-bold mb-4">

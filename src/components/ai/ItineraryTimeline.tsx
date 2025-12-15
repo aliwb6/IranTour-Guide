@@ -24,11 +24,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({ itinerary 
   const [expandedDays, setExpandedDays] = useState<number[]>([1])
 
   const toggleDay = (day: number) => {
-    setExpandedDays(prev =>
-      prev.includes(day)
-        ? prev.filter(d => d !== day)
-        : [...prev, day]
-    )
+    setExpandedDays((prev) => (prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]))
   }
 
   return (
@@ -65,9 +61,7 @@ export const ItineraryTimeline: React.FC<ItineraryTimelineProps> = ({ itinerary 
 
                   {/* Day Info */}
                   <div className="text-right">
-                    <h3 className="text-2xl font-black text-red-900 mb-1">
-                      روز {day.day}
-                    </h3>
+                    <h3 className="text-2xl font-black text-red-900 mb-1">روز {day.day}</h3>
                     <div className="flex items-center gap-4 text-sm text-gray-600">
                       <div className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />

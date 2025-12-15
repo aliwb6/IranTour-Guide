@@ -24,17 +24,17 @@ export const TravelPlannerForm: React.FC = () => {
     startDate: '',
     endDate: '',
     cities: [],
-    budget: undefined
+    budget: undefined,
   })
 
   const totalSteps = 4
 
   // Update form field
   const updateField = (field: keyof FormData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
+    setFormData((prev) => ({ ...prev, [field]: value }))
     // Clear error for this field
     if (errors[field]) {
-      setErrors(prev => {
+      setErrors((prev) => {
         const newErrors = { ...prev }
         delete newErrors[field]
         return newErrors
@@ -46,7 +46,7 @@ export const TravelPlannerForm: React.FC = () => {
   const toggleInterest = (interest: string) => {
     const currentInterests = formData.interests || []
     const newInterests = currentInterests.includes(interest)
-      ? currentInterests.filter(i => i !== interest)
+      ? currentInterests.filter((i) => i !== interest)
       : [...currentInterests, interest]
 
     updateField('interests', newInterests)
@@ -56,7 +56,7 @@ export const TravelPlannerForm: React.FC = () => {
   const toggleCity = (city: string) => {
     const currentCities = formData.cities || []
     const newCities = currentCities.includes(city)
-      ? currentCities.filter(c => c !== city)
+      ? currentCities.filter((c) => c !== city)
       : [...currentCities, city]
 
     updateField('cities', newCities)
@@ -113,13 +113,13 @@ export const TravelPlannerForm: React.FC = () => {
   // Navigate to next step
   const nextStep = () => {
     if (validateStep(currentStep)) {
-      setCurrentStep(prev => Math.min(prev + 1, totalSteps))
+      setCurrentStep((prev) => Math.min(prev + 1, totalSteps))
     }
   }
 
   // Navigate to previous step
   const prevStep = () => {
-    setCurrentStep(prev => Math.max(prev - 1, 1))
+    setCurrentStep((prev) => Math.max(prev - 1, 1))
   }
 
   // Submit form
@@ -133,7 +133,7 @@ export const TravelPlannerForm: React.FC = () => {
       const result = formSchema.safeParse(formData)
       if (!result.success) {
         const zodErrors: Record<string, string> = {}
-        result.error.issues.forEach(err => {
+        result.error.issues.forEach((err) => {
           if (err.path[0]) {
             zodErrors[err.path[0].toString()] = err.message
           }
@@ -147,7 +147,7 @@ export const TravelPlannerForm: React.FC = () => {
       const response = await fetch('/api/ai/suggest', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       })
 
       const data = await response.json()
@@ -195,9 +195,7 @@ export const TravelPlannerForm: React.FC = () => {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
               >
-                <h2 className="text-3xl font-black text-red-900 mb-6">
-                  اطلاعات شخصی
-                </h2>
+                <h2 className="text-3xl font-black text-red-900 mb-6">اطلاعات شخصی</h2>
 
                 <div className="space-y-6">
                   {/* Full Name */}
@@ -221,9 +219,7 @@ export const TravelPlannerForm: React.FC = () => {
 
                   {/* Email */}
                   <div>
-                    <label className="block text-sm font-bold text-gray-700 mb-2">
-                      ایمیل *
-                    </label>
+                    <label className="block text-sm font-bold text-gray-700 mb-2">ایمیل *</label>
                     <input
                       type="email"
                       value={formData.email}
@@ -247,7 +243,9 @@ export const TravelPlannerForm: React.FC = () => {
                     <input
                       type="number"
                       value={formData.age || ''}
-                      onChange={(e) => updateField('age', e.target.value ? parseInt(e.target.value) : undefined)}
+                      onChange={(e) =>
+                        updateField('age', e.target.value ? parseInt(e.target.value) : undefined)
+                      }
                       className="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:border-gold outline-none text-lg font-medium"
                       placeholder="۲۵"
                       min="10"
@@ -270,9 +268,7 @@ export const TravelPlannerForm: React.FC = () => {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
               >
-                <h2 className="text-3xl font-black text-red-900 mb-6">
-                  علایق و درباره شما
-                </h2>
+                <h2 className="text-3xl font-black text-red-900 mb-6">علایق و درباره شما</h2>
 
                 <div className="space-y-6">
                   {/* Bio */}
@@ -290,9 +286,11 @@ export const TravelPlannerForm: React.FC = () => {
                       rows={6}
                     />
                     <div className="flex justify-between mt-2">
-                      <span className={`text-sm font-medium ${
-                        (formData.bio?.length || 0) < 100 ? 'text-red-600' : 'text-green-600'
-                      }`}>
+                      <span
+                        className={`text-sm font-medium ${
+                          (formData.bio?.length || 0) < 100 ? 'text-red-600' : 'text-green-600'
+                        }`}
+                      >
                         {formData.bio?.length || 0} / 500 حرف
                       </span>
                       {(formData.bio?.length || 0) < 100 && (
@@ -332,9 +330,7 @@ export const TravelPlannerForm: React.FC = () => {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
               >
-                <h2 className="text-3xl font-black text-red-900 mb-6">
-                  جزئیات سفر
-                </h2>
+                <h2 className="text-3xl font-black text-red-900 mb-6">جزئیات سفر</h2>
 
                 <div className="space-y-6">
                   {/* Dates */}
@@ -394,11 +390,12 @@ export const TravelPlannerForm: React.FC = () => {
                             whileTap={!(!isSelected && isMaxReached) ? { scale: 0.95 } : {}}
                             className={`
                               px-4 py-3 rounded-xl font-bold border-2 transition-all
-                              ${isSelected
-                                ? 'bg-gold text-white border-yellow-600'
-                                : !isSelected && isMaxReached
-                                  ? 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed opacity-50'
-                                  : 'bg-white text-gray-700 border-gray-300 hover:border-gold'
+                              ${
+                                isSelected
+                                  ? 'bg-gold text-white border-yellow-600'
+                                  : !isSelected && isMaxReached
+                                    ? 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed opacity-50'
+                                    : 'bg-white text-gray-700 border-gray-300 hover:border-gold'
                               }
                             `}
                           >
@@ -431,9 +428,10 @@ export const TravelPlannerForm: React.FC = () => {
                           whileTap={{ scale: 0.95 }}
                           className={`
                             px-4 py-4 rounded-xl font-bold border-2 transition-all
-                            ${formData.budget === option.value
-                              ? 'bg-gold text-white border-yellow-600'
-                              : 'bg-white text-gray-700 border-gray-300 hover:border-gold'
+                            ${
+                              formData.budget === option.value
+                                ? 'bg-gold text-white border-yellow-600'
+                                : 'bg-white text-gray-700 border-gray-300 hover:border-gold'
                             }
                           `}
                         >
@@ -456,9 +454,7 @@ export const TravelPlannerForm: React.FC = () => {
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.3 }}
               >
-                <h2 className="text-3xl font-black text-red-900 mb-6">
-                  بررسی و تایید نهایی
-                </h2>
+                <h2 className="text-3xl font-black text-red-900 mb-6">بررسی و تایید نهایی</h2>
 
                 <div className="space-y-6">
                   {/* Personal Info */}
@@ -474,9 +470,17 @@ export const TravelPlannerForm: React.FC = () => {
                       </button>
                     </h3>
                     <div className="space-y-2 text-gray-700">
-                      <p><span className="font-bold">نام:</span> {formData.fullName}</p>
-                      <p><span className="font-bold">ایمیل:</span> {formData.email}</p>
-                      {formData.age && <p><span className="font-bold">سن:</span> {formData.age}</p>}
+                      <p>
+                        <span className="font-bold">نام:</span> {formData.fullName}
+                      </p>
+                      <p>
+                        <span className="font-bold">ایمیل:</span> {formData.email}
+                      </p>
+                      {formData.age && (
+                        <p>
+                          <span className="font-bold">سن:</span> {formData.age}
+                        </p>
+                      )}
                     </div>
                   </div>
 
@@ -493,8 +497,11 @@ export const TravelPlannerForm: React.FC = () => {
                       </button>
                     </h3>
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {formData.interests?.map(interest => (
-                        <span key={interest} className="px-3 py-1 bg-green-200 text-green-900 rounded-full text-sm font-bold">
+                      {formData.interests?.map((interest) => (
+                        <span
+                          key={interest}
+                          className="px-3 py-1 bg-green-200 text-green-900 rounded-full text-sm font-bold"
+                        >
                           {interest}
                         </span>
                       ))}
@@ -515,24 +522,28 @@ export const TravelPlannerForm: React.FC = () => {
                       </button>
                     </h3>
                     <div className="space-y-2 text-gray-700">
-                      <p><span className="font-bold">تاریخ:</span> {formData.startDate} تا {formData.endDate}</p>
-                      <p><span className="font-bold">شهرها:</span> {formData.cities?.join('، ')}</p>
+                      <p>
+                        <span className="font-bold">تاریخ:</span> {formData.startDate} تا{' '}
+                        {formData.endDate}
+                      </p>
+                      <p>
+                        <span className="font-bold">شهرها:</span> {formData.cities?.join('، ')}
+                      </p>
                       {formData.budget && (
-                        <p><span className="font-bold">بودجه:</span> {BUDGET_OPTIONS.find(b => b.value === formData.budget)?.label}</p>
+                        <p>
+                          <span className="font-bold">بودجه:</span>{' '}
+                          {BUDGET_OPTIONS.find((b) => b.value === formData.budget)?.label}
+                        </p>
                       )}
                     </div>
                   </div>
 
                   {/* Terms */}
                   <div className="flex items-start gap-3 p-4 bg-blue-50 rounded-xl">
-                    <input
-                      type="checkbox"
-                      id="terms"
-                      required
-                      className="mt-1"
-                    />
+                    <input type="checkbox" id="terms" required className="mt-1" />
                     <label htmlFor="terms" className="text-sm text-gray-700 font-medium">
-                      با <span className="text-gold font-bold">شرایط و ضوابط</span> استفاده از سیستم پیشنهاد هوشمند موافقم و از استفاده صحیح از هوش مصنوعی اطمینان دارم.
+                      با <span className="text-gold font-bold">شرایط و ضوابط</span> استفاده از سیستم
+                      پیشنهاد هوشمند موافقم و از استفاده صحیح از هوش مصنوعی اطمینان دارم.
                     </label>
                   </div>
 
@@ -557,9 +568,10 @@ export const TravelPlannerForm: React.FC = () => {
               whileTap={currentStep > 1 ? { scale: 0.98 } : {}}
               className={`
                 px-6 py-3 rounded-xl font-bold flex items-center gap-2
-                ${currentStep === 1
-                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50'
+                ${
+                  currentStep === 1
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50'
                 }
               `}
             >
@@ -587,10 +599,7 @@ export const TravelPlannerForm: React.FC = () => {
                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 className={`
                   px-8 py-3 rounded-xl font-bold flex items-center gap-2
-                  ${isSubmitting
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'deep-persian-btn'
-                  }
+                  ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'deep-persian-btn'}
                 `}
               >
                 {isSubmitting ? (
@@ -599,9 +608,7 @@ export const TravelPlannerForm: React.FC = () => {
                     در حال ارسال...
                   </>
                 ) : (
-                  <>
-                    ✨ دریافت پیشنهادات
-                  </>
+                  <>✨ دریافت پیشنهادات</>
                 )}
               </motion.button>
             )}

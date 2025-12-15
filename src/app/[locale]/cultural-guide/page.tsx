@@ -7,45 +7,45 @@ const guides = [
     title: 'نوروز',
     description: 'جشن سال نو ایرانی و آداب و رسوم آن',
     icon: Flower,
-    color: 'bg-green-100 text-green-600'
+    color: 'bg-green-100 text-green-600',
   },
   {
     slug: 'yalda',
     title: 'شب یلدا',
     description: 'طولانی‌ترین شب سال و جشن آن',
     icon: Moon,
-    color: 'bg-purple-100 text-purple-600'
+    color: 'bg-purple-100 text-purple-600',
   },
   {
     slug: 'chaharshanbe-suri',
     title: 'چهارشنبه‌سوری',
     description: 'جشن آتش و آخرین چهارشنبه سال',
     icon: Sparkles,
-    color: 'bg-orange-100 text-orange-600'
+    color: 'bg-orange-100 text-orange-600',
   },
   {
     slug: 'sizdah-bedar',
     title: 'سیزده‌بدر',
     description: 'روز طبیعت و سیزدهمین روز نوروز',
     icon: Sun,
-    color: 'bg-yellow-100 text-yellow-600'
+    color: 'bg-yellow-100 text-yellow-600',
   },
   {
     slug: 'ashura',
     title: 'عاشورا و محرم',
     description: 'ماه محرم و مراسم سوگواری',
     icon: Calendar,
-    color: 'bg-gray-100 text-gray-600'
-  }
+    color: 'bg-gray-100 text-gray-600',
+  },
 ]
 
 export const metadata = {
   title: 'دانشنامه فرهنگی | IranTour Guide',
-  description: 'آشنایی با جشن‌ها و مناسبت‌های ایرانی'
+  description: 'آشنایی با جشن‌ها و مناسبت‌های ایرانی',
 }
 
 export default async function CulturalGuidePage({
-  params
+  params,
 }: {
   params: Promise<{ locale: string }>
 }) {
@@ -69,15 +69,13 @@ export default async function CulturalGuidePage({
                 href={`/${locale}/cultural-guide/${guide.slug}`}
                 className="bg-white rounded-xl shadow-md p-8 hover:shadow-xl transition-shadow text-center"
               >
-                <div className={`inline-flex items-center justify-center w-20 h-20 rounded-full ${guide.color} mb-6`}>
+                <div
+                  className={`inline-flex items-center justify-center w-20 h-20 rounded-full ${guide.color} mb-6`}
+                >
                   <Icon className="w-10 h-10" />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-3">
-                  {guide.title}
-                </h2>
-                <p className="text-gray-600">
-                  {guide.description}
-                </p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-3">{guide.title}</h2>
+                <p className="text-gray-600">{guide.description}</p>
               </Link>
             )
           })}

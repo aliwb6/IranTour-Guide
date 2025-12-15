@@ -13,7 +13,7 @@ interface InterestsTagsProps {
 export const InterestsTags: React.FC<InterestsTagsProps> = ({
   selectedInterests,
   onToggle,
-  maxSelection = 6
+  maxSelection = 6,
 }) => {
   const isSelected = (interest: string) => selectedInterests.includes(interest)
   const isMaxReached = selectedInterests.length >= maxSelection
@@ -22,13 +22,15 @@ export const InterestsTags: React.FC<InterestsTagsProps> = ({
     <div>
       {/* Counter */}
       <div className="mb-4 text-center">
-        <span className={`text-lg font-bold ${
-          selectedInterests.length === 0
-            ? 'text-gray-500'
-            : selectedInterests.length >= maxSelection
-              ? 'text-red-600'
-              : 'text-green-600'
-        }`}>
+        <span
+          className={`text-lg font-bold ${
+            selectedInterests.length === 0
+              ? 'text-gray-500'
+              : selectedInterests.length >= maxSelection
+                ? 'text-red-600'
+                : 'text-green-600'
+          }`}
+        >
           انتخاب شده: {selectedInterests.length} از {maxSelection}
         </span>
       </div>
@@ -41,8 +43,8 @@ export const InterestsTags: React.FC<InterestsTagsProps> = ({
           hidden: { opacity: 0 },
           show: {
             opacity: 1,
-            transition: { staggerChildren: 0.05 }
-          }
+            transition: { staggerChildren: 0.05 },
+          },
         }}
         className="grid grid-cols-2 md:grid-cols-3 gap-3"
       >
@@ -58,18 +60,19 @@ export const InterestsTags: React.FC<InterestsTagsProps> = ({
               disabled={disabled}
               variants={{
                 hidden: { opacity: 0, scale: 0.8 },
-                show: { opacity: 1, scale: 1 }
+                show: { opacity: 1, scale: 1 },
               }}
               whileHover={!disabled ? { scale: 1.05, y: -3 } : {}}
               whileTap={!disabled ? { scale: 0.95 } : {}}
               className={`
                 px-4 py-3 rounded-xl font-bold text-sm md:text-base
                 transition-all duration-300 border-2
-                ${selected
-                  ? 'bg-gradient-to-br from-gold to-yellow-400 text-white border-yellow-600 shadow-lg'
-                  : disabled
-                    ? 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed opacity-50'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-gold hover:bg-gradient-to-br hover:from-yellow-50 hover:to-yellow-100'
+                ${
+                  selected
+                    ? 'bg-gradient-to-br from-gold to-yellow-400 text-white border-yellow-600 shadow-lg'
+                    : disabled
+                      ? 'bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed opacity-50'
+                      : 'bg-white text-gray-700 border-gray-300 hover:border-gold hover:bg-gradient-to-br hover:from-yellow-50 hover:to-yellow-100'
                 }
               `}
             >

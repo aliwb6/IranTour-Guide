@@ -25,24 +25,16 @@ export default function Header() {
               <span className="text-2xl font-black text-red-900 group-hover:text-red-700 transition">
                 IranTour Guide
               </span>
-              <span className="text-sm font-bold text-gray-600">
-                راهنمای رویدادهای ایران
-              </span>
+              <span className="text-sm font-bold text-gray-600">راهنمای رویدادهای ایران</span>
             </div>
           </Link>
 
           {/* منوی دسکتاپ */}
           <div className="hidden lg:flex items-center gap-6">
-            <Link
-              href="/"
-              className="font-black text-gray-700 hover:text-red-900 transition"
-            >
+            <Link href="/" className="font-black text-gray-700 hover:text-red-900 transition">
               خانه
             </Link>
-            <Link
-              href="/events"
-              className="font-black text-gray-700 hover:text-red-900 transition"
-            >
+            <Link href="/events" className="font-black text-gray-700 hover:text-red-900 transition">
               🎭 رویدادها
             </Link>
             <Link
@@ -51,28 +43,16 @@ export default function Header() {
             >
               📅 تقویم
             </Link>
-            <Link
-              href="/map"
-              className="font-black text-gray-700 hover:text-red-900 transition"
-            >
+            <Link href="/map" className="font-black text-gray-700 hover:text-red-900 transition">
               🗺️ نقشه
             </Link>
-            <Link
-              href="/cities"
-              className="font-black text-gray-700 hover:text-red-900 transition"
-            >
+            <Link href="/cities" className="font-black text-gray-700 hover:text-red-900 transition">
               🏙️ شهرها
             </Link>
-            <Link
-              href="/blog"
-              className="font-black text-gray-700 hover:text-red-900 transition"
-            >
+            <Link href="/blog" className="font-black text-gray-700 hover:text-red-900 transition">
               📰 مجله
             </Link>
-            <Link
-              href="/about"
-              className="font-black text-gray-700 hover:text-red-900 transition"
-            >
+            <Link href="/about" className="font-black text-gray-700 hover:text-red-900 transition">
               درباره ما
             </Link>
           </div>
@@ -95,13 +75,19 @@ export default function Header() {
                   {/* User Avatar/Initial */}
                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-black">
                     {user.image ? (
-                      <img src={user.image} alt={user.name || ''} className="w-full h-full rounded-full object-cover" />
+                      <img
+                        src={user.image}
+                        alt={user.name || ''}
+                        className="w-full h-full rounded-full object-cover"
+                      />
                     ) : (
                       user.name?.charAt(0) || 'U'
                     )}
                   </div>
                   <span className="font-bold text-gray-700">{user.name}</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`}
+                  />
                 </motion.button>
 
                 {/* Dropdown Menu */}
@@ -263,7 +249,11 @@ export default function Header() {
                 <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-black">
                     {user.image ? (
-                      <img src={user.image} alt={user.name || ''} className="w-full h-full rounded-full object-cover" />
+                      <img
+                        src={user.image}
+                        alt={user.name || ''}
+                        className="w-full h-full rounded-full object-cover"
+                      />
                     ) : (
                       user.name?.charAt(0) || 'U'
                     )}

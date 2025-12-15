@@ -74,9 +74,7 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({ activities }) => {
                     <span className="text-gray-900">{activity.title}</span>
                   </p>
                   {activity.subtitle && (
-                    <p className="text-sm text-gray-600 font-medium mb-1">
-                      {activity.subtitle}
-                    </p>
+                    <p className="text-sm text-gray-600 font-medium mb-1">{activity.subtitle}</p>
                   )}
                   <div className="flex items-center gap-1 text-xs text-gray-500 font-medium">
                     <Clock className="w-3 h-3" />

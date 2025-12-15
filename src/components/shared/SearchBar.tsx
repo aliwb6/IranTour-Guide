@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export function SearchBar() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('')
+  const router = useRouter()
 
   const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (searchQuery.trim()) {
-      router.push(`/events?search=${encodeURIComponent(searchQuery)}`);
+      router.push(`/events?search=${encodeURIComponent(searchQuery)}`)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSearch} className="max-w-3xl mx-auto">
@@ -34,5 +34,5 @@ export function SearchBar() {
         </button>
       </div>
     </form>
-  );
+  )
 }

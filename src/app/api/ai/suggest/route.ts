@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     const validatedData = formSchema.parse(body)
 
     // Filter events based on user criteria
-    const relevantEvents = mockEvents.filter(event => {
+    const relevantEvents = mockEvents.filter((event) => {
       // Check if event city matches user's selected cities
       const cityMatch = validatedData.cities.includes(event.city)
 
@@ -46,7 +46,8 @@ export async function POST(request: NextRequest) {
     if (relevantEvents.length === 0) {
       return NextResponse.json(
         {
-          error: 'متأسفانه رویدادی در بازه زمانی و شهرهای انتخابی شما یافت نشد. لطفاً تاریخ یا شهرهای دیگری را امتحان کنید.'
+          error:
+            'متأسفانه رویدادی در بازه زمانی و شهرهای انتخابی شما یافت نشد. لطفاً تاریخ یا شهرهای دیگری را امتحان کنید.',
         },
         { status: 404 }
       )
@@ -120,7 +121,7 @@ ${eventsDescription}
       suggestedEvents: relevantEvents.slice(0, 8).map((event, idx) => ({
         eventId: event.id,
         relevanceScore: 95 - idx * 5,
-        reason: `این رویداد با توجه به علاقه شما به ${validatedData.interests[0]} و ${validatedData.interests[1] || 'فرهنگ ایرانی'} بسیار مناسب است. ${event.title} فرصتی عالی برای تجربه ${event.type} در ${event.city} خواهد بود.`
+        reason: `این رویداد با توجه به علاقه شما به ${validatedData.interests[0]} و ${validatedData.interests[1] || 'فرهنگ ایرانی'} بسیار مناسب است. ${event.title} فرصتی عالی برای تجربه ${event.type} در ${event.city} خواهد بود.`,
       })),
       itinerary: [
         {
@@ -130,17 +131,19 @@ ${eventsDescription}
           morning: `صبح با صبحانه محلی در ${validatedData.cities[0]} شروع کنید و از بازار سنتی بازدید کنید.`,
           afternoon: `بعدازظهر به بازدید از جاذبه‌های تاریخی ${validatedData.cities[0]} بپردازید.`,
           evening: `عصر در اولین رویداد پیشنهادی شرکت کنید.`,
-          events: [relevantEvents[0]?.id].filter(Boolean)
+          events: [relevantEvents[0]?.id].filter(Boolean),
         },
         {
           day: 2,
-          date: formatPersianDate(new Date(new Date(validatedData.startDate).getTime() + 86400000).toISOString()),
+          date: formatPersianDate(
+            new Date(new Date(validatedData.startDate).getTime() + 86400000).toISOString()
+          ),
           city: validatedData.cities[0],
           morning: `صبح با گردش در پارک‌های شهر شروع کنید.`,
           afternoon: `بعدازظهر از موزه‌ها و گالری‌های هنری بازدید کنید.`,
           evening: `شب را با شرکت در رویداد فرهنگی به پایان برسانید.`,
-          events: [relevantEvents[1]?.id].filter(Boolean)
-        }
+          events: [relevantEvents[1]?.id].filter(Boolean),
+        },
       ],
       summary: `${validatedData.fullName} عزیز، برای سفر ${relevantEvents.length > 0 ? `${Math.ceil((new Date(validatedData.endDate).getTime() - new Date(validatedData.startDate).getTime()) / 86400000)} روزه` : ''} شما به ${validatedData.cities.join(' و ')}، ${relevantEvents.length} رویداد فوق‌العاده پیدا کردیم که کاملاً با علایق شما همخوانی دارد!`,
       tips: [
@@ -148,26 +151,28 @@ ${eventsDescription}
         `حتماً از غذاهای محلی ${validatedData.cities[0]} مثل ${validatedData.cities[0] === 'اصفهان' ? 'بریانی و گز' : validatedData.cities[0] === 'شیراز' ? 'کلام پلو' : 'چلوکباب'} بچشید.`,
         `برای جابجایی در شهر، استفاده از تاکسی اینترنتی یا مترو (در صورت وجود) توصیه می‌شود.`,
         `بلیط رویدادها را از قبل رزرو کنید تا جای خالی داشته باشد.`,
-        `یک دوربین یا موبایل با دوربین خوب برای ثبت لحظات همراه داشته باشید.`
-      ]
+        `یک دوربین یا موبایل با دوربین خوب برای ثبت لحظات همراه داشته باشید.`,
+      ],
     }
 
     // Map event IDs to full event objects
-    const suggestionsWithEvents = aiSuggestions.suggestedEvents.map(s => {
-      const event = relevantEvents.find(e => e.id === s.eventId)
-      return {
-        event,
-        relevanceScore: s.relevanceScore,
-        reason: s.reason
-      }
-    }).filter(s => s.event) // Remove any that don't have events
+    const suggestionsWithEvents = aiSuggestions.suggestedEvents
+      .map((s) => {
+        const event = relevantEvents.find((e) => e.id === s.eventId)
+        return {
+          event,
+          relevanceScore: s.relevanceScore,
+          reason: s.reason,
+        }
+      })
+      .filter((s) => s.event) // Remove any that don't have events
 
     // Map itinerary event IDs to full event objects
-    const itineraryWithEvents = aiSuggestions.itinerary.map(day => ({
+    const itineraryWithEvents = aiSuggestions.itinerary.map((day) => ({
       ...day,
       events: day.events
-        .map(eventId => relevantEvents.find(e => e.id === eventId))
-        .filter(Boolean)
+        .map((eventId) => relevantEvents.find((e) => e.id === eventId))
+        .filter(Boolean),
     }))
 
     // Generate unique ID for this suggestion
@@ -182,7 +187,7 @@ ${eventsDescription}
       suggestions: suggestionsWithEvents,
       itinerary: itineraryWithEvents,
       tips: aiSuggestions.tips,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     }
 
     suggestions.set(suggestionId, suggestionData)
@@ -192,7 +197,7 @@ ${eventsDescription}
     return NextResponse.json({
       success: true,
       id: suggestionId,
-      message: 'پیشنهادات با موفقیت ایجاد شد'
+      message: 'پیشنهادات با موفقیت ایجاد شد',
     })
   } catch (error: any) {
     console.error('AI Suggestion error:', error)
@@ -201,7 +206,7 @@ ${eventsDescription}
       return NextResponse.json(
         {
           error: 'داده‌های ورودی نامعتبر است',
-          details: error.errors
+          details: error.errors,
         },
         { status: 400 }
       )
@@ -209,7 +214,7 @@ ${eventsDescription}
 
     return NextResponse.json(
       {
-        error: error.message || 'خطا در ایجاد پیشنهادات. لطفاً دوباره تلاش کنید'
+        error: error.message || 'خطا در ایجاد پیشنهادات. لطفاً دوباره تلاش کنید',
       },
       { status: 500 }
     )
@@ -223,27 +228,18 @@ export async function GET(request: NextRequest) {
     const id = searchParams.get('id')
 
     if (!id) {
-      return NextResponse.json(
-        { error: 'شناسه الزامی است' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'شناسه الزامی است' }, { status: 400 })
     }
 
     const suggestion = suggestions.get(id)
 
     if (!suggestion) {
-      return NextResponse.json(
-        { error: 'پیشنهادی با این شناسه یافت نشد' },
-        { status: 404 }
-      )
+      return NextResponse.json({ error: 'پیشنهادی با این شناسه یافت نشد' }, { status: 404 })
     }
 
     return NextResponse.json(suggestion)
   } catch (error: any) {
     console.error('Get suggestion error:', error)
-    return NextResponse.json(
-      { error: 'خطا در دریافت پیشنهادات' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: 'خطا در دریافت پیشنهادات' }, { status: 500 })
   }
 }

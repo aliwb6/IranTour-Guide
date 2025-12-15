@@ -16,7 +16,8 @@ interface ImageWithFallbackProps {
 
 const ImageWithFallback: React.FC<ImageWithFallbackProps> = ({ cityId, src, alt, className }) => {
   const [imageError, setImageError] = useState(false)
-  const fallbackImage = 'https://via.placeholder.com/800x600/D4AF37/FFFFFF?text=' + encodeURIComponent(alt)
+  const fallbackImage =
+    'https://via.placeholder.com/800x600/D4AF37/FFFFFF?text=' + encodeURIComponent(alt)
 
   return (
     <Image
@@ -44,22 +45,22 @@ const mockCities: City[] = [
     name: 'تهران',
     slug: 'tehran',
     image: 'https://images.unsplash.com/photo-1585916420730-d7f95e942d43?w=800',
-    eventCount: 85
+    eventCount: 85,
   },
   {
     id: '2',
     name: 'اصفهان',
     slug: 'isfahan',
     image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800',
-    eventCount: 42
+    eventCount: 42,
   },
   {
     id: '3',
     name: 'شیراز',
     slug: 'shiraz',
     image: 'https://images.unsplash.com/photo-1546785939-8e899ac0f0a4?w=800',
-    eventCount: 38
-  }
+    eventCount: 38,
+  },
 ]
 
 export default function FollowedCitiesPage() {
@@ -67,7 +68,7 @@ export default function FollowedCitiesPage() {
 
   const handleUnfollow = (cityId: string) => {
     if (confirm('آیا مطمئن هستید که می‌خواهید این شهر را دنبال نکنید؟')) {
-      setCities(prev => prev.filter(c => c.id !== cityId))
+      setCities((prev) => prev.filter((c) => c.id !== cityId))
     }
   }
 
@@ -88,12 +89,8 @@ export default function FollowedCitiesPage() {
       {/* Header */}
       <div className="kashi-card p-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-black text-red-900 mb-2">
-            شهرهای دنبال‌شده
-          </h1>
-          <p className="text-gray-600 font-medium">
-            {cities.length} شهر دنبال می‌کنید
-          </p>
+          <h1 className="text-3xl font-black text-red-900 mb-2">شهرهای دنبال‌شده</h1>
+          <p className="text-gray-600 font-medium">{cities.length} شهر دنبال می‌کنید</p>
         </div>
 
         <Link href="/cities">
@@ -143,9 +140,7 @@ export default function FollowedCitiesPage() {
               <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
                 <div className="flex items-center gap-2 mb-2">
                   <MapPin className="w-5 h-5" />
-                  <h3 className="text-2xl font-black">
-                    {city.name}
-                  </h3>
+                  <h3 className="text-2xl font-black">{city.name}</h3>
                 </div>
 
                 <div className="flex items-center gap-2 text-sm">

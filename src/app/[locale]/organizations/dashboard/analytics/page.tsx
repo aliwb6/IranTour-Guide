@@ -13,7 +13,7 @@ const viewsOverTimeData = [
   { name: '۴ آذر', value: 220 },
   { name: '۵ آذر', value: 280 },
   { name: '۶ آذر', value: 310 },
-  { name: '۷ آذر', value: 290 }
+  { name: '۷ آذر', value: 290 },
 ]
 
 const eventsByTypeData = [
@@ -21,7 +21,7 @@ const eventsByTypeData = [
   { name: 'نمایشگاه', value: 12 },
   { name: 'کنفرانس', value: 8 },
   { name: 'ورزشی', value: 5 },
-  { name: 'سایر', value: 3 }
+  { name: 'سایر', value: 3 },
 ]
 
 const eventsByCityData = [
@@ -29,7 +29,7 @@ const eventsByCityData = [
   { name: 'اصفهان', value: 10 },
   { name: 'شیراز', value: 8 },
   { name: 'مشهد', value: 6 },
-  { name: 'تبریز', value: 4 }
+  { name: 'تبریز', value: 4 },
 ]
 
 const topPerformingEvents = [
@@ -37,7 +37,7 @@ const topPerformingEvents = [
   { title: 'نمایشگاه کتاب', views: 1800, saves: 140, shares: 72 },
   { title: 'کنفرانس فناوری', views: 1500, saves: 120, shares: 65 },
   { title: 'جشنواره موسیقی', views: 1200, saves: 95, shares: 48 },
-  { title: 'نمایشگاه صنایع دستی', views: 980, saves: 78, shares: 42 }
+  { title: 'نمایشگاه صنایع دستی', views: 980, saves: 78, shares: 42 },
 ]
 
 export default function AnalyticsPage() {
@@ -66,7 +66,7 @@ export default function AnalyticsPage() {
               { value: '7', label: '۷ روز گذشته' },
               { value: '30', label: '۳۰ روز گذشته' },
               { value: '90', label: '۹۰ روز گذشته' },
-              { value: 'custom', label: 'سفارشی' }
+              { value: 'custom', label: 'سفارشی' },
             ].map((option) => (
               <button
                 key={option.value}
@@ -88,34 +88,10 @@ export default function AnalyticsPage() {
       <div>
         <h2 className="text-xl font-bold text-gray-900 mb-4">خلاصه آمار</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <KPICard
-            label="رویدادهای فعال"
-            value={23}
-            change="+12%"
-            icon={Calendar}
-            color="blue"
-          />
-          <KPICard
-            label="کل بازدیدها"
-            value={8750}
-            change="+18%"
-            icon={Eye}
-            color="green"
-          />
-          <KPICard
-            label="ذخیره‌شده"
-            value={613}
-            change="+25%"
-            icon={Bookmark}
-            color="purple"
-          />
-          <KPICard
-            label="اشتراک‌گذاری"
-            value={322}
-            change="+15%"
-            icon={Share2}
-            color="orange"
-          />
+          <KPICard label="رویدادهای فعال" value={23} change="+12%" icon={Calendar} color="blue" />
+          <KPICard label="کل بازدیدها" value={8750} change="+18%" icon={Eye} color="green" />
+          <KPICard label="ذخیره‌شده" value={613} change="+25%" icon={Bookmark} color="purple" />
+          <KPICard label="اشتراک‌گذاری" value={322} change="+15%" icon={Share2} color="orange" />
         </div>
       </div>
 
@@ -159,8 +135,12 @@ export default function AnalyticsPage() {
             <table className="w-full">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">رتبه</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">عنوان</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">
+                    رتبه
+                  </th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">
+                    عنوان
+                  </th>
                   <th className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase">
                     <div className="flex items-center gap-2">
                       <Eye className="w-4 h-4" />
@@ -189,16 +169,21 @@ export default function AnalyticsPage() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {topPerformingEvents.map((event, index) => {
-                  const score = event.views + (event.saves * 5) + (event.shares * 10)
+                  const score = event.views + event.saves * 5 + event.shares * 10
                   return (
                     <tr key={index} className="hover:bg-gray-50 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                          index === 0 ? 'bg-yellow-100 text-yellow-700' :
-                          index === 1 ? 'bg-gray-100 text-gray-700' :
-                          index === 2 ? 'bg-orange-100 text-orange-700' :
-                          'bg-blue-50 text-blue-700'
-                        }`}>
+                        <div
+                          className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
+                            index === 0
+                              ? 'bg-yellow-100 text-yellow-700'
+                              : index === 1
+                                ? 'bg-gray-100 text-gray-700'
+                                : index === 2
+                                  ? 'bg-orange-100 text-orange-700'
+                                  : 'bg-blue-50 text-blue-700'
+                          }`}
+                        >
                           {index + 1}
                         </div>
                       </td>
@@ -206,13 +191,19 @@ export default function AnalyticsPage() {
                         <span className="font-medium text-gray-900">{event.title}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-gray-600" dir="ltr">{event.views.toLocaleString('fa-IR')}</span>
+                        <span className="text-gray-600" dir="ltr">
+                          {event.views.toLocaleString('fa-IR')}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-gray-600" dir="ltr">{event.saves.toLocaleString('fa-IR')}</span>
+                        <span className="text-gray-600" dir="ltr">
+                          {event.saves.toLocaleString('fa-IR')}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="text-gray-600" dir="ltr">{event.shares.toLocaleString('fa-IR')}</span>
+                        <span className="text-gray-600" dir="ltr">
+                          {event.shares.toLocaleString('fa-IR')}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-2">

@@ -12,7 +12,7 @@ import {
   ColumnDef,
   flexRender,
   SortingState,
-  ColumnFiltersState
+  ColumnFiltersState,
 } from '@tanstack/react-table'
 import { Eye, Edit, Trash2, ChevronRight, ChevronLeft } from 'lucide-react'
 import moment from 'moment-jalaali'
@@ -38,13 +38,13 @@ interface EventsTableProps {
 const statusLabels = {
   APPROVED: 'تأیید شده',
   PENDING: 'در انتظار',
-  REJECTED: 'رد شده'
+  REJECTED: 'رد شده',
 }
 
 const statusColors = {
   APPROVED: 'bg-green-100 text-green-700 border-green-300',
   PENDING: 'bg-yellow-100 text-yellow-700 border-yellow-300',
-  REJECTED: 'bg-red-100 text-red-700 border-red-300'
+  REJECTED: 'bg-red-100 text-red-700 border-red-300',
 }
 
 export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
@@ -76,16 +76,18 @@ export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
             <p className="text-sm text-gray-500">{row.original.city}</p>
           </div>
         </div>
-      )
+      ),
     },
     {
       accessorKey: 'status',
       header: 'وضعیت',
       cell: ({ row }) => (
-        <Badge className={`${statusColors[row.original.status]} px-3 py-1 rounded-full text-xs font-medium border`}>
+        <Badge
+          className={`${statusColors[row.original.status]} px-3 py-1 rounded-full text-xs font-medium border`}
+        >
           {statusLabels[row.original.status]}
         </Badge>
-      )
+      ),
     },
     {
       accessorKey: 'startDate',
@@ -94,7 +96,7 @@ export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
         <span className="text-sm text-gray-600" dir="rtl">
           {moment(row.original.startDate).format('jYYYY/jMM/jDD')}
         </span>
-      )
+      ),
     },
     {
       accessorKey: 'viewCount',
@@ -103,7 +105,7 @@ export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
         <span className="text-sm text-gray-600" dir="ltr">
           {row.original.viewCount.toLocaleString('fa-IR')}
         </span>
-      )
+      ),
     },
     {
       accessorKey: 'saveCount',
@@ -112,7 +114,7 @@ export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
         <span className="text-sm text-gray-600" dir="ltr">
           {row.original.saveCount.toLocaleString('fa-IR')}
         </span>
-      )
+      ),
     },
     {
       id: 'actions',
@@ -141,8 +143,8 @@ export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
             <Trash2 className="w-4 h-4" />
           </button>
         </div>
-      )
-    }
+      ),
+    },
   ]
 
   const table = useReactTable({
@@ -156,13 +158,13 @@ export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
     onColumnFiltersChange: setColumnFilters,
     state: {
       sorting,
-      columnFilters
+      columnFilters,
     },
     initialState: {
       pagination: {
-        pageSize: 10
-      }
-    }
+        pageSize: 10,
+      },
+    },
   })
 
   return (
@@ -223,7 +225,8 @@ export const EventsTable: React.FC<EventsTableProps> = ({ data, onDelete }) => {
       {table.getRowModel().rows.length > 0 && (
         <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
           <div className="text-sm text-gray-600">
-            نمایش {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1} تا{' '}
+            نمایش {table.getState().pagination.pageIndex * table.getState().pagination.pageSize + 1}{' '}
+            تا{' '}
             {Math.min(
               (table.getState().pagination.pageIndex + 1) * table.getState().pagination.pageSize,
               table.getFilteredRowModel().rows.length
