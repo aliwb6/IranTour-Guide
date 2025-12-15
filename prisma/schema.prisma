@@ -35,6 +35,34 @@ enum OrganizationType {
   OTHER
 }
 
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  EXPIRED
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  ZARINPAL
+  SAMAN
+  MELLAT
+  PASARGAD
+  SADERAT
+  PARSIAN
+  CASH
+  CARD
+  OTHER
+}
+
 // User model
 model User {
   id            String    @id @default(cuid())
@@ -54,6 +82,8 @@ model User {
   followedTopics FollowedTopic[]
   followedCities FollowedCity[]
   organization   Organization?
+  bookings       Booking[]
+  reviews        Review[]
 }
 
 // NextAuth Account model
@@ -216,6 +246,8 @@ model Event {
   organization Organization?      @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   categories   EventOnCategory[]
   analytics    Analytics[]
+  bookings     Booking[]
+  reviews      Review[]
 
   @@index([city])
   @@index([status])
@@ -271,4 +303,149 @@ model Post {
   @@index([slug])
   @@index([type])
   @@index([isPublished])
+}
+
+// Booking model
+model Booking {
+  id                String        @id @default(cuid())
+  bookingCode       String        @unique
+  userId            String
+  eventId           String
+  eventTitle        String
+  eventDate         DateTime
+
+  // Contact Information
+  firstName         String
+  lastName          String
+  email             String
+  phone             String
+  nationalId        String?
+
+  // Booking Details
+  numberOfAdults    Int           @default(1)
+  numberOfChildren  Int           @default(0)
+  totalParticipants Int
+  specialRequests   String?
+  notes             String?
+
+  // Pricing
+  pricePerPerson    Float
+  childrenPrice     Float?
+  totalPrice        Float
+  discount          Float?        @default(0)
+  finalPrice        Float
+
+  // Status & Timestamps
+  status            BookingStatus @default(PENDING)
+  confirmedAt       DateTime?
+  cancelledAt       DateTime?
+  cancellationReason String?
+  completedAt       DateTime?
+  expiresAt         DateTime?
+
+  // Additional Info
+  source            String?       // "website", "mobile_app", etc
+  referenceNumber   String?
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event   Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  payment Payment?
+
+  @@index([userId])
+  @@index([eventId])
+  @@index([status])
+  @@index([bookingCode])
+  @@index([createdAt])
+}
+
+// Payment model
+model Payment {
+  id                String        @id @default(cuid())
+  bookingId         String        @unique
+
+  // Payment Details
+  amount            Float
+  currency          String        @default("IRR")
+  paymentMethod     PaymentMethod
+  status            PaymentStatus @default(PENDING)
+
+  // Gateway Information
+  gatewayName       String?
+  transactionId     String?       @unique
+  referenceId       String?
+  trackingCode      String?
+  cardNumber        String?       // Last 4 digits only
+
+  // Gateway Response
+  gatewayResponse   String?       // JSON string
+  errorMessage      String?
+
+  // Timestamps
+  paidAt            DateTime?
+  refundedAt        DateTime?
+  refundAmount      Float?
+  refundReason      String?
+
+  // Additional Info
+  ipAddress         String?
+  userAgent         String?
+
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  booking Booking @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId])
+  @@index([status])
+  @@index([transactionId])
+  @@index([createdAt])
+}
+
+// Review model
+model Review {
+  id              String    @id @default(cuid())
+  userId          String
+  eventId         String
+  bookingId       String?   // Optional: link to booking if user attended
+
+  // Review Content
+  rating          Int       // 1-5 stars
+  title           String?
+  comment         String
+  pros            String?   // Positive points
+  cons            String?   // Negative points
+
+  // Media
+  images          String[]  // Array of image URLs
+
+  // Verification & Moderation
+  isVerified      Boolean   @default(false)  // Verified attendance
+  isApproved      Boolean   @default(false)  // Admin approval
+  isPinned        Boolean   @default(false)  // Highlighted review
+
+  // Interaction
+  helpfulCount    Int       @default(0)
+  reportCount     Int       @default(0)
+
+  // Organization Response
+  organizationResponse String?
+  respondedAt          DateTime?
+
+  // Timestamps
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  approvedAt      DateTime?
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventId])
+  @@index([eventId])
+  @@index([userId])
+  @@index([rating])
+  @@index([isApproved])
+  @@index([createdAt])
 }
