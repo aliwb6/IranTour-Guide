@@ -17,7 +17,7 @@ import type { CreateBookingSchema } from '@/lib/validators/booking';
 import moment from 'moment-jalaali';
 
 interface BookingSummaryStepProps {
-  form: UseFormReturn<CreateBookingSchema>;
+  form: UseFormReturn<any>;
   eventTitle: string;
   eventDate: Date;
   totals: {

@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import type { CreateBookingSchema } from '@/lib/validators/booking';
 
 interface BookingParticipantsStepProps {
-  form: UseFormReturn<CreateBookingSchema>;
+  form: UseFormReturn<any>;
 }
 
 export default function BookingParticipantsStep({ form }: BookingParticipantsStepProps) {
@@ -99,7 +99,7 @@ export default function BookingParticipantsStep({ form }: BookingParticipantsSte
         </div>
 
         {errors.numberOfAdults && (
-          <p className="text-sm text-red-500 text-right">{errors.numberOfAdults.message}</p>
+          <p className="text-sm text-red-500 text-right">{String(errors.numberOfAdults.message)}</p>
         )}
 
         {/* Children */}
@@ -142,7 +142,7 @@ export default function BookingParticipantsStep({ form }: BookingParticipantsSte
         </div>
 
         {errors.numberOfChildren && (
-          <p className="text-sm text-red-500 text-right">{errors.numberOfChildren.message}</p>
+          <p className="text-sm text-red-500 text-right">{String(errors.numberOfChildren.message)}</p>
         )}
 
         {/* Total */}
@@ -176,7 +176,7 @@ export default function BookingParticipantsStep({ form }: BookingParticipantsSte
           maxLength={500}
         />
         {errors.specialRequests && (
-          <p className="text-sm text-red-500 text-right">{errors.specialRequests.message}</p>
+          <p className="text-sm text-red-500 text-right">{String(errors.specialRequests.message)}</p>
         )}
         <p className="text-xs text-gray-500 text-right">
           {watch('specialRequests')?.length || 0}/500 کاراکتر
