@@ -51,7 +51,7 @@ export default function BookingForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const form = useForm<CreateBookingSchema>({
+  const form = useForm({
     resolver: zodResolver(createBookingSchema),
     defaultValues: {
       eventId,
@@ -66,7 +66,7 @@ export default function BookingForm({
       numberOfChildren: 0,
       specialRequests: '',
       pricePerPerson,
-      childrenPrice,
+      childrenPrice: childrenPrice || 0,
       discount: 0,
     },
     mode: 'onChange',

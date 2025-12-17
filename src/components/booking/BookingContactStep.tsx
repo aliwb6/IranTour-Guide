@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import type { CreateBookingSchema } from '@/lib/validators/booking';
 
 interface BookingContactStepProps {
-  form: UseFormReturn<CreateBookingSchema>;
+  form: UseFormReturn<any>;
 }
 
 export default function BookingContactStep({ form }: BookingContactStepProps) {
@@ -42,7 +42,7 @@ export default function BookingContactStep({ form }: BookingContactStepProps) {
             dir="rtl"
           />
           {errors.firstName && (
-            <p className="text-sm text-red-500 text-right">{errors.firstName.message}</p>
+            <p className="text-sm text-red-500 text-right">{String(errors.firstName.message)}</p>
           )}
         </div>
 
@@ -62,7 +62,7 @@ export default function BookingContactStep({ form }: BookingContactStepProps) {
             dir="rtl"
           />
           {errors.lastName && (
-            <p className="text-sm text-red-500 text-right">{errors.lastName.message}</p>
+            <p className="text-sm text-red-500 text-right">{String(errors.lastName.message)}</p>
           )}
         </div>
 
@@ -82,7 +82,7 @@ export default function BookingContactStep({ form }: BookingContactStepProps) {
             dir="ltr"
           />
           {errors.email && (
-            <p className="text-sm text-red-500 text-right">{errors.email.message}</p>
+            <p className="text-sm text-red-500 text-right">{String(errors.email.message)}</p>
           )}
         </div>
 
@@ -102,7 +102,7 @@ export default function BookingContactStep({ form }: BookingContactStepProps) {
             dir="ltr"
           />
           {errors.phone && (
-            <p className="text-sm text-red-500 text-right">{errors.phone.message}</p>
+            <p className="text-sm text-red-500 text-right">{String(errors.phone.message)}</p>
           )}
         </div>
 
@@ -122,7 +122,7 @@ export default function BookingContactStep({ form }: BookingContactStepProps) {
             maxLength={10}
           />
           {errors.nationalId && (
-            <p className="text-sm text-red-500 text-right">{errors.nationalId.message}</p>
+            <p className="text-sm text-red-500 text-right">{String(errors.nationalId.message)}</p>
           )}
           <p className="text-xs text-gray-500 text-right">
             در صورت نیاز به صدور بلیط یا گواهی شرکت در رویداد
