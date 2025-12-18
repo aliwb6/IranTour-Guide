@@ -5,6 +5,9 @@ import { mockEvents } from '@/lib/mock-data/events'
 import ImageGallery from '@/components/events/ImageGallery'
 import ShareButtons from '@/components/shared/ShareButtons'
 import RelatedEvents from '@/components/events/RelatedEvents'
+import ReviewForm from '@/components/reviews/ReviewForm'
+import ReviewList from '@/components/reviews/ReviewList'
+import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
 interface PageProps {
@@ -90,6 +93,16 @@ export default async function EventDetailPage({ params }: PageProps) {
                 <span className="font-bold">{event.venue}</span>
               </div>
             </div>
+
+            {event.registrationUrl && (
+              <div className="mt-6">
+                <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold text-lg px-8 py-6 shadow-2xl">
+                  <Link href={`/events/${event.slug}/book`}>
+                    🎟️ رزرو این رویداد
+                  </Link>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -227,7 +240,25 @@ export default async function EventDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-16 space-y-16">
+          {/* Reviews Section */}
+          <section className="kashi-card p-8">
+            <h2 className="text-3xl md:text-4xl font-black text-red-900 mb-8 flex items-center gap-3">
+              <span>⭐</span>
+              نظرات شرکت‌کنندگان
+            </h2>
+
+            {/* Review Form */}
+            <div className="mb-12 p-6 bg-gradient-to-br from-yellow-50 to-white rounded-2xl border-2 border-yellow-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">نظر خود را بنویسید</h3>
+              <ReviewForm eventId={event.slug} />
+            </div>
+
+            {/* Review List */}
+            <ReviewList eventId={event.slug} />
+          </section>
+
+          {/* Related Events */}
           <RelatedEvents currentEvent={event} />
         </div>
       </div>
