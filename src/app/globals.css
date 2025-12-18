@@ -534,3 +534,63 @@
 * {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ===== CALENDAR RTL STYLES ===== */
+.calendar-rtl {
+  direction: rtl;
+}
+
+.calendar-rtl .rbc-calendar {
+  font-family: 'Vazirmatn', sans-serif;
+}
+
+.calendar-rtl .rbc-header {
+  font-weight: 600;
+  padding: 12px 6px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.calendar-rtl .rbc-today {
+  background-color: #fef3c7;
+}
+
+.calendar-rtl .rbc-event {
+  padding: 2px 6px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.calendar-rtl .rbc-event:hover {
+  opacity: 0.8;
+}
+
+.calendar-rtl .rbc-show-more {
+  background-color: transparent;
+  color: #6366f1;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px;
+}
+
+.calendar-rtl .rbc-show-more:hover {
+  color: #4f46e5;
+}
+
+/* ===== MAP POPUP STYLES ===== */
+.mapboxgl-popup-content {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1) !important;
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-color: white transparent transparent transparent;
+}
