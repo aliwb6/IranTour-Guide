@@ -1,18 +1,43 @@
 // src/app/map/page.tsx
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { citiesData } from '@/lib/mock-data/cities-data'
 import { mockEvents } from '@/lib/mock-data/events'
+import { formatGregorianDate, formatPersianDate, parseJalaliDate } from '@/lib/date-utils'
 
 export default function MapPage() {
   const [selectedCity, setSelectedCity] = useState<string | null>(null)
+  const [rangeStart, setRangeStart] = useState('')
+  const [rangeEnd, setRangeEnd] = useState('')
+
+  const rangeStartDate = rangeStart ? new Date(rangeStart) : null
+  const rangeEndDate = rangeEnd ? new Date(rangeEnd) : null
+
+  const filteredEvents = useMemo(() => {
+    if (!rangeStartDate && !rangeEndDate) {
+      return mockEvents
+    }
+
+    return mockEvents.filter((event) => {
+      const eventStart = parseJalaliDate(event.startDate)
+      const eventEnd = parseJalaliDate(event.endDate)
+      if (!eventStart || !eventEnd) {
+        return false
+      }
+
+      const rangeStartValue = rangeStartDate ? rangeStartDate.getTime() : -Infinity
+      const rangeEndValue = rangeEndDate ? rangeEndDate.getTime() : Infinity
+
+      return eventStart.getTime() <= rangeEndValue && eventEnd.getTime() >= rangeStartValue
+    })
+  }, [rangeEndDate, rangeStartDate])
 
   // محاسبه تعداد رویدادها برای هر شهر
   const citiesWithEvents = citiesData.map((city) => ({
     ...city,
-    eventCount: mockEvents.filter((event) => event.city === city.name).length,
+    eventCount: filteredEvents.filter((event) => event.city === city.name).length,
   }))
 
   const selectedCityData = selectedCity
@@ -20,8 +45,16 @@ export default function MapPage() {
     : null
 
   const selectedCityEvents = selectedCityData
-    ? mockEvents.filter((event) => event.city === selectedCityData.name)
+    ? filteredEvents.filter((event) => event.city === selectedCityData.name)
     : []
+
+  const formatDateWithGregorian = (dateString: string) => {
+    const gregorianDate = parseJalaliDate(dateString)
+    if (!gregorianDate) {
+      return dateString
+    }
+    return `${dateString} / ${formatGregorianDate(gregorianDate)}`
+  }
 
   return (
     <div className="min-h-screen bg-cream">
@@ -43,15 +76,56 @@ export default function MapPage() {
           {/* نقشه (فعلاً لیست شهرها) */}
           <div className="lg:col-span-2">
             <div className="kashi-card p-6">
-              <h2 className="text-2xl font-black text-red-900 mb-4">
-                شهرهای ایران
-              </h2>
-              <p className="text-sm text-gray-600 font-bold mb-6">
-                💡 در نسخه آینده، نقشه تعاملی Mapbox/Leaflet اضافه خواهد شد
-              </p>
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <h2 className="text-2xl font-black text-red-900 mb-2">
+                    شهرهای ایران
+                  </h2>
+                  <p className="text-sm text-gray-600 font-bold mb-4">
+                    💡 در نسخه آینده، نقشه تعاملی Mapbox/Leaflet اضافه خواهد شد
+                  </p>
+                </div>
+                <div className="w-full md:max-w-xs space-y-3">
+                  <label className="block text-right">
+                    <span className="text-xs font-bold text-gray-700">
+                      تاریخ شروع (میلادی)
+                    </span>
+                    <input
+                      type="date"
+                      value={rangeStart}
+                      onChange={(event) => setRangeStart(event.target.value)}
+                      className="mt-2 w-full rounded-xl border-2 border-gray-300 px-3 py-2 text-right font-bold"
+                    />
+                    <span className="mt-1 block text-[11px] font-bold text-gray-500">
+                      شمسی: {rangeStartDate ? formatPersianDate(rangeStartDate) : '—'}
+                    </span>
+                  </label>
+                  <label className="block text-right">
+                    <span className="text-xs font-bold text-gray-700">
+                      تاریخ پایان (میلادی)
+                    </span>
+                    <input
+                      type="date"
+                      value={rangeEnd}
+                      onChange={(event) => setRangeEnd(event.target.value)}
+                      className="mt-2 w-full rounded-xl border-2 border-gray-300 px-3 py-2 text-right font-bold"
+                    />
+                    <span className="mt-1 block text-[11px] font-bold text-gray-500">
+                      شمسی: {rangeEndDate ? formatPersianDate(rangeEndDate) : '—'}
+                    </span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-xl border border-gold/50 bg-cream px-3 py-2 text-xs font-bold text-gray-600">
+                بازه انتخابی (شمسی / میلادی):{' '}
+                {rangeStartDate ? formatPersianDate(rangeStartDate) : '—'} /{' '}
+                {rangeStart || '—'} تا {rangeEndDate ? formatPersianDate(rangeEndDate) : '—'} /{' '}
+                {rangeEnd || '—'}
+              </div>
 
               {/* Grid شهرها */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
                 {citiesWithEvents.map((city) => (
                   <button
                     key={city.id}
@@ -116,7 +190,7 @@ export default function MapPage() {
                           {event.title}
                         </h4>
                         <p className="text-sm text-gray-700 font-bold">
-                          📅 {event.startDate}
+                          📅 {formatDateWithGregorian(event.startDate)}
                         </p>
                         <p className="text-sm text-gray-700 font-bold">
                           🏷️ {event.type}

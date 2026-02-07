@@ -22,7 +22,7 @@ export const citiesData: CityData[] = [
     slug: 'tehran',
     province: 'تهران',
     description: 'تهران، پایتخت پرجمعیت ایران، شهری است مدرن و پویا که مرکز سیاسی، اقتصادی و فرهنگی کشور محسوب می‌شود. این شهر ترکیبی از معماری سنتی و مدرن را به نمایش می‌گذارد.',
-    image: 'https://images.unsplash.com/photo-1602616622138-c1c2a4e05a5e?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?w=800&q=80',
     population: '9 میلیون نفر',
     attractions: [
       'کاخ گلستان',
@@ -42,7 +42,7 @@ export const citiesData: CityData[] = [
     slug: 'isfahan',
     province: 'اصفهان',
     description: 'اصفهان، نصف جهان، یکی از زیباترین شهرهای ایران است که با معماری صفوی و میدان نقش جهان شهرت جهانی دارد.',
-    image: 'https://images.unsplash.com/photo-1567696153798-37c3dad9d3f6?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80',
     population: '2 میلیون نفر',
     attractions: [
       'میدان نقش جهان',
@@ -62,7 +62,7 @@ export const citiesData: CityData[] = [
     slug: 'shiraz',
     province: 'فارس',
     description: 'شیراز، شهر عشق و شعر، با آرامگاه حافظ و سعدی و باغ‌های تاریخی، یکی از مقاصد اصلی گردشگری فرهنگی ایران است.',
-    image: 'https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&q=80',
     population: '1.9 میلیون نفر',
     attractions: [
       'حافظیه',
@@ -82,7 +82,7 @@ export const citiesData: CityData[] = [
     slug: 'mashhad',
     province: 'خراسان رضوی',
     description: 'مشهد، دومین شهر پرجمعیت ایران و مهم‌ترین شهر مذهبی کشور، میزبان میلیون‌ها زائر از سراسر جهان است.',
-    image: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=800&q=80',
     population: '3.3 میلیون نفر',
     attractions: [
       'حرم امام رضا',
@@ -102,7 +102,7 @@ export const citiesData: CityData[] = [
     slug: 'yazd',
     province: 'یزد',
     description: 'یزد، شهر بادگیرها و شهر خشتی، با معماری کویری منحصربه‌فرد و بافت تاریخی زیبا، در میراث جهانی یونسکو ثبت شده است.',
-    image: 'https://images.unsplash.com/photo-1578059760979-a1b5c1d69b1d?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&q=80',
     population: '530 هزار نفر',
     attractions: [
       'مسجد جامع یزد',
@@ -122,7 +122,7 @@ export const citiesData: CityData[] = [
     slug: 'kashan',
     province: 'اصفهان',
     description: 'کاشان، شهر گلاب و خانه‌های تاریخی، با معماری سنتی زیبا و جشنواره گلاب‌گیری، یکی از محبوب‌ترین مقاصد گردشگری است.',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80',
     population: '400 هزار نفر',
     attractions: [
       'خانه بروجردی‌ها',

@@ -4,6 +4,18 @@ export function formatPersianDate(date: Date | string): string {
   return moment(date).format('jYYYY/jMM/jDD')
 }
 
+export function formatGregorianDate(date: Date | string): string {
+  return moment(date).format('YYYY-MM-DD')
+}
+
+export function parseJalaliDate(dateString: string): Date | null {
+  const parsed = moment(dateString, 'jYYYY-jMM-jDD', true)
+  if (!parsed.isValid()) {
+    return null
+  }
+  return parsed.toDate()
+}
+
 export function formatPersianDateTime(date: Date | string): string {
   return moment(date).format('jYYYY/jMM/jDD HH:mm')
 }
