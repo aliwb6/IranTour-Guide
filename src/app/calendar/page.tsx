@@ -1,14 +1,18 @@
 // src/app/calendar/page.tsx
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { mockEvents } from '@/lib/mock-data/events'
+import { formatGregorianDate, formatPersianDate, parseJalaliDate } from '@/lib/date-utils'
 
 // تابع helper برای گرفتن رویدادهای یک روز خاص
-function getEventsForDate(date: Date) {
-  return mockEvents.filter((event) => {
-    const eventDate = new Date(event.startDate)
+function getEventsForDate(date: Date, events: typeof mockEvents) {
+  return events.filter((event) => {
+    const eventDate = parseJalaliDate(event.startDate)
+    if (!eventDate) {
+      return false
+    }
     return (
       eventDate.getDate() === date.getDate() &&
       eventDate.getMonth() === date.getMonth() &&
@@ -40,10 +44,34 @@ function getDaysInMonth(year: number, month: number) {
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [rangeStart, setRangeStart] = useState('')
+  const [rangeEnd, setRangeEnd] = useState('')
 
   const year = currentDate.getFullYear()
   const month = currentDate.getMonth()
   const days = getDaysInMonth(year, month)
+
+  const rangeStartDate = rangeStart ? new Date(rangeStart) : null
+  const rangeEndDate = rangeEnd ? new Date(rangeEnd) : null
+
+  const filteredEvents = useMemo(() => {
+    if (!rangeStartDate && !rangeEndDate) {
+      return mockEvents
+    }
+
+    return mockEvents.filter((event) => {
+      const eventStart = parseJalaliDate(event.startDate)
+      const eventEnd = parseJalaliDate(event.endDate)
+      if (!eventStart || !eventEnd) {
+        return false
+      }
+
+      const rangeStartValue = rangeStartDate ? rangeStartDate.getTime() : -Infinity
+      const rangeEndValue = rangeEndDate ? rangeEndDate.getTime() : Infinity
+
+      return eventStart.getTime() <= rangeEndValue && eventEnd.getTime() >= rangeStartValue
+    })
+  }, [rangeEndDate, rangeStartDate])
 
   const monthNames = [
     'ژانویه',
@@ -70,7 +98,19 @@ export default function CalendarPage() {
     setCurrentDate(new Date(year, month + 1, 1))
   }
 
-  const selectedDayEvents = selectedDate ? getEventsForDate(selectedDate) : []
+  const selectedDayEvents = selectedDate
+    ? getEventsForDate(selectedDate, filteredEvents)
+    : []
+
+  const rangeEvents = filteredEvents
+
+  const formatDateWithGregorian = (dateString: string) => {
+    const gregorianDate = parseJalaliDate(dateString)
+    if (!gregorianDate) {
+      return dateString
+    }
+    return `${dateString} / ${formatGregorianDate(gregorianDate)}`
+  }
 
   return (
     <div className="min-h-screen bg-cream">
@@ -127,7 +167,7 @@ export default function CalendarPage() {
                     return <div key={index} />
                   }
 
-                  const events = getEventsForDate(date)
+                  const events = getEventsForDate(date, filteredEvents)
                   const hasEvents = events.length > 0
                   const isSelected =
                     selectedDate &&
@@ -164,45 +204,132 @@ export default function CalendarPage() {
           {/* Sidebar - رویدادهای روز انتخابی */}
           <div className="lg:col-span-1">
             <div className="kashi-card p-6 sticky top-4">
-              <h3 className="text-xl font-black text-red-900 mb-6">
-                {selectedDate
-                  ? `رویدادهای ${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]}`
-                  : 'روزی را انتخاب کنید'}
-              </h3>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-xl font-black text-red-900 mb-4">
+                    فیلتر بازه تاریخ
+                  </h3>
+                  <div className="space-y-4">
+                    <label className="block">
+                      <span className="text-sm font-bold text-gray-700">
+                        تاریخ شروع (میلادی)
+                      </span>
+                      <input
+                        type="date"
+                        value={rangeStart}
+                        onChange={(event) => setRangeStart(event.target.value)}
+                        className="mt-2 w-full rounded-xl border-2 border-gray-300 px-3 py-2 text-right font-bold"
+                      />
+                      <span className="mt-1 block text-xs font-bold text-gray-500">
+                        شمسی:{' '}
+                        {rangeStartDate ? formatPersianDate(rangeStartDate) : '—'}
+                      </span>
+                    </label>
+                    <label className="block">
+                      <span className="text-sm font-bold text-gray-700">
+                        تاریخ پایان (میلادی)
+                      </span>
+                      <input
+                        type="date"
+                        value={rangeEnd}
+                        onChange={(event) => setRangeEnd(event.target.value)}
+                        className="mt-2 w-full rounded-xl border-2 border-gray-300 px-3 py-2 text-right font-bold"
+                      />
+                      <span className="mt-1 block text-xs font-bold text-gray-500">
+                        شمسی:{' '}
+                        {rangeEndDate ? formatPersianDate(rangeEndDate) : '—'}
+                      </span>
+                    </label>
+                  </div>
 
-              {selectedDate && selectedDayEvents.length === 0 && (
-                <p className="text-center text-gray-600 font-bold py-8">
-                  رویدادی برای این روز ثبت نشده است
-                </p>
-              )}
-
-              {selectedDate && selectedDayEvents.length > 0 && (
-                <div className="space-y-4">
-                  {selectedDayEvents.map((event) => (
-                    <Link
-                      key={event.id}
-                      href={`/events/${event.slug}`}
-                      className="block p-4 rounded-xl bg-cream border-2 border-gold hover:border-red-900 transition"
-                    >
-                      <h4 className="font-black text-red-900 mb-2">
-                        {event.title}
-                      </h4>
-                      <p className="text-sm text-gray-700 font-bold">
-                        📍 {event.city}
-                      </p>
-                      <p className="text-sm text-gray-700 font-bold">
-                        🏷️ {event.type}
-                      </p>
-                    </Link>
-                  ))}
+                  <div className="mt-4 rounded-xl border border-gold/50 bg-cream px-3 py-2 text-xs font-bold text-gray-600">
+                    بازه انتخابی (شمسی / میلادی):{' '}
+                    {rangeStartDate ? formatPersianDate(rangeStartDate) : '—'} /{' '}
+                    {rangeStart || '—'} تا{' '}
+                    {rangeEndDate ? formatPersianDate(rangeEndDate) : '—'} /{' '}
+                    {rangeEnd || '—'}
+                  </div>
                 </div>
-              )}
 
-              {!selectedDate && (
-                <p className="text-center text-gray-600 font-bold py-8">
-                  روی یک روز کلیک کنید تا رویدادهای آن را ببینید
-                </p>
-              )}
+                <div>
+                  <h4 className="text-lg font-black text-red-900 mb-4">
+                    رویدادهای بازه انتخابی
+                  </h4>
+
+                  {rangeEvents.length === 0 && (
+                    <p className="text-center text-gray-600 font-bold py-4">
+                      در این بازه رویدادی ثبت نشده است
+                    </p>
+                  )}
+
+                  {rangeEvents.length > 0 && (
+                    <div className="space-y-3">
+                      {rangeEvents.map((event) => (
+                        <Link
+                          key={event.id}
+                          href={`/events/${event.slug}`}
+                          className="block rounded-xl border-2 border-gold bg-cream p-3 transition hover:border-red-900"
+                        >
+                          <h5 className="font-black text-red-900">
+                            {event.title}
+                          </h5>
+                          <p className="text-xs font-bold text-gray-700">
+                            📅 {formatDateWithGregorian(event.startDate)}
+                          </p>
+                          <p className="text-xs font-bold text-gray-700">
+                            📍 {event.city}
+                          </p>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-8 border-t border-gold/40 pt-6">
+                <h3 className="text-xl font-black text-red-900 mb-6">
+                  {selectedDate
+                    ? `رویدادهای ${selectedDate.getDate()} ${monthNames[selectedDate.getMonth()]}`
+                    : 'روزی را انتخاب کنید'}
+                </h3>
+
+                {selectedDate && selectedDayEvents.length === 0 && (
+                  <p className="text-center text-gray-600 font-bold py-8">
+                    رویدادی برای این روز ثبت نشده است
+                  </p>
+                )}
+
+                {selectedDate && selectedDayEvents.length > 0 && (
+                  <div className="space-y-4">
+                    {selectedDayEvents.map((event) => (
+                      <Link
+                        key={event.id}
+                        href={`/events/${event.slug}`}
+                        className="block p-4 rounded-xl bg-cream border-2 border-gold hover:border-red-900 transition"
+                      >
+                        <h4 className="font-black text-red-900 mb-2">
+                          {event.title}
+                        </h4>
+                        <p className="text-sm text-gray-700 font-bold">
+                          📅 {formatDateWithGregorian(event.startDate)}
+                        </p>
+                        <p className="text-sm text-gray-700 font-bold">
+                          📍 {event.city}
+                        </p>
+                        <p className="text-sm text-gray-700 font-bold">
+                          🏷️ {event.type}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {!selectedDate && (
+                  <p className="text-center text-gray-600 font-bold py-8">
+                    روی یک روز کلیک کنید تا رویدادهای آن را ببینید
+                  </p>
+                )}
+              </div>
             </div>
           </div>
         </div>
