@@ -94,3 +94,56 @@ export interface EventFormData {
   organizerEmail: string
   organizerPhone: string
 }
+
+export interface EventWithRelations extends Event {
+  organization?: {
+    id: string
+    name: string
+    slug: string
+    logo?: string | null
+    isVerified: boolean
+  } | null
+  categories?: {
+    category: {
+      id: string
+      name: string
+      nameEn: string
+      slug: string
+      icon?: string | null
+      color?: string | null
+    }
+  }[]
+}
+
+export interface CityWithCount {
+  name: string
+  nameEn: string
+  slug: string
+  province: string
+  latitude: number
+  longitude: number
+  eventCount: number
+  image?: string | null
+}
+
+export interface FilterState {
+  cities: string[]
+  types: EventType[]
+  styles: EventStyle[]
+  categories: string[]
+  dateRange: { start?: Date; end?: Date }
+  search: string
+}
+
+export interface AISuggestionInput {
+  bio: string
+  startDate: Date
+  endDate: Date
+  cities: string[]
+}
+
+export interface AISuggestionResult {
+  events: Event[]
+  itinerary: string
+  reasons: Record<string, string>
+}
