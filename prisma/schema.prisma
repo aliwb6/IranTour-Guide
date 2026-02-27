@@ -197,6 +197,7 @@ model Organization {
   name        String
   type        OrganizationType
   description String?
+  slug       String?
   logo        String?
   website     String?
   email       String?
