@@ -43,8 +43,36 @@ export default async function EventDetailPage({ params }: PageProps) {
     return `${day} ${months[parseInt(month) - 1]} ${year}`
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: event.title,
+    description: event.shortDescription,
+    startDate: event.startDate,
+    endDate: event.endDate,
+    location: {
+      '@type': 'Place',
+      name: event.venue,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: event.city,
+        addressCountry: 'IR',
+      },
+    },
+    image: event.image,
+    organizer: event.organizerName ? {
+      '@type': 'Organization',
+      name: event.organizerName,
+      url: event.website || undefined,
+    } : undefined,
+  }
+
   return (
     <div className="min-h-screen bg-cream">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <section className="relative h-[400px] md:h-[500px] overflow-hidden">
         <div className="absolute inset-0">
           <img src={event.image} alt={event.title} className="w-full h-full object-cover" />

@@ -1,11 +1,21 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Search, ChevronDown } from 'lucide-react'
 
 export const Hero: React.FC = () => {
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState('')
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/events?search=${encodeURIComponent(searchQuery.trim())}`)
+    }
+  }
   return (
     <section className="relative min-h-[600px] md:min-h-[600px] kashi-star-pattern overflow-hidden">
       {/* Animated Gradient Overlay */}
@@ -49,19 +59,21 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
           className="w-full max-w-3xl mb-8"
         >
-          <div className="kashi-search p-3 md:p-4 flex flex-col md:flex-row gap-3 items-stretch md:items-center">
+          <form onSubmit={handleSearch} className="kashi-search p-3 md:p-4 flex flex-col md:flex-row gap-3 items-stretch md:items-center">
             <div className="flex-1 flex items-center gap-3 px-4 py-2 md:py-0">
               <Search className="w-6 h-6 text-red-900" />
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="جستجوی رویداد، شهر، موضوع..."
                 className="flex-1 outline-none text-base md:text-lg font-bold bg-transparent text-gray-800 placeholder-gray-600"
               />
             </div>
-            <button className="deep-persian-btn px-8 py-3 md:py-3.5 font-black text-base md:text-lg">
+            <button type="submit" className="deep-persian-btn px-8 py-3 md:py-3.5 font-black text-base md:text-lg">
               🔍 جستجو
             </button>
-          </div>
+          </form>
         </motion.div>
 
         {/* CTA Buttons */}

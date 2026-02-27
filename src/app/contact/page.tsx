@@ -11,10 +11,13 @@ export default function ContactPage() {
     message: '',
   })
 
+  const [submitted, setSubmitted] = useState(false)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    alert('پیام شما با موفقیت ارسال شد! ✅')
+    setSubmitted(true)
     setFormData({ name: '', email: '', subject: '', message: '' })
+    setTimeout(() => setSubmitted(false), 4000)
   }
 
   return (
@@ -102,6 +105,11 @@ export default function ContactPage() {
                 </div>
 
                 {/* دکمه ارسال */}
+                {submitted && (
+                  <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4 text-center">
+                    <p className="text-green-800 font-black">✅ پیام شما با موفقیت ارسال شد!</p>
+                  </div>
+                )}
                 <button type="submit" className="deep-persian-btn w-full px-6 py-4 font-black">
                   ارسال پیام ←
                 </button>

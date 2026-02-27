@@ -64,6 +64,18 @@ export default function Header() {
               🏙️ شهرها
             </Link>
             <Link
+              href="/ai-suggest"
+              className="font-black text-gray-700 hover:text-red-900 transition"
+            >
+              🤖 پیشنهاد هوشمند
+            </Link>
+            <Link
+              href="/submit-event"
+              className="font-black text-gray-700 hover:text-red-900 transition"
+            >
+              ✏️ ثبت رویداد
+            </Link>
+            <Link
               href="/blog"
               className="font-black text-gray-700 hover:text-red-900 transition"
             >
@@ -234,6 +246,20 @@ export default function Header() {
               onClick={() => setMobileMenuOpen(false)}
             >
               🏙️ شهرها
+            </Link>
+            <Link
+              href="/ai-suggest"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              🤖 پیشنهاد هوشمند
+            </Link>
+            <Link
+              href="/submit-event"
+              className="block font-black text-gray-700 hover:text-red-900 transition py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              ✏️ ثبت رویداد
             </Link>
             <Link
               href="/blog"
