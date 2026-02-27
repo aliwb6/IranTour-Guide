@@ -7,11 +7,11 @@ export default function AboutPage() {
     <div className="min-h-screen bg-cream">
       {/* Hero */}
       <section className="kashi-star-pattern py-16 md:py-24">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-6">
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <h1 className="text-4xl md:text-6xl font-black text-yellow-100 mb-6 drop-shadow-lg">
             درباره IranTour Guide
           </h1>
-          <p className="text-xl text-gray-700 font-bold leading-relaxed">
+          <p className="text-xl text-yellow-50 font-bold leading-relaxed drop-shadow">
             راهنمای جامع رویدادهای فرهنگی، مذهبی، هنری و گردشگری ایران
           </p>
         </div>
