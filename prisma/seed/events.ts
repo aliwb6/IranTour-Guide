@@ -25,28 +25,20 @@ export const sampleEvents = [
     maxCapacity: 500,
     availableSpots: 500,
     isBookable: true,
-    shortDescription:
-      'بزرگترین رویداد سینمایی کشور با حضور فیلم‌سازان برتر',
-    description: `درباره جشنواره
-جشنواره فیلم فجر بزرگترین و مهم‌ترین رویداد سینمایی ایران است که هر ساله در بهمن ماه برگزار می‌شود.
+    shortDescription: 'بزرگترین رویداد سینمایی کشور با حضور فیلم‌سازان برتر',
+    description: `جشنواره فیلم فجر بزرگترین و مهم‌ترین رویداد سینمایی ایران است که هر ساله در بهمن ماه برگزار می‌شود.
 
 ویژگی‌های جشنواره:
 - نمایش بیش از 100 فیلم بلند و کوتاه
 - حضور کارگردانان و بازیگران مطرح
 - مراسم اختتامیه با اهدای جوایز
 - نشست‌های تخصصی سینمایی`,
-    opportunities: `- دیدن فیلم‌های جدید قبل از اکران عمومی
-- فرصت گفتگو با فیلمسازان
-- شرکت در نشست‌های تخصصی
-- دریافت گواهی شرکت`,
-    challenges: `- شلوغی پردیس‌ها در ساعات اوج
-- محدودیت ظرفیت برخی فیلم‌ها
-- نیاز به خرید بلیط زودهنگام`,
-    featuredImage: '/images/events/fajr-festival.jpg',
+    opportunities: '- دیدن فیلم‌های جدید قبل از اکران عمومی\n- فرصت گفتگو با فیلمسازان\n- شرکت در نشست‌های تخصصی',
+    challenges: '- شلوغی پردیس‌ها در ساعات اوج\n- نیاز به خرید بلیط زودهنگام',
+    featuredImage: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800',
     images: [
-      '/images/events/fajr-1.jpg',
-      '/images/events/fajr-2.jpg',
-      '/images/events/fajr-3.jpg',
+      'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800',
+      'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=800',
     ],
     organizerName: 'دبیرخانه جشنواره فیلم فجر',
     organizerPhone: '02188754321',
@@ -71,36 +63,21 @@ export const sampleEvents = [
     dateRangeText: '1 تا 14 اردیبهشت 1404',
     startDate: new Date('2025-04-21'),
     endDate: new Date('2025-05-04'),
-    registrationDeadline: new Date('2025-04-15'),
     durationText: '14 روز',
-    basePrice: 0, // رایگان
-    currency: 'IRR',
+    basePrice: 0,
     maxCapacity: 10000,
     availableSpots: 10000,
     isBookable: true,
     shortDescription: 'بزرگترین رویداد فرهنگی و نشر کتاب در ایران',
-    description: `نمایشگاه بین‌المللی کتاب تهران
-سی و هفتمین دوره نمایشگاه بین‌المللی کتاب تهران با حضور بیش از ۳۰۰۰ ناشر از سراسر کشور و جهان برگزار می‌شود.
+    description: `نمایشگاه بین‌المللی کتاب تهران با حضور بیش از ۳۰۰۰ ناشر از سراسر کشور و جهان برگزار می‌شود.
 
-امکانات و فعالیت‌ها:
+امکانات:
 - نمایش و فروش میلیون‌ها عنوان کتاب
 - نشست‌ها و رونمایی کتاب
-- برنامه‌های ویژه کودکان و نوجوانان
-- کارگاه‌های آموزشی`,
-    opportunities: `- خرید کتاب با تخفیف
-- دیدار با نویسندگان محبوب
-- شرکت در نشست‌های ادبی
-- کشف ناشران و کتاب‌های جدید`,
-    challenges: `- شلوغی در ساعات پیک
-- حجم بالای بازدیدکنندگان
-- زمان‌بر بودن بازدید کامل`,
-    featuredImage: '/images/events/book-fair.jpg',
-    images: [
-      '/images/events/book-1.jpg',
-      '/images/events/book-2.jpg',
-    ],
+- برنامه‌های ویژه کودکان و نوجوانان`,
+    featuredImage: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800',
+    images: ['https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800'],
     organizerName: 'وزارت فرهنگ و ارشاد اسلامی',
-    organizerPhone: '02166701234',
     organizerEmail: 'info@tibf.ir',
     website: 'https://tibf.ir',
     status: EventStatus.APPROVED,
@@ -108,59 +85,105 @@ export const sampleEvents = [
     publishedAt: new Date(),
   },
   {
-    title: 'تور طبیعت‌گردی جنگل‌های شمال',
-    slug: 'tour-jangal-shomal',
-    style: EventStyle.TOURISM,
+    title: 'جشن نوروز ۱۴۰۵',
+    slug: 'jashn-nowruz-1405',
+    style: EventStyle.FESTIVAL,
+    type: EventType.NATIONAL,
+    fixedOrVariable: FixedVariable.FIXED,
+    country: 'Iran',
+    city: 'سراسر ایران',
+    venue: 'سراسر کشور',
+    dateRangeText: '1 تا 13 فروردین 1405',
+    startDate: new Date('2026-03-21'),
+    endDate: new Date('2026-04-02'),
+    durationText: '13 روز',
+    basePrice: 0,
+    isBookable: false,
+    shortDescription: 'جشن باستانی آغاز سال نو ایرانی با هفت‌سین و رسوم سنتی',
+    description: `نوروز بزرگ‌ترین جشن ملی ایرانیان است که با تحویل سال و آغاز بهار جشن گرفته می‌شود. این جشن باستانی با سابقه‌ای چند هزار ساله، در فهرست میراث معنوی یونسکو ثبت شده است.
+
+خانه‌تکانی، خرید لباس نو، چیدن سفره هفت‌سین، دید و بازدید با بستگان و سیزده‌به‌در از آداب و رسوم نوروزی است.`,
+    featuredImage: 'https://images.unsplash.com/photo-1520034475321-cbe63696469a?w=800',
+    images: ['https://images.unsplash.com/photo-1520034475321-cbe63696469a?w=800'],
+    organizerName: 'سازمان میراث فرهنگی',
+    status: EventStatus.APPROVED,
+    keywords: ['نوروز', 'عید', 'بهار', 'هفت‌سین', 'سال نو'],
+    publishedAt: new Date(),
+  },
+  {
+    title: 'شب یلدا ۱۴۰۴',
+    slug: 'shab-yalda-1404',
+    style: EventStyle.OTHER,
+    type: EventType.NATIONAL,
+    fixedOrVariable: FixedVariable.FIXED,
+    country: 'Iran',
+    city: 'سراسر ایران',
+    venue: 'خانه‌های ایرانی و مراکز فرهنگی',
+    dateRangeText: '30 آذر 1404',
+    startDate: new Date('2025-12-21'),
+    endDate: new Date('2025-12-21'),
+    durationText: '1 شب',
+    basePrice: 0,
+    isBookable: false,
+    shortDescription: 'بلندترین شب سال با هندوانه، انار و فال حافظ',
+    description: `شب یلدا بلندترین شب سال است. خانواده‌ها دور هم جمع می‌شوند و با خوردن هندوانه و انار، از دیوان حافظ فال می‌گیرند.`,
+    featuredImage: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=800',
+    images: ['https://images.unsplash.com/photo-1542838132-92c53300491e?w=800'],
+    organizerName: 'سازمان میراث فرهنگی',
+    status: EventStatus.APPROVED,
+    keywords: ['یلدا', 'شب چله', 'حافظ', 'هندوانه', 'انار'],
+    publishedAt: new Date(),
+  },
+  {
+    title: 'جشن گلاب‌گیری کاشان',
+    slug: 'jashn-golabgiri-kashan',
+    style: EventStyle.FESTIVAL,
     type: EventType.TOURISM,
+    fixedOrVariable: FixedVariable.FIXED,
+    country: 'Iran',
+    city: 'کاشان',
+    venue: 'روستای قمصر',
+    address: 'کاشان، روستای قمصر، باغ‌های گل محمدی',
+    latitude: 33.9831,
+    longitude: 51.4364,
+    dateRangeText: '1 تا 15 اردیبهشت 1405',
+    startDate: new Date('2026-04-21'),
+    endDate: new Date('2026-05-05'),
+    durationText: '15 روز',
+    basePrice: 0,
+    isBookable: false,
+    shortDescription: 'جشنواره سنتی گلاب‌گیری با عطر گل محمدی',
+    description: `جشن گلاب‌گیری کاشان یکی از زیباترین جشن‌های سنتی ایران است. در این جشن فرآیند سنتی تقطیر گل محمدی و تولید گلاب به نمایش گذاشته می‌شود.`,
+    featuredImage: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800',
+    images: ['https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800'],
+    organizerName: 'اداره میراث فرهنگی کاشان',
+    organizerPhone: '03155423030',
+    status: EventStatus.APPROVED,
+    keywords: ['گلاب', 'کاشان', 'قمصر', 'گل محمدی', 'سنتی'],
+    publishedAt: new Date(),
+  },
+  {
+    title: 'محرم و عاشورا ۱۴۰۴',
+    slug: 'muharram-ashura-1404',
+    style: EventStyle.RELIGIOUS,
+    type: EventType.RELIGIOUS,
     fixedOrVariable: FixedVariable.VARIABLE,
     country: 'Iran',
-    city: 'رامسر',
-    venue: 'جنگل‌های ابر',
-    address: 'استان مازندران، رامسر، جاده چالوس',
-    latitude: 36.9037,
-    longitude: 50.6585,
-    dateRangeText: 'هر هفته پنج‌شنبه و جمعه',
-    startDate: new Date('2025-03-21'),
-    endDate: new Date('2025-06-21'),
-    registrationDeadline: new Date('2025-06-15'),
-    durationText: '2 روز و 1 شب',
-    basePrice: 1200000,
-    currency: 'IRR',
-    maxCapacity: 20,
-    availableSpots: 15,
-    isBookable: true,
-    shortDescription: 'تجربه یک سفر به یاد ماندنی در دل جنگل‌های شمال',
-    description: `تور طبیعت‌گردی جنگل‌های شمال
-یک تجربه فراموش‌نشدنی در دل جنگل‌های انبوه و سرسبز شمال ایران. این تور شامل پیاده‌روی در مسیرهای جنگلی، بازدید از آبشارها و اقامت در کلبه‌های چوبی است.
-
-برنامه سفر:
-روز اول: حرکت از تهران، ورود به رامسر، پیاده‌روی در جنگل
-روز دوم: صبحانه، بازدید از آبشار، بازگشت به تهران
-
-تسهیلات:
-- اتوبوس VIP
-- راهنمای حرفه‌ای
-- بیمه مسافرتی
-- 3 وعده غذا`,
-    opportunities: `- تجربه هوای پاک جنگل
-- عکس‌برداری از مناظر طبیعی
-- آشنایی با گیاهان بومی
-- فرصت استراحت از شلوغی شهر`,
-    challenges: `- نیاز به آمادگی جسمانی متوسط
-- احتمال بارندگی
-- مسیرهای ناهموار`,
-    featuredImage: '/images/events/forest-tour.jpg',
-    images: [
-      '/images/events/forest-1.jpg',
-      '/images/events/forest-2.jpg',
-      '/images/events/forest-3.jpg',
-    ],
-    organizerName: 'آژانس مسافرتی سفرهای سبز',
-    organizerPhone: '09123456789',
-    organizerEmail: 'info@greentrips.ir',
-    website: 'https://greentrips.ir',
+    city: 'سراسر ایران',
+    venue: 'مساجد و حسینیه‌ها',
+    dateRangeText: 'محرم 1447 هجری قمری',
+    startDate: new Date('2025-07-07'),
+    endDate: new Date('2025-07-16'),
+    durationText: '10 روز',
+    basePrice: 0,
+    isBookable: false,
+    shortDescription: 'مراسم سوگواری امام حسین (ع) در سراسر ایران',
+    description: `ماه محرم و به ویژه روز عاشورا، یکی از مهم‌ترین مناسبت‌های مذهبی در ایران است. هیئت‌های مذهبی، نوحه‌خوانی و تعزیه‌خوانی برگزار می‌شود.`,
+    featuredImage: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800',
+    images: ['https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800'],
+    organizerName: 'هیئت‌های مذهبی',
     status: EventStatus.APPROVED,
-    keywords: ['طبیعت‌گردی', 'تور', 'جنگل', 'شمال', 'رامسر'],
+    keywords: ['محرم', 'عاشورا', 'مذهبی', 'عزاداری', 'حسینی'],
     publishedAt: new Date(),
   },
   {
@@ -178,47 +201,23 @@ export const sampleEvents = [
     dateRangeText: '15 و 16 خرداد 1404',
     startDate: new Date('2025-06-05'),
     endDate: new Date('2025-06-06'),
-    registrationDeadline: new Date('2025-05-30'),
     durationText: '2 روز',
     basePrice: 250000,
-    currency: 'IRR',
     maxCapacity: 300,
     availableSpots: 250,
     isBookable: true,
-    shortDescription:
-      'همایش ملی نوآوری و فناوری با حضور متخصصان برتر',
-    description: `همایش ملی نوآوری و فناوری
-این همایش با هدف گردهمایی فعالان حوزه فناوری، استارتاپ‌ها، سرمایه‌گذاران و دانشجویان برگزار می‌شود.
+    shortDescription: 'همایش ملی نوآوری و فناوری با حضور متخصصان برتر',
+    description: `این همایش با هدف گردهمایی فعالان حوزه فناوری، استارتاپ‌ها و سرمایه‌گذاران برگزار می‌شود.
 
-محورهای همایش:
-- هوش مصنوعی و یادگیری ماشین
-- بلاکچین و رمزارزها
-- اینترنت اشیا
-- امنیت سایبری
-- کسب‌وکار دیجیتال
-
-سخنرانان:
-- دکتر احمد محمدی (متخصص AI)
-- مهندس سارا رضایی (CEO استارتاپ موفق)
-- و بسیاری دیگر...`,
-    opportunities: `- آشنایی با آخرین دستاوردهای فناوری
-- فرصت نتورکینگ
-- دریافت گواهی معتبر
-- شرکت در کارگاه‌های عملی`,
-    challenges: `- حجم بالای اطلاعات ارائه شده
-- نیاز به پیش‌زمینه فنی
-- زمان محدود برای تعامل`,
-    featuredImage: '/images/events/tech-conference.jpg',
-    images: [
-      '/images/events/tech-1.jpg',
-      '/images/events/tech-2.jpg',
-    ],
+محورها: هوش مصنوعی، بلاکچین، اینترنت اشیا، امنیت سایبری`,
+    featuredImage: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800',
+    images: ['https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800'],
     organizerName: 'انجمن نوآوری ایران',
     organizerPhone: '02144556677',
     organizerEmail: 'info@innoconf.ir',
     website: 'https://innoconf.ir',
     status: EventStatus.APPROVED,
-    keywords: ['همایش', 'فناوری', 'نوآوری', 'تکنولوژی', 'استارتاپ'],
+    keywords: ['همایش', 'فناوری', 'نوآوری', 'استارتاپ'],
     publishedAt: new Date(),
   },
   {
@@ -236,60 +235,148 @@ export const sampleEvents = [
     dateRangeText: '20 تا 28 بهمن 1404',
     startDate: new Date('2026-02-09'),
     endDate: new Date('2026-02-17'),
-    registrationDeadline: new Date('2026-02-05'),
     durationText: '9 روز',
     basePrice: 75000,
-    currency: 'IRR',
     maxCapacity: 800,
     availableSpots: 700,
     isBookable: true,
     shortDescription: 'جشنواره موسیقی فجر با اجرای هنرمندان برجسته',
-    description: `جشنواره موسیقی فجر
-سی و نهمین دوره جشنواره موسیقی فجر با اجرای بیش از 50 گروه و خواننده برتر موسیقی ایرانی برگزار می‌شود.
+    description: `سی و نهمین دوره جشنواره موسیقی فجر با اجرای بیش از 50 گروه و خواننده برتر موسیقی ایرانی.
 
-سبک‌های موسیقی:
-- موسیقی سنتی ایرانی
-- موسیقی پاپ
-- موسیقی کلاسیک
-- موسیقی محلی
-
-ویژگی‌ها:
-- کنسرت‌های زنده
-- کارگاه‌های آموزشی موسیقی
-- نمایشگاه سازهای موسیقی
-- مراسم اختتامیه با اهدای جوایز`,
-    opportunities: `- تماشای اجراهای زنده
-- آشنایی با سازهای موسیقی
-- شرکت در کارگاه‌های آموزشی
-- دیدار با هنرمندان`,
-    challenges: `- تقاضای بالا برای بلیط
-- محدودیت ظرفیت سالن
-- زمان‌بندی متراکم برنامه‌ها`,
-    featuredImage: '/images/events/music-festival.jpg',
-    images: [
-      '/images/events/music-1.jpg',
-      '/images/events/music-2.jpg',
-    ],
+سبک‌ها: موسیقی سنتی، پاپ، کلاسیک، محلی`,
+    featuredImage: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800',
+    images: ['https://images.unsplash.com/photo-1506157786151-b8491531f063?w=800'],
     organizerName: 'اداره کل موسیقی',
-    organizerPhone: '02166987654',
     organizerEmail: 'info@fajrmusic.ir',
     website: 'https://fajrmusic.ir',
     status: EventStatus.APPROVED,
-    keywords: ['موسیقی', 'جشنواره', 'کنسرت', 'فجر', 'هنر'],
+    keywords: ['موسیقی', 'جشنواره', 'کنسرت', 'فجر'],
+    publishedAt: new Date(),
+  },
+  {
+    title: 'تور طبیعت‌گردی جنگل‌های شمال',
+    slug: 'tour-jangal-shomal',
+    style: EventStyle.TOURISM,
+    type: EventType.TOURISM,
+    fixedOrVariable: FixedVariable.VARIABLE,
+    country: 'Iran',
+    city: 'رشت',
+    venue: 'جنگل‌های گیلان',
+    address: 'استان گیلان، رشت',
+    latitude: 37.2808,
+    longitude: 49.5832,
+    dateRangeText: 'هر هفته پنج‌شنبه و جمعه',
+    startDate: new Date('2025-03-21'),
+    endDate: new Date('2025-06-21'),
+    durationText: '2 روز و 1 شب',
+    basePrice: 1200000,
+    maxCapacity: 20,
+    availableSpots: 15,
+    isBookable: true,
+    shortDescription: 'تجربه سفر به یاد ماندنی در دل جنگل‌های شمال',
+    description: `پیاده‌روی در مسیرهای جنگلی، بازدید از آبشارها و اقامت در کلبه‌های چوبی.`,
+    featuredImage: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800',
+    images: ['https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800'],
+    organizerName: 'آژانس سفرهای سبز',
+    organizerPhone: '09123456789',
+    organizerEmail: 'info@greentrips.ir',
+    status: EventStatus.APPROVED,
+    keywords: ['طبیعت‌گردی', 'تور', 'جنگل', 'شمال', 'گیلان'],
+    publishedAt: new Date(),
+  },
+  {
+    title: 'جشنواره پاییزی اصفهان',
+    slug: 'jashnvareh-paeizi-isfahan',
+    style: EventStyle.FESTIVAL,
+    type: EventType.TOURISM,
+    fixedOrVariable: FixedVariable.FIXED,
+    country: 'Iran',
+    city: 'اصفهان',
+    venue: 'میدان نقش جهان',
+    address: 'اصفهان، میدان نقش جهان',
+    latitude: 32.6546,
+    longitude: 51.6680,
+    dateRangeText: '10 تا 20 مهر 1404',
+    startDate: new Date('2025-10-02'),
+    endDate: new Date('2025-10-12'),
+    durationText: '10 روز',
+    basePrice: 0,
+    isBookable: false,
+    shortDescription: 'جشنواره فرهنگی و هنری پاییز در اصفهان',
+    description: `جشنواره پاییزی اصفهان با اجراهای موسیقی سنتی، نمایش صنایع دستی و تورهای گردشگری برگزار می‌شود.`,
+    featuredImage: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800',
+    images: ['https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800'],
+    organizerName: 'سازمان فرهنگی اصفهان',
+    status: EventStatus.APPROVED,
+    keywords: ['اصفهان', 'پاییز', 'جشنواره', 'فرهنگی', 'نقش جهان'],
+    publishedAt: new Date(),
+  },
+  {
+    title: 'نمایشگاه صنایع دستی یزد',
+    slug: 'namayeshgah-sanaye-dasti-yazd',
+    style: EventStyle.EXHIBITION,
+    type: EventType.ARTISTIC,
+    fixedOrVariable: FixedVariable.FIXED,
+    country: 'Iran',
+    city: 'یزد',
+    venue: 'میدان امیرچخماق',
+    address: 'یزد، میدان امیرچخماق',
+    latitude: 31.8974,
+    longitude: 54.3569,
+    dateRangeText: '1 تا 10 شهریور 1404',
+    startDate: new Date('2025-08-23'),
+    endDate: new Date('2025-09-01'),
+    durationText: '10 روز',
+    basePrice: 0,
+    isBookable: false,
+    shortDescription: 'نمایشگاه صنایع دستی سنتی شهر کهن یزد',
+    description: `قالی‌بافی، سفالگری، بافت ترمه، زیلوبافی و شیرینی‌های سنتی یزد در این نمایشگاه به نمایش درمی‌آید.`,
+    featuredImage: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800',
+    images: ['https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800'],
+    organizerName: 'اداره میراث فرهنگی یزد',
+    status: EventStatus.APPROVED,
+    keywords: ['صنایع دستی', 'یزد', 'نمایشگاه', 'سنتی'],
+    publishedAt: new Date(),
+  },
+  {
+    title: 'جشنواره حافظ شیراز',
+    slug: 'jashnvareh-hafez-shiraz',
+    style: EventStyle.FESTIVAL,
+    type: EventType.ARTISTIC,
+    fixedOrVariable: FixedVariable.FIXED,
+    country: 'Iran',
+    city: 'شیراز',
+    venue: 'حافظیه شیراز',
+    address: 'شیراز، بلوار حافظ، حافظیه',
+    latitude: 29.6187,
+    longitude: 52.5340,
+    dateRangeText: '20 تا 25 آبان 1404',
+    startDate: new Date('2025-11-11'),
+    endDate: new Date('2025-11-16'),
+    durationText: '5 روز',
+    basePrice: 30000,
+    maxCapacity: 200,
+    availableSpots: 150,
+    isBookable: true,
+    shortDescription: 'بزرگداشت حافظ شیرازی با شعرخوانی و موسیقی',
+    description: `شعرخوانی از دیوان حافظ، موسیقی سنتی و نشست‌های تخصصی درباره اشعار حافظ.`,
+    featuredImage: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800',
+    images: ['https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800'],
+    organizerName: 'اداره فرهنگ و ارشاد شیراز',
+    status: EventStatus.APPROVED,
+    keywords: ['حافظ', 'شیراز', 'شعر', 'ادبیات', 'فرهنگی'],
     publishedAt: new Date(),
   },
 ]
 
 async function seedEvents() {
-  console.log('🌱 Seeding events...')
-
   for (const eventData of sampleEvents) {
     await prisma.event.upsert({
       where: { slug: eventData.slug },
       update: eventData,
       create: eventData,
     })
-    console.log(`✓ Created/Updated: ${eventData.title}`)
+    console.log(`  ✓ ${eventData.title}`)
   }
 
   console.log('✅ Events seeded successfully')
