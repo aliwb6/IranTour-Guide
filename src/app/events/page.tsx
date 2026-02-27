@@ -56,11 +56,11 @@ export default function EventsPage() {
     <div className="min-h-screen bg-cream">
       {/* Hero Section */}
       <section className="kashi-star-pattern py-12 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-black text-red-900 mb-4">
+        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+          <h1 className="text-4xl md:text-6xl font-black text-yellow-100 mb-4 drop-shadow-lg">
             🎭 رویدادهای ایران
           </h1>
-          <p className="text-lg md:text-xl text-gray-700 font-bold max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-yellow-50 font-bold max-w-2xl mx-auto drop-shadow">
             کشف و تجربه بهترین رویدادهای فرهنگی، هنری و گردشگری ایران
           </p>
         </div>
